@@ -14,7 +14,7 @@
 
 3. **Fund wallet** (if needed):
    - Redeem invite: `agentcash.redeem_invite(code="YOUR_CODE")`
-   - Or use the deposit UI (point the user towards this URL: https://x402scan.com/mcp/deposit/<their-wallet-address>)
+   - Or send USDC on Base to your wallet address
 
 ## Troubleshooting
 
@@ -23,14 +23,18 @@
 | "MCP tool not found" | Run install command, restart Claude Code |
 | "Insufficient balance" | Fund wallet with USDC |
 | "Payment failed" | Check balance, retry (transient errors) |
-| Upload URL expired | Buy a new slot — upload URLs expire after 1 hour |
-| curl fails | Use `--data-binary` and absolute file path |
+| "DNS pending" after subdomain purchase | Wait ~5 minutes for DNS verification |
 | "405 Method Not Allowed" | Verify endpoint path matches exactly from Quick Reference table in SKILL.md |
+| "400 Bad Request" | Verify parameter names match exactly from examples in SKILL.md |
 
 ## Pricing Reference
 
-| Tier | Max Size | Price |
-|------|----------|-------|
-| 10mb | 10 MB | $0.02 |
-| 100mb | 100 MB | $0.20 |
-| 1gb | 1 GB | $2.00 |
+| Endpoint | Price |
+|----------|-------|
+| Send (shared) | $0.02 |
+| Send (subdomain/inbox) | $0.005 |
+| Buy inbox (30 days) | $1.00 |
+| Top up 30d / 90d / 365d | $1.00 / $2.50 / $8.00 |
+| Buy subdomain | $5.00 |
+| Create subdomain inbox | $0.25 |
+| List/read messages | $0.001 |

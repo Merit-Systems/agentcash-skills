@@ -10,13 +10,16 @@ npx skills add Merit-Systems/agentcash-skills --all --yes
 
 | Skill | Use For | Endpoints |
 |-------|---------|-----------|
-| [wallet](skills/wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
-| [upload-and-share](skills/upload-and-share/) | Upload files & get public URLs | AgentUpload |
+| [wallet](skills/agentcash-wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
+| [upload-and-share](skills/upload-and-share/) | Upload files & get public URLs | StableUpload |
 | [media-generation](skills/media-generation/) | AI image & video generation | StableStudio |
-| [data-enrichment](skills/data-enrichment/) | Person & company profiles | Apollo, Clado |
+| [social-scraping](skills/social-scraping/) | Scrape profiles, posts, followers across 6 platforms | StableSocial |
+| [email](skills/email/) | Send emails, forwarding inboxes, custom subdomains | StableEmail |
+| [phone-calls](skills/phone-calls/) | AI phone calls, buy phone numbers | StablePhone |
+| [data-enrichment](skills/data-enrichment/) | Person, company, & influencer profiles; email verification | Apollo, Clado, Hunter, Influencer |
 | [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
 | [local-search](skills/local-search/) | Places & business info | Google Maps |
-| [social-intelligence](skills/social-intelligence/) | Social media research | Grok (X/Twitter), Reddit |
+| [social-intelligence](skills/social-intelligence/) | X/Twitter & Reddit search | Grok, Reddit |
 | [news-shopping](skills/news-shopping/) | News & product search | Serper |
 | [people-property](skills/people-property/) | People & property lookup | Whitepages |
 

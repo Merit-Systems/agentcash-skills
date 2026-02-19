@@ -1,13 +1,48 @@
 ---
 name: upload-and-share
-description: Upload files to the cloud and get shareable public URLs using agentupload.dev (x402 micropayments). Use when the user asks to upload a file, share a file via URL, host a file, make a file publicly accessible, or needs a download link for any file. Triggers on phrases like "upload this", "share this file", "get me a link", "host this file", "make this downloadable", or any request to put a local file on the internet.
+description: |
+  Upload files to the cloud and get shareable public URLs using stableupload.dev (x402 micropayments).
+
+  USE FOR:
+  - Uploading files to get public URLs
+  - Sharing files via download links
+  - Hosting images, documents, or any file type
+  - Making files publicly accessible for 6 months
+
+  TRIGGERS:
+  - "upload this", "share this file", "get me a link"
+  - "host this file", "make this downloadable"
+  - "public URL", "download link", "put online"
+  - "share file", "file hosting", "upload file"
+
+  ALWAYS use agentcash.fetch for stableupload.dev endpoints — never curl or WebFetch for the purchase step.
 mcp:
   - agentcash
 ---
 
-# Upload and Share via agentupload.dev
+# Upload and Share via StableUpload
 
-Upload any local file to S3-backed cloud storage via x402 micropayments. Returns a permanent public URL. No API keys needed.
+Upload any local file to S3-backed cloud storage via x402 micropayments. Returns a public URL. No API keys needed.
+
+## Setup
+
+See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+
+## Quick Reference
+
+| Tier | Max Size | Cost |
+|------|----------|------|
+| `10mb` | 10 MB | $0.02 |
+| `100mb` | 100 MB | $0.20 |
+| `1gb` | 1 GB | $2.00 |
+
+All uploads expire after 6 months.
+
+| Task | Endpoint | Price |
+|------|----------|-------|
+| Buy upload slot | `https://stableupload.dev/api/upload` | Tier-based |
+| List uploads | `GET https://stableupload.dev/api/uploads` | Free (auth) |
+| Get upload details | `GET https://stableupload.dev/api/download/:uploadId` | Free (auth) |
 
 ## Workflow
 
@@ -25,29 +60,35 @@ Pick the smallest tier that fits the file. Check file size first with `ls -la` o
 
 | Tier | Max Size | Cost |
 |------|----------|------|
-| `10mb` | 10 MB | $0.10 |
-| `100mb` | 100 MB | $1.00 |
-| `1gb` | 1 GB | $10.00 |
+| `10mb` | 10 MB | $0.02 |
+| `100mb` | 100 MB | $0.20 |
+| `1gb` | 1 GB | $2.00 |
 
 ### 3. Buy the upload slot
 
 ```mcp
 agentcash.fetch(
-  url: "https://agentupload.dev/api/x402/upload",
-  method: "POST",
-  headers: {"Content-Type": "application/json"},
-  body: {"filename": "<name>", "contentType": "<mime>", "tier": "<tier>"}
+  url="https://stableupload.dev/api/upload",
+  method="POST",
+  body={"filename": "report.pdf", "contentType": "application/pdf", "tier": "10mb"}
 )
 ```
 
-**Content type guidance:** Use the correct MIME type for the file. Common types:
-- `text/csv`, `application/json`, `text/plain` for data files
-- `application/pdf` for PDFs
-- `image/png`, `image/jpeg` for images
-- `application/zip` for archives
-- `application/octet-stream` as a fallback for unknown types
+**Parameters:**
+- `filename` — name for the uploaded file (required)
+- `contentType` — MIME type (required, advisory for browser)
+- `tier` — `"10mb"`, `"100mb"`, or `"1gb"` (required)
 
-The response contains `uploadUrl` (temporary, 1hr TTL) and `publicUrl` (permanent for 6 months).
+**Response:**
+```json
+{
+  "uploadId": "k7gm3nqp2",
+  "uploadUrl": "https://f.stableupload.dev/k7gm3nqp2/report.pdf?t=...",
+  "publicUrl": "https://f.stableupload.dev/k7gm3nqp2/report.pdf",
+  "expiresAt": "2026-08-19T00:00:00.000Z",
+  "maxSize": 10485760
+}
+```
 
 ### 4. Upload the file via curl
 
@@ -63,26 +104,48 @@ curl -s -X PUT "<uploadUrl>" -H "Content-Type: <mime>" --data-binary @/absolute/
 
 Present the `publicUrl` to the user. This URL is publicly accessible immediately and remains live for 6 months.
 
+## Common MIME Types
+
+| File Type | Content Type |
+|-----------|-------------|
+| PDF | `application/pdf` |
+| PNG image | `image/png` |
+| JPEG image | `image/jpeg` |
+| CSV | `text/csv` |
+| JSON | `application/json` |
+| Plain text | `text/plain` |
+| ZIP archive | `application/zip` |
+| Excel | `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet` |
+| Unknown | `application/octet-stream` |
+
 ## Listing Previous Uploads
 
 To list uploads for the current wallet:
 
 ```mcp
 agentcash.fetch_with_auth(
-  url: "https://agentupload.dev/api/x402/uploads",
-  method: "GET"
+  url="https://stableupload.dev/api/uploads",
+  method="GET"
 )
 ```
 
-This uses SIWX (Sign-In With X) authentication, not x402 payment.
+## Get Upload Details
+
+```mcp
+agentcash.fetch_with_auth(
+  url="https://stableupload.dev/api/download/k7gm3nqp2",
+  method="GET"
+)
+```
 
 ## Key Details
 
-- **No API keys required** - payment is the authentication
-- **Upload URLs expire in 1 hour** - upload promptly after buying the slot
+- **No API keys required** — payment is the authentication
+- **Upload URLs expire in 1 hour** — upload promptly after buying the slot
 - **Public URLs last 6 months** from purchase date
-- **Any file type accepted** - contentType is advisory for the browser, not a restriction
-- **Discovery endpoint**: `agentcash.discover_api_endpoints(url: "https://agentupload.dev")` if you need to verify endpoints
+- **Any file type accepted** — contentType is advisory for the browser, not a restriction
+- **S3-backed** — files stored on AWS S3 with public read access
+- **Discovery endpoint**: `agentcash.discover_api_endpoints(url="https://stableupload.dev")` if you need to verify endpoints
 
 ## Common Patterns
 
@@ -94,6 +157,12 @@ Buy separate slots for each file. Slots can be purchased in parallel but uploads
 
 **User asks to "share" or "send" a file:**
 Upload it and present the public URL. The URL can be shared anywhere.
+
+**Host images for emails:**
+Upload the image, then reference the `publicUrl` in email HTML:
+```html
+<img src="https://f.stableupload.dev/abc/photo.png" alt="Photo" />
+```
 
 ## Error Handling
 

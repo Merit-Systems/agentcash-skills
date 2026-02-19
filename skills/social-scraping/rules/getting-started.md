@@ -14,7 +14,7 @@
 
 3. **Fund wallet** (if needed):
    - Redeem invite: `agentcash.redeem_invite(code="YOUR_CODE")`
-   - Or use the deposit UI (point the user towards this URL: https://x402scan.com/mcp/deposit/<their-wallet-address>)
+   - Or send USDC on Base to your wallet address
 
 ## Troubleshooting
 
@@ -23,14 +23,11 @@
 | "MCP tool not found" | Run install command, restart Claude Code |
 | "Insufficient balance" | Fund wallet with USDC |
 | "Payment failed" | Check balance, retry (transient errors) |
-| Upload URL expired | Buy a new slot — upload URLs expire after 1 hour |
-| curl fails | Use `--data-binary` and absolute file path |
+| "status: pending" | Keep polling GET /api/jobs?token=... every 3-5 seconds |
+| "status: failed" | Data collection failed — you are NOT charged. Try again or check input |
+| "401 on /api/jobs" | Token expired (30 min TTL). Make a new paid POST request |
 | "405 Method Not Allowed" | Verify endpoint path matches exactly from Quick Reference table in SKILL.md |
 
 ## Pricing Reference
 
-| Tier | Max Size | Price |
-|------|----------|-------|
-| 10mb | 10 MB | $0.02 |
-| 100mb | 100 MB | $0.20 |
-| 1gb | 1 GB | $2.00 |
+All StableSocial endpoints cost $0.06 per call (paid POST trigger). Polling is free.

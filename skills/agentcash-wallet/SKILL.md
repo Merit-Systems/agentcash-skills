@@ -90,10 +90,11 @@ Payment is automatic: sends request, gets 402 challenge, signs USDC payment, ret
 | Origin | Service | What it does |
 |---|---|---|
 | `https://stableenrich.dev` | StableEnrich | Research APIs: Apollo (people/org), Exa (web search), Firecrawl (scraping), Grok (X/Twitter), Google Maps, Clado (LinkedIn), Serper (news/shopping), WhitePages, Reddit, Hunter (email verification), Influencer enrichment |
-| `https://agentupload.dev` | AgentUpload | Pay-per-upload file hosting. 10MB/$0.10, 100MB/$1.00, 1GB/$10.00. 6-month TTL |
+| `https://stableupload.dev` | StableUpload | Pay-per-upload file hosting. 10MB/$0.02, 100MB/$0.20, 1GB/$2.00. 6-month TTL |
 | `https://stablestudio.dev` | StableStudio | AI image/video generation: GPT Image, Flux, Grok, Nano Banana, Sora, Veo, Seedance, Wan |
-| `https://socialx402.com` | SocialX402 | Social media data: TikTok, Instagram, X/Twitter, Facebook, Reddit, LinkedIn |
-| `https://x402email.com` | x402Email | Send emails |
+| `https://stablesocial.dev` | StableSocial | Social media data: TikTok, Instagram, X/Twitter, Facebook, Reddit, LinkedIn. $0.06/call, async two-step |
+| `https://stableemail.dev` | StableEmail | Send emails ($0.02), forwarding inboxes ($1/mo), custom subdomains ($5) |
+| `https://stablephone.dev` | StablePhone | AI phone calls ($0.54), phone numbers ($20), top-ups ($15) |
 | `https://stablejobs.dev` | StableJobs | Job search via Coresignal |
 
 Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its full endpoint catalog.

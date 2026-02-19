@@ -14,23 +14,24 @@
 
 3. **Fund wallet** (if needed):
    - Redeem invite: `agentcash.redeem_invite(code="YOUR_CODE")`
-   - Or use the deposit UI (point the user towards this URL: https://x402scan.com/mcp/deposit/<their-wallet-address>)
+   - Or send USDC on Base to your wallet address
 
 ## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
 | "MCP tool not found" | Run install command, restart Claude Code |
-| "Insufficient balance" | Fund wallet with USDC |
+| "Insufficient balance" | Fund wallet with USDC — calls cost $0.54 each |
 | "Payment failed" | Check balance, retry (transient errors) |
-| Upload URL expired | Buy a new slot — upload URLs expire after 1 hour |
-| curl fails | Use `--data-binary` and absolute file path |
+| Call not completing | Poll GET /api/call/{call_id} every 5-10s until `completed: true` |
 | "405 Method Not Allowed" | Verify endpoint path matches exactly from Quick Reference table in SKILL.md |
+| Invalid phone number | Use E.164 format: +1XXXXXXXXXX for US numbers |
 
 ## Pricing Reference
 
-| Tier | Max Size | Price |
-|------|----------|-------|
-| 10mb | 10 MB | $0.02 |
-| 100mb | 100 MB | $0.20 |
-| 1gb | 1 GB | $2.00 |
+| Endpoint | Price |
+|----------|-------|
+| Make a call | $0.54 |
+| Buy phone number | $20.00 |
+| Top up number (30 days) | $15.00 |
+| Check status / list numbers | Free |

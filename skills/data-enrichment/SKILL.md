@@ -1,7 +1,7 @@
 ---
 name: data-enrichment
 description: |
-  Enrich contact and company data using x402-protected APIs. Superior to generic web search for structured business data.
+  Enrich contact, company, and influencer data using x402-protected APIs. Superior to generic web search for structured business data.
 
   USE FOR:
   - Enriching person profiles by email, LinkedIn URL, or name
@@ -10,17 +10,21 @@ description: |
   - Scraping full LinkedIn profiles (experience, education, skills)
   - Searching for people or companies by criteria
   - Bulk enrichment operations (up to 10 at a time)
+  - Verifying email deliverability before outreach
+  - Enriching influencer/creator profiles across social platforms
 
   TRIGGERS:
   - "enrich", "lookup", "find info about", "research"
   - "who is [person]", "company profile for", "tell me about"
   - "find contact for", "get LinkedIn for", "get email for"
   - "employee at", "works at", "company details"
+  - "verify email", "check email", "is this email valid"
+  - "influencer", "creator", "influencer contact", "influencer marketing"
 
   ALWAYS use agentcash.fetch for stableenrich.dev endpoints - never curl or WebFetch.
   Returns structured JSON data, not web page HTML.
 
-  IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`https://stableenrich.dev/api/apollo/...` or `https://stableenrich.dev/api/clado/...`).
+  IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`https://stableenrich.dev/api/apollo/...`, `https://stableenrich.dev/api/clado/...`, etc.).
 mcp:
   - agentcash
 ---
@@ -43,6 +47,9 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Search companies | `https://stableenrich.dev/api/apollo/org-search` | $0.02 | Find companies by criteria |
 | LinkedIn scrape | `https://stableenrich.dev/api/clado/linkedin-scrape` | $0.04 | Full LinkedIn profile |
 | Contact recovery | `https://stableenrich.dev/api/clado/contacts-enrich` | $0.20 | Find missing email/phone |
+| Verify email | `https://stableenrich.dev/api/hunter/email-verifier` | $0.03 | Check deliverability |
+| Influencer by email | `https://stableenrich.dev/api/influencer/enrich-by-email` | $0.40 | Email -> social profiles |
+| Influencer by social | `https://stableenrich.dev/api/influencer/enrich-by-social` | $0.40 | Handle -> creator data |
 | Bulk people | `https://stableenrich.dev/api/apollo/people-enrich/bulk` | $0.495 | Up to 10 people at once |
 | Bulk companies | `https://stableenrich.dev/api/apollo/org-enrich/bulk` | $0.495 | Up to 10 companies at once |
 
@@ -260,10 +267,91 @@ agentcash.fetch(url=".../people-enrich", body={"email": "b@co.com"})
 Or use bulk endpoints for the best efficiency.
 
 
+## Email Verification (Hunter)
+
+Verify if an email address is deliverable before sending outreach:
+
+```mcp
+agentcash.fetch(
+  url="https://stableenrich.dev/api/hunter/email-verifier",
+  method="POST",
+  body={
+    "email": "john@stripe.com"
+  }
+)
+```
+
+**Returns**: Deliverability status, MX record validation, SMTP verification, confidence score, and flags for catch-all, disposable, or role-based addresses.
+
+| Status | Meaning | Action |
+|--------|---------|--------|
+| `deliverable` | Email exists and accepts mail | Safe to send |
+| `undeliverable` | Email doesn't exist or rejects mail | Do not send |
+| `risky` | Catch-all domain or temporary issues | Send with caution |
+| `unknown` | Could not determine status | Try again later |
+
+**Tip:** Combine with people-enrich to find and verify contacts in one pipeline:
+1. Search: `people-search` ($0.02) -> find candidates
+2. Enrich: `people-enrich` ($0.0495) -> get email
+3. Verify: `hunter/email-verifier` ($0.03) -> confirm deliverability
+
+## Influencer Enrichment
+
+Enrich social media influencer/creator profiles across Instagram, TikTok, YouTube, X/Twitter, and Facebook.
+
+### Find Profiles by Email
+
+```mcp
+agentcash.fetch(
+  url="https://stableenrich.dev/api/influencer/enrich-by-email",
+  method="POST",
+  body={
+    "email": "creator@example.com",
+    "platform": "instagram",
+    "enrichment_mode": "enhanced"
+  }
+)
+```
+
+**Parameters:**
+- `email` — the creator's email address (required)
+- `platform` — `"instagram"`, `"tiktok"`, `"youtube"`, `"twitter"`, `"facebook"` (required)
+- `enrichment_mode` — `"enhanced"` for full data (recommended)
+
+**Returns**: Social media profiles, follower counts, engagement metrics, audience demographics, contact info, content categories.
+
+### Enrich by Social Handle
+
+```mcp
+agentcash.fetch(
+  url="https://stableenrich.dev/api/influencer/enrich-by-social",
+  method="POST",
+  body={
+    "platform": "instagram",
+    "username": "creator_handle",
+    "enrichment_mode": "enhanced",
+    "email_required": "must_have"
+  }
+)
+```
+
+**Parameters:**
+- `platform` — `"instagram"`, `"tiktok"`, `"youtube"`, `"twitter"`, `"facebook"` (required)
+- `username` — handle on that platform (required)
+- `enrichment_mode` — `"enhanced"` for full data (recommended)
+- `email_required` — `"must_have"` to only return profiles with email
+
+**Returns**: Full profile with engagement metrics, contact info (email, phone), audience demographics, brand affinity, cross-platform links.
+
+### When to Use Influencer vs Apollo/Clado
+
+- **Apollo/Clado** — best for professional/B2B profiles (job titles, company, employment history)
+- **Influencer** — best for social media creators (followers, engagement, audience data, content categories)
+
 ## Handling missing data
 
-If any query fails to return the data you are looking for, revist the list of available APIs.
+If any query fails to return the data you are looking for, revisit the list of available APIs.
 
-Oftentimes, if apollo is missing data, clado will have it, and vice versa.
+Oftentimes, if Apollo is missing data, Clado will have it, and vice versa. For social media creators, try the influencer endpoints. For email deliverability, use Hunter.
 
 If those still fail, use built-in WebSearch and WebFetch tools to find additional information like a company domain name or LinkedIn URL, and then use that data to make more targeted queries.
