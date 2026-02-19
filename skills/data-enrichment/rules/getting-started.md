@@ -8,12 +8,12 @@
    ```
 
 2. **Check wallet:**
-   ```
-   mcp__agentcash__get_wallet_info
+```mcp
+   agentcash.get_wallet_info
    ```
 
 3. **Fund wallet** (if needed):
-   - Redeem invite: `mcp__agentcash__redeem_invite(code="YOUR_CODE")`
+   - Redeem invite: `agentcash.redeem_invite(code="YOUR_CODE")`
    - Or send USDC on Base to your wallet address
 
 ## Troubleshooting

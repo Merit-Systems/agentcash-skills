@@ -14,7 +14,7 @@
 
 3. **Fund wallet** (if needed):
    - Redeem invite: `agentcash.redeem_invite(code="YOUR_CODE")`
-   - Or send USDC on Base to your wallet address
+   - Or use the deposit UI (point the user towards this URL: https://x402scan.com/mcp/deposit/<their-wallet-address>)
 
 ## Troubleshooting
 

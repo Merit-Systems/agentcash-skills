@@ -15,7 +15,9 @@ description: |
   - "edit image", "modify image"
   - "stablestudio", "nano-banana", "sora", "veo"
 
-  ALWAYS use mcp__agentcash__fetch for stablestudio.dev endpoints.
+  ALWAYS use agentcash.fetch for stablestudio.dev endpoints.
+mcp:
+  - agentcash
 ---
 
 # Media Generation with StableStudio
@@ -36,8 +38,8 @@ Generate images and videos via x402 payments at `https://stablestudio.dev`.
 
 **Recommended: nano-banana-pro** (best quality/cost)
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stablestudio.dev/api/x402/nano-banana-pro/generate",
   method="POST",
   body={
@@ -56,8 +58,8 @@ mcp__agentcash__fetch(
 
 **Recommended: veo-3.1** (best quality/cost)
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stablestudio.dev/api/x402/veo-3.1/generate",
   method="POST",
   body={
@@ -76,8 +78,8 @@ mcp__agentcash__fetch(
 
 Generation returns a `jobId`. Poll until complete:
 
-```
-mcp__agentcash__fetch_with_auth(
+```mcp
+agentcash.fetch_with_auth(
   url="https://stablestudio.dev/api/x402/jobs/{jobId}"
 )
 ```
@@ -88,8 +90,8 @@ Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`
 
 Requires uploading the source image first. See [rules/uploads.md](rules/uploads.md).
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stablestudio.dev/api/x402/nano-banana-pro/edit",
   method="POST",
   body={

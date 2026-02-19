@@ -18,7 +18,9 @@ description: |
   - "blocked site", "can't access", "paywall"
   - "what is", "explain", "answer this"
 
-  Use mcp__agentcash__fetch for stableenrich.dev endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
+  Use agentcash.fetch for stableenrich.dev endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
+mcp:
+  - agentcash
 ---
 
 # Web Research with x402 APIs
@@ -33,12 +35,12 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Best For |
 |------|----------|-------|----------|
-| Neural search | `/api/exa/search` | $0.01 | Semantic web search |
-| Find similar | `/api/exa/find-similar` | $0.01 | Pages similar to a URL |
-| Extract text | `/api/exa/contents` | $0.002 | Clean text from URLs |
-| Direct answers | `/api/exa/answer` | $0.01 | Factual Q&A |
-| Scrape page | `/api/firecrawl/scrape` | $0.0126 | Single page to markdown |
-| Web search | `/api/firecrawl/search` | $0.0252 | Search with scraping |
+| Neural search | `https://stableenrich.dev/api/exa/search` | $0.01 | Semantic web search |
+| Find similar | `https://stableenrich.dev/api/exa/find-similar` | $0.01 | Pages similar to a URL |
+| Extract text | `https://stableenrich.dev/api/exa/contents` | $0.002 | Clean text from URLs |
+| Direct answers | `https://stableenrich.dev/api/exa/answer` | $0.01 | Factual Q&A |
+| Scrape page | `https://stableenrich.dev/api/firecrawl/scrape` | $0.0126 | Single page to markdown |
+| Web search | `https://stableenrich.dev/api/firecrawl/search` | $0.0252 | Search with scraping |
 
 ## When to Use What
 
@@ -58,8 +60,8 @@ See [rules/when-to-use.md](rules/when-to-use.md) for detailed guidance.
 
 Semantic search that understands meaning, not just keywords:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/exa/search",
   method="POST",
   body={
@@ -84,8 +86,8 @@ mcp__agentcash__fetch(
 
 Find pages semantically similar to a reference URL:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/exa/find-similar",
   method="POST",
   body={
@@ -104,8 +106,8 @@ Great for:
 
 Get clean, structured text from URLs:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/exa/contents",
   method="POST",
   body={
@@ -128,8 +130,8 @@ Cheapest option ($0.002) when you already have URLs and just need the content.
 
 Get factual answers to questions:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/exa/answer",
   method="POST",
   body={
@@ -147,8 +149,8 @@ Returns a direct answer with source citations. Best for:
 
 Scrape a single page to clean markdown:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/firecrawl/scrape",
   method="POST",
   body={
@@ -173,8 +175,8 @@ mcp__agentcash__fetch(
 
 Web search with automatic scraping of results:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/firecrawl/search",
   method="POST",
   body={
@@ -195,30 +197,30 @@ Returns search results with full scraped content for each.
 
 ### Deep Research
 
-- [ ] (Optional) Check balance: `mcp__agentcash__get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
 - [ ] Search broadly with Exa
 - [ ] Find related sources with find-similar
 - [ ] Extract content from top sources
 - [ ] Synthesize findings
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/exa/search",
   method="POST",
   body={"query": "AI agents in healthcare 2024", "numResults": 15}
 )
 ```
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/exa/find-similar",
   method="POST",
   body={"url": "https://best-article-found.com"}
 )
 ```
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/exa/contents",
   method="POST",
   body={"urls": ["url1", "url2", "url3"]}
@@ -230,8 +232,8 @@ mcp__agentcash__fetch(
 - [ ] Try WebFetch first (free)
 - [ ] If blocked/empty, use Firecrawl with `waitFor` for JS-heavy sites
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/firecrawl/scrape",
   method="POST",
   body={"url": "https://blocked-site.com/article", "waitFor": 3000}
@@ -249,8 +251,8 @@ mcp__agentcash__fetch(
 
 Independent searches can run in parallel:
 
-```
+```mcp
 # These don't depend on each other
-mcp__agentcash__fetch(url=".../exa/search", body={"query": "topic A"})
-mcp__agentcash__fetch(url=".../exa/search", body={"query": "topic B"})
+agentcash.fetch(url=".../exa/search", body={"query": "topic A"})
+agentcash.fetch(url=".../exa/search", body={"query": "topic B"})
 ```

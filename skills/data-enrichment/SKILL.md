@@ -17,10 +17,12 @@ description: |
   - "find contact for", "get LinkedIn for", "get email for"
   - "employee at", "works at", "company details"
 
-  ALWAYS use mcp__agentcash__fetch for stableenrich.dev endpoints - never curl or WebFetch.
+  ALWAYS use agentcash.fetch for stableenrich.dev endpoints - never curl or WebFetch.
   Returns structured JSON data, not web page HTML.
 
-  IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`/api/apollo/...` or `/api/clado/...`).
+  IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`https://stableenrich.dev/api/apollo/...` or `https://stableenrich.dev/api/clado/...`).
+mcp:
+  - agentcash
 ---
 
 # Data Enrichment with x402 APIs
@@ -35,27 +37,27 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Best For |
 |------|----------|-------|----------|
-| Enrich person | `/api/apollo/people-enrich` | $0.0495 | Email/LinkedIn -> full profile |
-| Enrich company | `/api/apollo/org-enrich` | $0.0495 | Domain -> company data |
-| Search people | `/api/apollo/people-search` | $0.02 | Find people by criteria |
-| Search companies | `/api/apollo/org-search` | $0.02 | Find companies by criteria |
-| LinkedIn scrape | `/api/clado/linkedin-scrape` | $0.04 | Full LinkedIn profile |
-| Contact recovery | `/api/clado/contacts-enrich` | $0.20 | Find missing email/phone |
-| Bulk people | `/api/apollo/people-enrich/bulk` | $0.495 | Up to 10 people at once |
-| Bulk companies | `/api/apollo/org-enrich/bulk` | $0.495 | Up to 10 companies at once |
+| Enrich person | `https://stableenrich.dev/api/apollo/people-enrich` | $0.0495 | Email/LinkedIn -> full profile |
+| Enrich company | `https://stableenrich.dev/api/apollo/org-enrich` | $0.0495 | Domain -> company data |
+| Search people | `https://stableenrich.dev/api/apollo/people-search` | $0.02 | Find people by criteria |
+| Search companies | `https://stableenrich.dev/api/apollo/org-search` | $0.02 | Find companies by criteria |
+| LinkedIn scrape | `https://stableenrich.dev/api/clado/linkedin-scrape` | $0.04 | Full LinkedIn profile |
+| Contact recovery | `https://stableenrich.dev/api/clado/contacts-enrich` | $0.20 | Find missing email/phone |
+| Bulk people | `https://stableenrich.dev/api/apollo/people-enrich/bulk` | $0.495 | Up to 10 people at once |
+| Bulk companies | `https://stableenrich.dev/api/apollo/org-enrich/bulk` | $0.495 | Up to 10 companies at once |
 
 ## Workflows
 
 ### Standard Enrichment
 
-- [ ] (Optional) Check balance: `mcp__agentcash__get_wallet_info`
-- [ ] Use `mcp__agentcash__discover_api_endpoints(url="https://stableenrich.dev")` to list all endpoints
-- [ ] Use `mcp__agentcash__check_endpoint_schema(url="...")` to see expected parameters and pricing
-- [ ] Call endpoint with `mcp__agentcash__fetch`
+- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] Use `agentcash.discover_api_endpoints(url="https://stableenrich.dev")` to list all endpoints
+- [ ] Use `agentcash.check_endpoint_schema(url="...")` to see expected parameters and pricing
+- [ ] Call endpoint with `agentcash.fetch`
 - [ ] Parse and present results
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/apollo/people-enrich",
   method="POST",
   body={"email": "user@company.com"}
@@ -66,8 +68,8 @@ mcp__agentcash__fetch(
 
 Enrich a person using any available identifier:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/apollo/people-enrich",
   method="POST",
   body={
@@ -93,8 +95,8 @@ mcp__agentcash__fetch(
 
 Enrich a company by domain:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/apollo/org-enrich",
   method="POST",
   body={
@@ -109,8 +111,8 @@ mcp__agentcash__fetch(
 
 Search for people matching criteria:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/apollo/people-search",
   method="POST",
   body={
@@ -133,8 +135,8 @@ mcp__agentcash__fetch(
 
 Search for companies matching criteria:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/apollo/org-search",
   method="POST",
   body={
@@ -149,8 +151,8 @@ mcp__agentcash__fetch(
 
 Get full LinkedIn profile data:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/clado/linkedin-scrape",
   method="POST",
   body={
@@ -165,8 +167,8 @@ mcp__agentcash__fetch(
 
 Find missing email or phone:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/clado/contacts-enrich",
   method="POST",
   body={
@@ -182,8 +184,8 @@ mcp__agentcash__fetch(
 
 Process up to 10 records in one request:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/apollo/people-enrich/bulk",
   method="POST",
   body={
@@ -198,8 +200,8 @@ mcp__agentcash__fetch(
 
 For companies:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/apollo/org-enrich/bulk",
   method="POST",
   body={
@@ -241,7 +243,7 @@ Bulk is the same price per record but faster for multiple items.
 
 Use search endpoints ($0.02) to find the right records before enriching ($0.0495):
 
-1. Search for candidates: `/api/apollo/people-search`
+1. Search for candidates: `https://stableenrich.dev/api/apollo/people-search`
 2. Review results, pick the right match
 3. Enrich only the matches you need
 
@@ -249,10 +251,10 @@ Use search endpoints ($0.02) to find the right records before enriching ($0.0495
 
 When enriching multiple independent records, make calls in parallel:
 
-```
+```mcp
 # These can run simultaneously since they're independent
-mcp__agentcash__fetch(url=".../people-enrich", body={"email": "a@co.com"})
-mcp__agentcash__fetch(url=".../people-enrich", body={"email": "b@co.com"})
+agentcash.fetch(url=".../people-enrich", body={"email": "a@co.com"})
+agentcash.fetch(url=".../people-enrich", body={"email": "b@co.com"})
 ```
 
 Or use bulk endpoints for the best efficiency.

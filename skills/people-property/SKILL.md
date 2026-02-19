@@ -17,7 +17,9 @@ description: |
   IMPORTANT: These endpoints contain personal information. Use responsibly and only for legitimate purposes.
   See rules/privacy.md for guidance.
 
-  Use mcp__agentcash__fetch for Whitepages endpoints. Both endpoints are $0.44 per call.
+  Use agentcash.fetch for Whitepages endpoints. Both endpoints are $0.44 per call.
+mcp:
+  - agentcash
 ---
 
 # People & Property Search with Whitepages
@@ -34,15 +36,15 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Description |
 |------|----------|-------|-------------|
-| Person search | `/api/whitepages/person-search` | $0.44 | Find people by name/location |
-| Property search | `/api/whitepages/property-search` | $0.44 | Property and owner info |
+| Person search | `https://stableenrich.dev/api/whitepages/person-search` | $0.44 | Find people by name/location |
+| Property search | `https://stableenrich.dev/api/whitepages/property-search` | $0.44 | Property and owner info |
 
 ## Person Search
 
 Search for a person by name and location:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/whitepages/person-search",
   method="POST",
   body={
@@ -72,8 +74,8 @@ mcp__agentcash__fetch(
 
 Include more details for better matches:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url=".../whitepages/person-search",
   body={
     "firstName": "John",
@@ -90,8 +92,8 @@ mcp__agentcash__fetch(
 
 Search for property information:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/whitepages/property-search",
   method="POST",
   body={
@@ -137,12 +139,12 @@ mcp__agentcash__fetch(
 ### Verify Contact Information
 
 - [ ] Confirm legitimate purpose (see [rules/privacy.md](rules/privacy.md))
-- [ ] (Optional) Check balance: `mcp__agentcash__get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
 - [ ] Search with available details
 - [ ] Verify results match expected person
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/whitepages/person-search",
   method="POST",
   body={"firstName": "Jane", "lastName": "Doe", "city": "Portland", "state": "OR"}
@@ -151,12 +153,12 @@ mcp__agentcash__fetch(
 
 ### Property Research
 
-- [ ] (Optional) Check balance: `mcp__agentcash__get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
 - [ ] Search by address
 - [ ] Review owner and property details
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/whitepages/property-search",
   method="POST",
   body={"address": "456 Oak Avenue", "city": "Austin", "state": "TX"}
@@ -169,8 +171,8 @@ mcp__agentcash__fetch(
 - [ ] Provide as much detail as possible for accuracy
 - [ ] Review results for correct match
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/whitepages/person-search",
   method="POST",
   body={"firstName": "Michael", "lastName": "Johnson", "state": "CA"}

@@ -18,9 +18,11 @@ description: |
   - "trending", "viral", "popular posts"
   - "user's posts", "timeline", "recent activity"
 
-  Use mcp__agentcash__fetch for Grok (X) and Reddit endpoints. All endpoints are $0.02 per call.
+  Use agentcash.fetch for Grok (X) and Reddit endpoints. All endpoints are $0.02 per call.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
+mcp:
+  - agentcash
 ---
 
 # Social Intelligence with x402 APIs
@@ -35,11 +37,11 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Description |
 |------|----------|-------|-------------|
-| Search X posts | `/api/grok/x-search` | $0.02 | Search tweets by keywords |
-| Find X users | `/api/grok/user-search` | $0.02 | Search users by criteria |
-| Get user posts | `/api/grok/user-posts` | $0.02 | Recent posts from user |
-| Search Reddit | `/api/reddit/search` | $0.02 | Search Reddit posts |
-| Get comments | `/api/reddit/post-comments` | $0.02 | Comments on a post |
+| Search X posts | `https://stableenrich.dev/api/grok/x-search` | $0.02 | Search tweets by keywords |
+| Find X users | `https://stableenrich.dev/api/grok/user-search` | $0.02 | Search users by criteria |
+| Get user posts | `https://stableenrich.dev/api/grok/user-posts` | $0.02 | Recent posts from user |
+| Search Reddit | `https://stableenrich.dev/api/reddit/search` | $0.02 | Search Reddit posts |
+| Get comments | `https://stableenrich.dev/api/reddit/post-comments` | $0.02 | Comments on a post |
 
 See [rules/rate-limits.md](rules/rate-limits.md) for usage guidance.
 
@@ -49,8 +51,8 @@ See [rules/rate-limits.md](rules/rate-limits.md) for usage guidance.
 
 Search for X posts by keywords:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/grok/x-search",
   method="POST",
   body={
@@ -72,8 +74,8 @@ mcp__agentcash__fetch(
 
 Find X users matching criteria:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/grok/user-search",
   method="POST",
   body={
@@ -93,8 +95,8 @@ mcp__agentcash__fetch(
 
 Fetch recent posts from a specific user:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/grok/user-posts",
   method="POST",
   body={
@@ -114,8 +116,8 @@ mcp__agentcash__fetch(
 
 Search Reddit for posts:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/search",
   method="POST",
   body={
@@ -138,8 +140,8 @@ mcp__agentcash__fetch(
 
 ### Search in Subreddit
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/search",
   method="POST",
   body={
@@ -155,8 +157,8 @@ mcp__agentcash__fetch(
 
 Get comments from a Reddit post:
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/post-comments",
   method="POST",
   body={
@@ -175,29 +177,29 @@ mcp__agentcash__fetch(
 
 ### Standard
 
-- [ ] (Optional) Check balance: `mcp__agentcash__get_wallet_info`
-- [ ] Use `mcp__agentcash__discover_api_endpoints(url="https://stableenrich.dev")` to list all endpoints
-- [ ] Use `mcp__agentcash__check_endpoint_schema(url="...")` to see expected parameters and pricing
-- [ ] Call endpoint with `mcp__agentcash__fetch`
+- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] Use `agentcash.discover_api_endpoints(url="https://stableenrich.dev")` to list all endpoints
+- [ ] Use `agentcash.check_endpoint_schema(url="...")` to see expected parameters and pricing
+- [ ] Call endpoint with `agentcash.fetch`
 - [ ] Parse and present results
 
 ### Brand Monitoring
 
-- [ ] (Optional) Check balance: `mcp__agentcash__get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
 - [ ] Search X for brand mentions
 - [ ] Search Reddit for discussions
 - [ ] Summarize sentiment and key mentions
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/grok/x-search",
   method="POST",
   body={"query": "YourBrand OR @YourBrand"}
 )
 ```
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/search",
   method="POST",
   body={"query": "YourBrand", "sort": "new"}
@@ -210,8 +212,8 @@ mcp__agentcash__fetch(
 - [ ] Search X for competitor mentions
 - [ ] Analyze common complaints and praise
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/search",
   method="POST",
   body={"query": "competitor name review", "sort": "top", "time": "year"}
@@ -224,8 +226,8 @@ mcp__agentcash__fetch(
 - [ ] Search for matching users
 - [ ] Get recent posts for top candidates
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/grok/user-search",
   method="POST",
   body={"query": "tech blogger 100k followers"}
@@ -239,16 +241,16 @@ mcp__agentcash__fetch(
 - [ ] Get comments from top posts
 - [ ] Synthesize overall sentiment
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/search",
   method="POST",
   body={"query": "new feature name", "subreddit": "relevant_community", "sort": "hot"}
 )
 ```
 
-```
-mcp__agentcash__fetch(
+```mcp
+agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/post-comments",
   method="POST",
   body={"postUrl": "https://reddit.com/..."}

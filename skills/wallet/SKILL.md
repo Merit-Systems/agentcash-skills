@@ -14,6 +14,8 @@ description: |
   - "redeem", "invite code", "promo code"
   - "deposit", "add funds", "top up"
   - "insufficient balance", "payment failed"
+mcp:
+  - agentcash
 ---
 
 # x402 Wallet Management
@@ -24,14 +26,14 @@ Your wallet is auto-created on first use and stored at `~/.agentcash/wallet.json
 
 | Task | Tool | Notes |
 |------|------|-------|
-| Check balance | `mcp__agentcash__get_wallet_info` | Shows address + USDC balance |
-| Redeem code | `mcp__agentcash__redeem_invite(code="...")` | One-time use per code |
+| Check balance | `agentcash.get_wallet_info` | Shows address + USDC balance |
+| Redeem code | `agentcash.redeem_invite(code="...")` | One-time use per code |
 | Deposit | Send USDC to wallet address | Base network only |
 
 ## Check Balance
 
-```
-mcp__agentcash__get_wallet_info
+```mcp
+agentcash.get_wallet_info
 ```
 
 Returns:
@@ -43,8 +45,8 @@ Always check balance before expensive operations.
 
 ## Redeem Invite Code
 
-```
-mcp__agentcash__redeem_invite(code="YOUR_CODE")
+```mcp
+agentcash.redeem_invite(code="YOUR_CODE")
 ```
 
 - One-time use per code
@@ -53,7 +55,7 @@ mcp__agentcash__redeem_invite(code="YOUR_CODE")
 
 ## Deposit USDC
 
-1. Get your wallet address: `mcp__agentcash__get_wallet_info`
+1. Get your wallet address: `agentcash.get_wallet_info`
 2. Send USDC on **Base network** to that address
 3. Funds available immediately after confirmation
 

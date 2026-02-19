@@ -12,7 +12,7 @@ Install the agentcash MCP:
 npx agentcash@latest install --client claude-code
 ```
 
-This enables the `mcp__agentcash__*` tools used by these skills.
+This enables the agentcash MCP tools used by these skills.
 
 ## Installation
 
@@ -44,23 +44,23 @@ ln -s $(pwd)/skills/* ~/.claude/skills/
 ## Quick Start
 
 1. **Check your balance:**
-   ```
-   mcp__agentcash__get_wallet_info
+```mcp
+   agentcash.get_wallet_info
    ```
 
 2. **Discover available endpoints:**
-   ```
-   mcp__agentcash__discover_api_endpoints(url="https://stableenrich.dev")
+```mcp
+   agentcash.discover_api_endpoints(url="https://stableenrich.dev")
    ```
 
 3. **Check endpoint pricing before calling:**
-   ```
-   mcp__agentcash__check_endpoint_schema(url="https://stableenrich.dev/api/apollo/people-enrich")
+```mcp
+   agentcash.check_endpoint_schema(url="https://stableenrich.dev/api/apollo/people-enrich")
    ```
 
 4. **Make API calls:**
-   ```
-   mcp__agentcash__fetch(
+```mcp
+   agentcash.fetch(
      url="https://stableenrich.dev/api/apollo/people-enrich",
      method="POST",
      body={"email": "user@company.com"}
@@ -73,10 +73,10 @@ ln -s $(pwd)/skills/* ~/.claude/skills/
 
 | Wrong (guessed) | Correct |
 |-----------------|---------|
-| `/api/people/search` | `/api/apollo/people-search` |
-| `/api/people-enrich` | `/api/apollo/people-enrich` |
-| `/api/grok/search` | `/api/grok/x-search` |
-| `/api/twitter/search` | `/api/grok/x-search` |
+| `/api/people/search` | `https://stableenrich.dev/api/apollo/people-search` |
+| `/api/people-enrich` | `https://stableenrich.dev/api/apollo/people-enrich` |
+| `https://stableenrich.dev/api/grok/search` | `https://stableenrich.dev/api/grok/x-search` |
+| `/api/twitter/search` | `https://stableenrich.dev/api/grok/x-search` |
 
 If you don't know the exact endpoint path:
 1. **Use `discover_api_endpoints`** to list all available endpoints
@@ -89,7 +89,7 @@ Guessing endpoints will result in `405 Method Not Allowed` errors and wasted API
 
 If your balance is low:
 
-1. Redeem an invite code: `mcp__agentcash__redeem_invite(code="YOUR_CODE")`
+1. Redeem an invite code: `agentcash.redeem_invite(code="YOUR_CODE")`
 2. Or deposit USDC on Base to your wallet address
 
 ## All Endpoints Reference
