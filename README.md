@@ -28,16 +28,8 @@ This enables the agentcash MCP tools used by these skills.
 
 ## Installation
 
-Copy skills to your Claude Code skills directory:
-
 ```bash
-cp -r skills/* ~/.claude/skills/
-```
-
-Or symlink for development:
-
-```bash
-ln -s $(pwd)/skills/* ~/.claude/skills/
+npx skills add Merit-Systems/agentcash-skills --all --yes
 ```
 
 ## Available Skills
