@@ -1,8 +1,25 @@
 # agentcash Skills
 
-Skills for accessing x402-protected APIs using the agentcash MCP.
+Skills for accessing premium, x402-protected APIs using the agentcash MCP.
 
-Covers stableenrich.dev (data enrichment) and stablestudio.dev (media generation), and many others.
+```bash
+npx skills add Merit-Systems/agentcash-skills --all --yes
+```
+
+## Available Skills
+
+| Skill | Use For | Endpoints |
+|-------|---------|-----------|
+| [wallet](skills/wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
+| [upload-and-share](skills/upload-and-share/) | Upload files & get public URLs | AgentUpload |
+| [media-generation](skills/media-generation/) | AI image & video generation | StableStudio |
+| [data-enrichment](skills/data-enrichment/) | Person & company profiles | Apollo, Clado |
+| [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
+| [local-search](skills/local-search/) | Places & business info | Google Maps |
+| [social-intelligence](skills/social-intelligence/) | Social media research | Grok (X/Twitter), Reddit |
+| [news-shopping](skills/news-shopping/) | News & product search | Serper |
+| [people-property](skills/people-property/) | People & property lookup | Whitepages |
+
 
 ## Prerequisites
 
@@ -31,20 +48,6 @@ This enables the agentcash MCP tools used by these skills.
 ```bash
 npx skills add Merit-Systems/agentcash-skills --all --yes
 ```
-
-## Available Skills
-
-| Skill | Use For | Endpoints |
-|-------|---------|-----------|
-| [wallet](skills/wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
-| [upload-and-share](skills/upload-and-share/) | Upload files & get public URLs | AgentUpload |
-| [media-generation](skills/media-generation/) | AI image & video generation | StableStudio |
-| [data-enrichment](skills/data-enrichment/) | Person & company profiles | Apollo, Clado |
-| [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
-| [local-search](skills/local-search/) | Places & business info | Google Maps |
-| [social-intelligence](skills/social-intelligence/) | Social media research | Grok (X/Twitter), Reddit |
-| [news-shopping](skills/news-shopping/) | News & product search | Serper |
-| [people-property](skills/people-property/) | People & property lookup | Whitepages |
 
 ## Quick Start
 
