@@ -4,7 +4,7 @@
 
 1. **Install the agentcash MCP:**
    ```bash
-   npx agentcash@latest install --client claude-code
+   npx agentcash@latest install --client claude-code -y
    ```
 
 2. **Check wallet:**

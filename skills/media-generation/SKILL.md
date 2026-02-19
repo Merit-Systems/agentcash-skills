@@ -24,6 +24,10 @@ mcp:
 
 Generate images and videos via x402 payments at `https://stablestudio.dev`.
 
+## Setup
+
+If the agentcash MCP is not yet installed, see [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+
 ## Quick Reference
 
 | Task | Endpoint | Cost | Time |

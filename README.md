@@ -2,7 +2,7 @@
 
 Skills for accessing x402-protected APIs using the agentcash MCP.
 
-Covers stableenrich.dev (data enrichment) and stablestudio.dev (media generation).
+Covers stableenrich.dev (data enrichment) and stablestudio.dev (media generation), and many others.
 
 ## Prerequisites
 
@@ -32,7 +32,8 @@ ln -s $(pwd)/skills/* ~/.claude/skills/
 
 | Skill | Use For | Endpoints |
 |-------|---------|-----------|
-| [wallet](skills/wallet/) | Balance, deposits, invite codes | x402 wallet |
+| [wallet](skills/wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
+| [upload-and-share](skills/upload-and-share/) | Upload files & get public URLs | AgentUpload |
 | [media-generation](skills/media-generation/) | AI image & video generation | StableStudio |
 | [data-enrichment](skills/data-enrichment/) | Person & company profiles | Apollo, Clado |
 | [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
