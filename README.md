@@ -20,6 +20,10 @@ npx agentcash@latest install
 
 **Note for agents:** Use the non-interactive mode with `-y` flag:
 
+```bash
+npx agentcash@latest install -y
+```
+
 This enables the agentcash MCP tools used by these skills.
 
 ## Installation
