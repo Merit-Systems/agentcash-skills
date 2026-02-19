@@ -12,6 +12,14 @@ Install the agentcash MCP:
 npx agentcash@latest install --client claude-code
 ```
 
+or for all clients:
+
+```bash
+npx agentcash@latest install
+```
+
+**Note for agents:** Use the non-interactive mode with `-y` flag:
+
 This enables the agentcash MCP tools used by these skills.
 
 ## Installation
