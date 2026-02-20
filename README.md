@@ -127,13 +127,24 @@ If your balance is low:
 
 ## Update prompts
 
-### OpenClaw CLI mode
+### CLI mode
 
 ```
 
 I want to use agentcash and all of the CLI mode skills available in the https://github.com/Merit-Systems/agentcash-skills repository.
 
-Follow the installation instructions in the README. If you have old versions of these skills, please update them to the latest version. Please remove the x402 MCP from your MCP list (or mcporter if you are openclaw).
+Follow the installation instructions in the README. If you have old versions of these skills, please update them to the latest version. Please remove the outdated x402 MCP from your MCP list (or mcporter if you are using OpenClaw).
+
+Finally, test the skills by generating an image with the media-generation skill.
+```
+
+### MCP mode
+
+```
+
+I want to use agentcash and all of the MCP mode skills available in the https://github.com/Merit-Systems/agentcash-skills repository.
+
+Follow the installation instructions in the README. If you have old versions of these skills, please update them to the latest version. Please remove the outdated x402 MCP from your MCP list (or mcporter if you are using OpenClaw).
 
 Finally, test the skills by generating an image with the media-generation skill.
 ```
