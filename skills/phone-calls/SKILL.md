@@ -17,11 +17,9 @@ description: |
   - "transcript", "call recording", "call summary"
   - "AI call", "automated call", "bland"
 
-  ALWAYS use agentcash.fetch for stablephone.dev endpoints.
+  ALWAYS use `npx agentcash fetch` for stablephone.dev endpoints.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
-mcp:
-  - agentcash
 ---
 
 # AI Phone Calls with StablePhone
@@ -44,15 +42,11 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 ## Make a Call
 
-```mcp
-agentcash.fetch(
-  url="https://stablephone.dev/api/call",
-  method="POST",
-  body={
-    "phone_number": "+14155551234",
-    "task": "Call this person and ask if they're available for a meeting tomorrow at 2pm. Be polite and professional."
-  }
-)
+```bash
+npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
+  "phone_number": "+14155551234",
+  "task": "Call this person and ask if they are available for a meeting tomorrow at 2pm. Be polite and professional."
+}'
 ```
 
 **Required:**
@@ -76,11 +70,8 @@ agentcash.fetch(
 
 Poll until `completed` is true:
 
-```mcp
-agentcash.fetch(
-  url="https://stablephone.dev/api/call/{call_id}",
-  method="GET"
-)
+```bash
+npx agentcash fetch https://stablephone.dev/api/call/{call_id}
 ```
 
 **Response fields:**
@@ -112,15 +103,8 @@ Poll every 5-10 seconds. Calls typically complete in 1-5 minutes depending on `m
 
 Buy a number to use as outbound caller ID:
 
-```mcp
-agentcash.fetch(
-  url="https://stablephone.dev/api/number",
-  method="POST",
-  body={
-    "area_code": "415",
-    "country_code": "US"
-  }
-)
+```bash
+npx agentcash fetch https://stablephone.dev/api/number -m POST -b '{"area_code": "415", "country_code": "US"}'
 ```
 
 **Optional:**
@@ -131,76 +115,57 @@ Numbers expire after 30 days. Top up to extend.
 
 ## Top Up a Number
 
-```mcp
-agentcash.fetch(
-  url="https://stablephone.dev/api/number/topup",
-  method="POST",
-  body={"phone_number": "+14155551234"}
-)
+```bash
+npx agentcash fetch https://stablephone.dev/api/number/topup -m POST -b '{"phone_number": "+14155551234"}'
 ```
 
 Extends by 30 days from current expiry. Top-ups stack. Anyone can top up any number.
 
 ## List Your Numbers
 
-```mcp
-agentcash.fetch(
-  url="https://stablephone.dev/api/numbers?wallet=YOUR_WALLET_ADDRESS",
-  method="GET"
-)
+```bash
+npx agentcash fetch https://stablephone.dev/api/numbers?wallet=YOUR_WALLET_ADDRESS
 ```
 
 ## Workflows
 
 ### Quick Call
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
 - [ ] Make call with task instructions
 - [ ] Poll status until completed
 - [ ] Review transcript and summary
 
-```mcp
-agentcash.fetch(
-  url="https://stablephone.dev/api/call",
-  method="POST",
-  body={
-    "phone_number": "+14155551234",
-    "task": "Ask if the business is open on weekends and what their hours are."
-  }
-)
+```bash
+npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
+  "phone_number": "+14155551234",
+  "task": "Ask if the business is open on weekends and what their hours are."
+}'
 ```
 
 ### Leave a Voicemail
 
-```mcp
-agentcash.fetch(
-  url="https://stablephone.dev/api/call",
-  method="POST",
-  body={
-    "phone_number": "+14155551234",
-    "task": "Leave a voicemail about the appointment.",
-    "voicemail_action": "leave_message",
-    "voicemail_message": "Hi, this is a reminder about your appointment tomorrow at 3pm. Please call back to confirm."
-  }
-)
+```bash
+npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
+  "phone_number": "+14155551234",
+  "task": "Leave a voicemail about the appointment.",
+  "voicemail_action": "leave_message",
+  "voicemail_message": "Hi, this is a reminder about your appointment tomorrow at 3pm. Please call back to confirm."
+}'
 ```
 
 For natural voicemail delivery, use `"voicemail_action": "ignore"` which bypasses detection and lets the AI speak naturally into the voicemail system.
 
 ### Call with Transfer
 
-```mcp
-agentcash.fetch(
-  url="https://stablephone.dev/api/call",
-  method="POST",
-  body={
-    "phone_number": "+14155551234",
-    "task": "Qualify this lead. Ask about their budget and timeline. If they're interested, offer to transfer to a sales rep.",
-    "transfer_phone_number": "+14155559999",
-    "voice": "josh",
-    "max_duration": 10
-  }
-)
+```bash
+npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
+  "phone_number": "+14155551234",
+  "task": "Qualify this lead. Ask about their budget and timeline. If they are interested, offer to transfer to a sales rep.",
+  "transfer_phone_number": "+14155559999",
+  "voice": "josh",
+  "max_duration": 10
+}'
 ```
 
 ### Set Up Dedicated Number
@@ -209,26 +174,18 @@ agentcash.fetch(
 - [ ] Use it as caller ID for outbound calls
 - [ ] Top up before expiry ($15/30 days)
 
-```mcp
-agentcash.fetch(
-  url="https://stablephone.dev/api/number",
-  method="POST",
-  body={"area_code": "212", "country_code": "US"}
-)
+```bash
+npx agentcash fetch https://stablephone.dev/api/number -m POST -b '{"area_code": "212", "country_code": "US"}'
 ```
 
 Then use it as `from`:
 
-```mcp
-agentcash.fetch(
-  url="https://stablephone.dev/api/call",
-  method="POST",
-  body={
-    "phone_number": "+14155551234",
-    "from": "+12125551234",
-    "task": "Confirm the reservation for Friday at 7pm."
-  }
-)
+```bash
+npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
+  "phone_number": "+14155551234",
+  "from": "+12125551234",
+  "task": "Confirm the reservation for Friday at 7pm."
+}'
 ```
 
 ## Cost Estimation

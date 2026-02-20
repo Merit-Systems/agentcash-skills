@@ -18,11 +18,9 @@ description: |
   - "trending", "viral", "popular posts"
   - "user's posts", "timeline", "recent activity"
 
-  Use agentcash.fetch for Grok (X) and Reddit endpoints. All endpoints are $0.02 per call.
+  Use `npx agentcash fetch` for Grok (X) and Reddit endpoints. All endpoints are $0.02 per call.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
-mcp:
-  - agentcash
 ---
 
 # Social Intelligence with x402 APIs
@@ -51,14 +49,8 @@ See [rules/rate-limits.md](rules/rate-limits.md) for usage guidance.
 
 Search for X posts by keywords:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/grok/x-search",
-  method="POST",
-  body={
-    "query": "AI agents"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/grok/x-search -m POST -b '{"query": "AI agents"}'
 ```
 
 **Parameters:**
@@ -74,14 +66,8 @@ agentcash.fetch(
 
 Find X users matching criteria:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/grok/user-search",
-  method="POST",
-  body={
-    "query": "AI researcher San Francisco"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/grok/user-search -m POST -b '{"query": "AI researcher San Francisco"}'
 ```
 
 **Returns:**
@@ -95,14 +81,8 @@ agentcash.fetch(
 
 Fetch recent posts from a specific user:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/grok/user-posts",
-  method="POST",
-  body={
-    "username": "elonmusk"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/grok/user-posts -m POST -b '{"username": "elonmusk"}'
 ```
 
 **Parameters:**
@@ -116,14 +96,8 @@ agentcash.fetch(
 
 Search Reddit for posts:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/reddit/search",
-  method="POST",
-  body={
-    "query": "best programming languages 2024"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "best programming languages 2024"}'
 ```
 
 **Parameters:**
@@ -140,31 +114,21 @@ agentcash.fetch(
 
 ### Search in Subreddit
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/reddit/search",
-  method="POST",
-  body={
-    "query": "typescript vs javascript",
-    "subreddit": "programming",
-    "sort": "top",
-    "time": "year"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{
+  "query": "typescript vs javascript",
+  "subreddit": "programming",
+  "sort": "top",
+  "time": "year"
+}'
 ```
 
 ### Get Post Comments
 
 Get comments from a Reddit post:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/reddit/post-comments",
-  method="POST",
-  body={
-    "postUrl": "https://reddit.com/r/programming/comments/abc123/..."
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b '{"postUrl": "https://reddit.com/r/programming/comments/abc123/..."}'
 ```
 
 **Returns:**
@@ -177,33 +141,25 @@ agentcash.fetch(
 
 ### Standard
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
-- [ ] Use `agentcash.discover_api_endpoints(url="https://stableenrich.dev")` to list all endpoints
-- [ ] Use `agentcash.check_endpoint_schema(url="...")` to see expected parameters and pricing
-- [ ] Call endpoint with `agentcash.fetch`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] Use `npx agentcash discover https://stableenrich.dev` to list all endpoints
+- [ ] Use `npx agentcash check <endpoint-url>` to see expected parameters and pricing
+- [ ] Call endpoint with `npx agentcash fetch`
 - [ ] Parse and present results
 
 ### Brand Monitoring
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
 - [ ] Search X for brand mentions
 - [ ] Search Reddit for discussions
 - [ ] Summarize sentiment and key mentions
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/grok/x-search",
-  method="POST",
-  body={"query": "YourBrand OR @YourBrand"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/grok/x-search -m POST -b '{"query": "YourBrand OR @YourBrand"}'
 ```
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/reddit/search",
-  method="POST",
-  body={"query": "YourBrand", "sort": "new"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "YourBrand", "sort": "new"}'
 ```
 
 ### Competitor Research
@@ -212,12 +168,8 @@ agentcash.fetch(
 - [ ] Search X for competitor mentions
 - [ ] Analyze common complaints and praise
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/reddit/search",
-  method="POST",
-  body={"query": "competitor name review", "sort": "top", "time": "year"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "competitor name review", "sort": "top", "time": "year"}'
 ```
 
 ### Influencer Discovery
@@ -226,12 +178,8 @@ agentcash.fetch(
 - [ ] Search for matching users
 - [ ] Get recent posts for top candidates
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/grok/user-search",
-  method="POST",
-  body={"query": "tech blogger 100k followers"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/grok/user-search -m POST -b '{"query": "tech blogger 100k followers"}'
 ```
 
 ### Community Sentiment
@@ -241,20 +189,12 @@ agentcash.fetch(
 - [ ] Get comments from top posts
 - [ ] Synthesize overall sentiment
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/reddit/search",
-  method="POST",
-  body={"query": "new feature name", "subreddit": "relevant_community", "sort": "hot"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "new feature name", "subreddit": "relevant_community", "sort": "hot"}'
 ```
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/reddit/post-comments",
-  method="POST",
-  body={"postUrl": "https://reddit.com/..."}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b '{"postUrl": "https://reddit.com/..."}'
 ```
 
 ## Response Data

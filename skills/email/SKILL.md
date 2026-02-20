@@ -18,11 +18,9 @@ description: |
   - "read emails", "check inbox", "list messages"
   - "email address", "disposable email", "temporary email"
 
-  ALWAYS use agentcash.fetch for stableemail.dev endpoints.
+  ALWAYS use `npx agentcash fetch` for stableemail.dev endpoints.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
-mcp:
-  - agentcash
 ---
 
 # Email with StableEmail
@@ -67,24 +65,20 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Update subdomain inbox | `POST https://stableemail.dev/api/subdomain/inbox/update` |
 | Delete subdomain message | `POST https://stableemail.dev/api/subdomain/inbox/messages/delete` |
 
-Free endpoints use SIWX wallet authentication (handled automatically by agentcash). Use `agentcash.fetch_with_auth` for free GET endpoints, `agentcash.fetch` for free POST endpoints.
+Free endpoints use SIWX wallet authentication (handled automatically by `npx agentcash fetch`).
 
 ## Send an Email
 
 Send from the shared `relay@x402email.com` address:
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/send",
-  method="POST",
-  body={
-    "to": ["recipient@example.com"],
-    "subject": "Hello from x402",
-    "html": "<h1>Hi!</h1><p>This email was sent via x402 payments.</p>",
-    "text": "Hi! This email was sent via x402 payments.",
-    "replyTo": "your-real-email@example.com"
-  }
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/send -m POST -b '{
+  "to": ["recipient@example.com"],
+  "subject": "Hello from x402",
+  "html": "<h1>Hi!</h1><p>This email was sent via x402 payments.</p>",
+  "text": "Hi! This email was sent via x402 payments.",
+  "replyTo": "your-real-email@example.com"
+}'
 ```
 
 **Parameters:**
@@ -113,55 +107,39 @@ Buy `username@x402email.com` for $1/month. Emails are forwarded to your real add
 
 ### Buy an Inbox
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/inbox/buy",
-  method="POST",
-  body={
-    "username": "alice",
-    "forwardTo": "alice@gmail.com"
-  }
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/inbox/buy -m POST -b '{
+  "username": "alice",
+  "forwardTo": "alice@gmail.com"
+}'
 ```
 
 Omit `forwardTo` to use as a programmatic-only mailbox (retainMessages auto-enabled).
 
 ### Send from Inbox
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/inbox/send",
-  method="POST",
-  body={
-    "username": "alice",
-    "to": ["bob@example.com"],
-    "subject": "Hello",
-    "html": "<p>Hi Bob</p>",
-    "text": "Hi Bob"
-  }
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/inbox/send -m POST -b '{
+  "username": "alice",
+  "to": ["bob@example.com"],
+  "subject": "Hello",
+  "html": "<p>Hi Bob</p>",
+  "text": "Hi Bob"
+}'
 ```
 
 ### Top Up Inbox
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/inbox/topup",
-  method="POST",
-  body={"username": "alice"}
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/inbox/topup -m POST -b '{"username": "alice"}'
 ```
 
 Anyone can top up any inbox. Top-ups stack. Bulk discounts: 90 days/$2.50 (17% off), 365 days/$8 (34% off).
 
 ### Cancel and Refund
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/inbox/cancel",
-  method="POST",
-  body={"username": "alice"}
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/inbox/cancel -m POST -b '{"username": "alice"}'
 ```
 
 Returns pro-rata USDC refund on-chain automatically.
@@ -172,32 +150,20 @@ Enable message retention, then read messages programmatically.
 
 ### Enable Retention
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/inbox/update",
-  method="POST",
-  body={"username": "alice", "retainMessages": true}
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/inbox/update -m POST -b '{"username": "alice", "retainMessages": true}'
 ```
 
 ### List Messages
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/inbox/messages",
-  method="POST",
-  body={"username": "alice", "limit": 20}
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/inbox/messages -m POST -b '{"username": "alice", "limit": 20}'
 ```
 
 ### Read a Message
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/inbox/messages/read",
-  method="POST",
-  body={"messageId": "msg_abc123"}
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/inbox/messages/read -m POST -b '{"messageId": "msg_abc123"}'
 ```
 
 Returns full message with from, to, subject, date, text, html, and attachments.
@@ -208,69 +174,49 @@ Buy `yourname.x402email.com` for $5 one-time. Send from any address on your subd
 
 ### Buy a Subdomain
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/subdomain/buy",
-  method="POST",
-  body={"subdomain": "yourname"}
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/subdomain/buy -m POST -b '{"subdomain": "yourname"}'
 ```
 
 Rules: 3-30 chars, lowercase alphanumeric + hyphens. DNS verification takes ~5 minutes.
 
 ### Send from Subdomain
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/subdomain/send",
-  method="POST",
-  body={
-    "from": "support@yourname.x402email.com",
-    "to": ["customer@example.com"],
-    "subject": "Your order confirmation",
-    "html": "<p>Thank you for your order!</p>"
-  }
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/subdomain/send -m POST -b '{
+  "from": "support@yourname.x402email.com",
+  "to": ["customer@example.com"],
+  "subject": "Your order confirmation",
+  "html": "<p>Thank you for your order!</p>"
+}'
 ```
 
 ### Create Subdomain Inboxes
 
 Create per-address inboxes on your subdomain ($0.25 each, max 100):
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/subdomain/inbox/create",
-  method="POST",
-  body={
-    "subdomain": "yourname",
-    "localPart": "support",
-    "forwardTo": "team@company.com"
-  }
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/subdomain/inbox/create -m POST -b '{
+  "subdomain": "yourname",
+  "localPart": "support",
+  "forwardTo": "team@company.com"
+}'
 ```
 
 ### Catch-All Forwarding
 
 Forward all unmatched addresses on your subdomain:
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/subdomain/update",
-  method="POST",
-  body={"subdomain": "yourname", "catchAllForwardTo": "catch-all@company.com"}
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/subdomain/update -m POST -b '{"subdomain": "yourname", "catchAllForwardTo": "catch-all@company.com"}'
 ```
 
 ### Manage Authorized Signers
 
 Allow other wallets to send from your subdomain:
 
-```mcp
-agentcash.fetch(
-  url="https://stableemail.dev/api/subdomain/signers",
-  method="POST",
-  body={"action": "add", "subdomain": "yourname", "walletAddress": "0x..."}
-)
+```bash
+npx agentcash fetch https://stableemail.dev/api/subdomain/signers -m POST -b '{"action": "add", "subdomain": "yourname", "walletAddress": "0x..."}'
 ```
 
 ## Images in Emails
@@ -287,7 +233,7 @@ Most email clients strip data URIs — always use hosted URLs.
 
 ### Quick Send
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
 - [ ] Send email via `/api/send`
 - [ ] Confirm delivery via messageId
 

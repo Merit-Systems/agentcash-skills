@@ -16,9 +16,7 @@ description: |
   - "shopping", "buy", "price", "product search"
   - "compare prices", "where to buy", "deals on"
 
-  Use agentcash.fetch for Serper endpoints. Both endpoints are $0.04 per call.
-mcp:
-  - agentcash
+  Use `npx agentcash fetch` for Serper endpoints. Both endpoints are $0.04 per call.
 ---
 
 # News & Shopping Search with Serper
@@ -40,14 +38,8 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 Search Google News for articles:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/serper/news",
-  method="POST",
-  body={
-    "q": "artificial intelligence regulation"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "artificial intelligence regulation"}'
 ```
 
 **Parameters:**
@@ -69,27 +61,14 @@ agentcash.fetch(
 
 Example - news from past week:
 
-```mcp
-agentcash.fetch(
-  url=".../serper/news",
-  body={
-    "q": "AI startups funding",
-    "tbs": "qdr:w"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "AI startups funding", "tbs": "qdr:w"}'
 ```
 
 ### Country/Language Filtering
 
-```mcp
-agentcash.fetch(
-  url=".../serper/news",
-  body={
-    "q": "technology news",
-    "gl": "uk",
-    "hl": "en"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "technology news", "gl": "uk", "hl": "en"}'
 ```
 
 **Returns:**
@@ -103,14 +82,8 @@ agentcash.fetch(
 
 Search Google Shopping for products:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/serper/shopping",
-  method="POST",
-  body={
-    "q": "wireless noise cancelling headphones"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "wireless noise cancelling headphones"}'
 ```
 
 **Parameters:**
@@ -131,30 +104,20 @@ agentcash.fetch(
 
 Get local pricing and availability:
 
-```mcp
-agentcash.fetch(
-  url=".../serper/shopping",
-  body={
-    "q": "MacBook Pro M3",
-    "gl": "us"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "MacBook Pro M3", "gl": "us"}'
 ```
 
 ## Workflows
 
 ### News Monitoring
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
 - [ ] Search with appropriate time filter
 - [ ] Review and summarize top stories
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/serper/news",
-  method="POST",
-  body={"q": "company name OR competitor name", "tbs": "qdr:d", "num": 20}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "company name OR competitor name", "tbs": "qdr:d", "num": 20}'
 ```
 
 ### Breaking News Research
@@ -163,12 +126,8 @@ agentcash.fetch(
 - [ ] Identify key sources and facts
 - [ ] Note developing aspects
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/serper/news",
-  method="POST",
-  body={"q": "breaking news topic", "tbs": "qdr:h"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "breaking news topic", "tbs": "qdr:h"}'
 ```
 
 ### Product Research
@@ -178,12 +137,8 @@ agentcash.fetch(
 - [ ] Compare prices across merchants
 - [ ] Present top options with pros/cons
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/serper/shopping",
-  method="POST",
-  body={"q": "ergonomic office chair under $500", "num": 20}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "ergonomic office chair under $500", "num": 20}'
 ```
 
 ### Price Comparison
@@ -192,12 +147,8 @@ agentcash.fetch(
 - [ ] Compare merchant prices
 - [ ] Note shipping and availability
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/serper/shopping",
-  method="POST",
-  body={"q": "exact product name model number"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "exact product name model number"}'
 ```
 
 ## Response Data

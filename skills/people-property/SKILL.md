@@ -17,9 +17,7 @@ description: |
   IMPORTANT: These endpoints contain personal information. Use responsibly and only for legitimate purposes.
   See rules/privacy.md for guidance.
 
-  Use agentcash.fetch for Whitepages endpoints. Both endpoints are $0.44 per call.
-mcp:
-  - agentcash
+  Use `npx agentcash fetch` for Whitepages endpoints. Both endpoints are $0.44 per call.
 ---
 
 # People & Property Search with Whitepages
@@ -43,17 +41,13 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 Search for a person by name and location:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/whitepages/person-search",
-  method="POST",
-  body={
-    "firstName": "John",
-    "lastName": "Smith",
-    "city": "Seattle",
-    "state": "WA"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{
+  "firstName": "John",
+  "lastName": "Smith",
+  "city": "Seattle",
+  "state": "WA"
+}'
 ```
 
 **Parameters:**
@@ -74,34 +68,27 @@ agentcash.fetch(
 
 Include more details for better matches:
 
-```mcp
-agentcash.fetch(
-  url=".../whitepages/person-search",
-  body={
-    "firstName": "John",
-    "lastName": "Smith",
-    "address": "123 Main St",
-    "city": "Seattle",
-    "state": "WA",
-    "zip": "98101"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{
+  "firstName": "John",
+  "lastName": "Smith",
+  "address": "123 Main St",
+  "city": "Seattle",
+  "state": "WA",
+  "zip": "98101"
+}'
 ```
 
 ## Property Search
 
 Search for property information:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/whitepages/property-search",
-  method="POST",
-  body={
-    "address": "123 Main Street",
-    "city": "Seattle",
-    "state": "WA"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/whitepages/property-search -m POST -b '{
+  "address": "123 Main Street",
+  "city": "Seattle",
+  "state": "WA"
+}'
 ```
 
 **Parameters:**
@@ -139,30 +126,22 @@ agentcash.fetch(
 ### Verify Contact Information
 
 - [ ] Confirm legitimate purpose (see [rules/privacy.md](rules/privacy.md))
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
 - [ ] Search with available details
 - [ ] Verify results match expected person
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/whitepages/person-search",
-  method="POST",
-  body={"firstName": "Jane", "lastName": "Doe", "city": "Portland", "state": "OR"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{"firstName": "Jane", "lastName": "Doe", "city": "Portland", "state": "OR"}'
 ```
 
 ### Property Research
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
 - [ ] Search by address
 - [ ] Review owner and property details
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/whitepages/property-search",
-  method="POST",
-  body={"address": "456 Oak Avenue", "city": "Austin", "state": "TX"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/whitepages/property-search -m POST -b '{"address": "456 Oak Avenue", "city": "Austin", "state": "TX"}'
 ```
 
 ### Reconnect with Someone
@@ -171,12 +150,8 @@ agentcash.fetch(
 - [ ] Provide as much detail as possible for accuracy
 - [ ] Review results for correct match
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/whitepages/person-search",
-  method="POST",
-  body={"firstName": "Michael", "lastName": "Johnson", "state": "CA"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{"firstName": "Michael", "lastName": "Johnson", "state": "CA"}'
 ```
 
 ## Cost Considerations

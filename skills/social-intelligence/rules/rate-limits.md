@@ -56,20 +56,17 @@ x402 endpoints don't have strict rate limits per se, but:
 ## Efficient Usage Patterns
 
 ### Do This
-```mcp
+```bash
 # One targeted search
-agentcash.fetch(
-  url=".../reddit/search",
-  body={"query": "specific topic", "subreddit": "relevant", "sort": "top"}
-)
+npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "specific topic", "subreddit": "relevant", "sort": "top"}'
 ```
 
 ### Avoid This
-```mcp
-# Multiple broad searches for same topic
-agentcash.fetch(body={"query": "AI"})
-agentcash.fetch(body={"query": "artificial intelligence"})
-agentcash.fetch(body={"query": "machine learning"})
+```bash
+# Multiple broad searches for same topic — wasteful
+npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "AI"}'
+npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "artificial intelligence"}'
+npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "machine learning"}'
 ```
 
 Instead, craft one good query or search sequentially only when each result informs the next.

@@ -21,17 +21,15 @@ description: |
   - "verify email", "check email", "is this email valid"
   - "influencer", "creator", "influencer contact", "influencer marketing"
 
-  ALWAYS use agentcash.fetch for stableenrich.dev endpoints - never curl or WebFetch.
+  ALWAYS use `npx agentcash fetch` for stableenrich.dev endpoints - never curl or WebFetch.
   Returns structured JSON data, not web page HTML.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`https://stableenrich.dev/api/apollo/...`, `https://stableenrich.dev/api/clado/...`, etc.).
-mcp:
-  - agentcash
 ---
 
 # Data Enrichment with x402 APIs
 
-Use the agentcash MCP tools to access enrichment APIs at stableenrich.dev.
+Use the agentcash CLI to access enrichment APIs at stableenrich.dev.
 
 ## Setup
 
@@ -57,37 +55,29 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 ### Standard Enrichment
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
-- [ ] Use `agentcash.discover_api_endpoints(url="https://stableenrich.dev")` to list all endpoints
-- [ ] Use `agentcash.check_endpoint_schema(url="...")` to see expected parameters and pricing
-- [ ] Call endpoint with `agentcash.fetch`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] Use `npx agentcash discover https://stableenrich.dev` to list all endpoints
+- [ ] Use `npx agentcash check <endpoint-url>` to see expected parameters and pricing
+- [ ] Call endpoint with `npx agentcash fetch`
 - [ ] Parse and present results
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/apollo/people-enrich",
-  method="POST",
-  body={"email": "user@company.com"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b '{"email": "user@company.com"}'
 ```
 
 ## Person Enrichment
 
 Enrich a person using any available identifier:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/apollo/people-enrich",
-  method="POST",
-  body={
-    "email": "john@company.com",
-    "first_name": "John",
-    "last_name": "Doe",
-    "organization_name": "Acme Inc",
-    "domain": "company.com",
-    "linkedin_url": "https://linkedin.com/in/johndoe"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b '{
+  "email": "john@company.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "organization_name": "Acme Inc",
+  "domain": "company.com",
+  "linkedin_url": "https://linkedin.com/in/johndoe"
+}'
 ```
 
 **Input options** (provide any combination):
@@ -102,14 +92,8 @@ agentcash.fetch(
 
 Enrich a company by domain:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/apollo/org-enrich",
-  method="POST",
-  body={
-    "domain": "stripe.com"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/apollo/org-enrich -m POST -b '{"domain": "stripe.com"}'
 ```
 
 **Returns**: Company name, industry, employee count, revenue estimates, funding info, technologies used, social links.
@@ -118,17 +102,13 @@ agentcash.fetch(
 
 Search for people matching criteria:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/apollo/people-search",
-  method="POST",
-  body={
-    "q_keywords": "software engineer",
-    "person_titles": ["CTO", "VP Engineering"],
-    "organization_domains": ["google.com", "meta.com"],
-    "person_locations": ["San Francisco, CA"]
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/apollo/people-search -m POST -b '{
+  "q_keywords": "software engineer",
+  "person_titles": ["CTO", "VP Engineering"],
+  "organization_domains": ["google.com", "meta.com"],
+  "person_locations": ["San Francisco, CA"]
+}'
 ```
 
 **Search filters**:
@@ -142,30 +122,20 @@ agentcash.fetch(
 
 Search for companies matching criteria:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/apollo/org-search",
-  method="POST",
-  body={
-    "q_keywords": "fintech",
-    "organization_locations": ["New York, NY"],
-    "organization_num_employees_ranges": ["51-200", "201-500"]
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/apollo/org-search -m POST -b '{
+  "q_keywords": "fintech",
+  "organization_locations": ["New York, NY"],
+  "organization_num_employees_ranges": ["51-200", "201-500"]
+}'
 ```
 
 ## LinkedIn Scraping (Clado)
 
 Get full LinkedIn profile data:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/clado/linkedin-scrape",
-  method="POST",
-  body={
-    "linkedin_url": "https://linkedin.com/in/johndoe"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/clado/linkedin-scrape -m POST -b '{"linkedin_url": "https://linkedin.com/in/johndoe"}'
 ```
 
 **Returns**: Experience history, education, skills, certifications, recommendations, connection count.
@@ -174,15 +144,11 @@ agentcash.fetch(
 
 Find missing email or phone:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/clado/contacts-enrich",
-  method="POST",
-  body={
-    "linkedin_url": "https://linkedin.com/in/johndoe",
-    "email": "john@example.com"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/clado/contacts-enrich -m POST -b '{
+  "linkedin_url": "https://linkedin.com/in/johndoe",
+  "email": "john@example.com"
+}'
 ```
 
 **Returns**: Validated email addresses and phone numbers with confidence scores.
@@ -191,33 +157,25 @@ agentcash.fetch(
 
 Process up to 10 records in one request:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/apollo/people-enrich/bulk",
-  method="POST",
-  body={
-    "people": [
-      { "email": "person1@company.com" },
-      { "email": "person2@company.com" },
-      { "linkedin_url": "https://linkedin.com/in/person3" }
-    ]
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich/bulk -m POST -b '{
+  "people": [
+    {"email": "person1@company.com"},
+    {"email": "person2@company.com"},
+    {"linkedin_url": "https://linkedin.com/in/person3"}
+  ]
+}'
 ```
 
 For companies:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/apollo/org-enrich/bulk",
-  method="POST",
-  body={
-    "organizations": [
-      { "domain": "company1.com" },
-      { "domain": "company2.com" }
-    ]
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/apollo/org-enrich/bulk -m POST -b '{
+  "organizations": [
+    {"domain": "company1.com"},
+    {"domain": "company2.com"}
+  ]
+}'
 ```
 
 ## Cost Optimization
@@ -226,8 +184,8 @@ agentcash.fetch(
 
 Reduce costs by excluding unneeded fields:
 
-```
-body={
+```json
+{
   "email": "john@company.com",
   "excludeFields": ["employment_history", "photos", "phone_numbers"]
 }
@@ -254,31 +212,12 @@ Use search endpoints ($0.02) to find the right records before enriching ($0.0495
 2. Review results, pick the right match
 3. Enrich only the matches you need
 
-## Parallel Calls
-
-When enriching multiple independent records, make calls in parallel:
-
-```mcp
-# These can run simultaneously since they're independent
-agentcash.fetch(url=".../people-enrich", body={"email": "a@co.com"})
-agentcash.fetch(url=".../people-enrich", body={"email": "b@co.com"})
-```
-
-Or use bulk endpoints for the best efficiency.
-
-
 ## Email Verification (Hunter)
 
 Verify if an email address is deliverable before sending outreach:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/hunter/email-verifier",
-  method="POST",
-  body={
-    "email": "john@stripe.com"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/hunter/email-verifier -m POST -b '{"email": "john@stripe.com"}'
 ```
 
 **Returns**: Deliverability status, MX record validation, SMTP verification, confidence score, and flags for catch-all, disposable, or role-based addresses.
@@ -301,16 +240,12 @@ Enrich social media influencer/creator profiles across Instagram, TikTok, YouTub
 
 ### Find Profiles by Email
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/influencer/enrich-by-email",
-  method="POST",
-  body={
-    "email": "creator@example.com",
-    "platform": "instagram",
-    "enrichment_mode": "enhanced"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/influencer/enrich-by-email -m POST -b '{
+  "email": "creator@example.com",
+  "platform": "instagram",
+  "enrichment_mode": "enhanced"
+}'
 ```
 
 **Parameters:**
@@ -322,17 +257,13 @@ agentcash.fetch(
 
 ### Enrich by Social Handle
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/influencer/enrich-by-social",
-  method="POST",
-  body={
-    "platform": "instagram",
-    "username": "creator_handle",
-    "enrichment_mode": "enhanced",
-    "email_required": "must_have"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/influencer/enrich-by-social -m POST -b '{
+  "platform": "instagram",
+  "username": "creator_handle",
+  "enrichment_mode": "enhanced",
+  "email_required": "must_have"
+}'
 ```
 
 **Parameters:**

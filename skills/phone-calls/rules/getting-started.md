@@ -2,28 +2,28 @@
 
 ## Setup
 
-1. **Install the agentcash MCP:**
+1. **Install the agentcash CLI:**
    ```bash
-   npx agentcash@latest install --client claude-code -y
+   npm install -g agentcash
    ```
 
 2. **Check wallet:**
-```mcp
-   agentcash.get_wallet_info
+   ```bash
+   npx agentcash wallet info
    ```
 
 3. **Fund wallet** (if needed):
-   - Redeem invite: `agentcash.redeem_invite(code="YOUR_CODE")`
+   - Redeem invite: `npx agentcash wallet redeem YOUR_CODE`
    - Or send USDC on Base to your wallet address
 
 ## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| "MCP tool not found" | Run install command, restart Claude Code |
+| "Command not found" | Run `npm install -g agentcash` |
 | "Insufficient balance" | Fund wallet with USDC — calls cost $0.54 each |
 | "Payment failed" | Check balance, retry (transient errors) |
-| Call not completing | Poll GET /api/call/{call_id} every 5-10s until `completed: true` |
+| Call not completing | Poll `npx agentcash fetch https://stablephone.dev/api/call/{call_id}` every 5-10s until `completed: true` |
 | "405 Method Not Allowed" | Verify endpoint path matches exactly from Quick Reference table in SKILL.md |
 | Invalid phone number | Use E.164 format: +1XXXXXXXXXX for US numbers |
 

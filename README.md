@@ -1,16 +1,41 @@
 # agentcash Skills
 
-Skills for accessing premium, x402-protected APIs using the agentcash MCP.
+Skills for accessing premium, x402-protected APIs using the agentcash CLI or MCP.
+
+## Installation
+
+### CLI mode (recommended)
 
 ```bash
 npx skills add Merit-Systems/agentcash-skills --all --yes
+```
+
+After installing, restart your agent and start a new chat:
+
+```
+What can I do with with agentcash?
+```
+
+### MCP mode
+
+First install the agentcash MCP server:
+
+```bash
+npx agentcash@latest install    # interactive
+npx agentcash@latest install -y # non-interactive (for agents)
+```
+
+Then install the skills:
+
+```bash
+npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 ```
 
 ## Available Skills
 
 | Skill | Use For | Endpoints |
 |-------|---------|-----------|
-| [wallet](skills/agentcash-wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
+| [agentcash-wallet](skills/agentcash-wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
 | [upload-and-share](skills/upload-and-share/) | Upload files & get public URLs | StableUpload |
 | [media-generation](skills/media-generation/) | AI image & video generation | StableStudio |
 | [social-scraping](skills/social-scraping/) | Scrape profiles, posts, followers across 6 platforms | StableSocial |
@@ -23,60 +48,57 @@ npx skills add Merit-Systems/agentcash-skills --all --yes
 | [news-shopping](skills/news-shopping/) | News & product search | Serper |
 | [people-property](skills/people-property/) | People & property lookup | Whitepages |
 
-
-## Prerequisites
-
-Install the agentcash MCP:
-
-```bash
-npx agentcash@latest install --client claude-code
-```
-
-or for all clients:
-
-```bash
-npx agentcash@latest install
-```
-
-**Note for agents:** Use the non-interactive mode with `-y` flag:
-
-```bash
-npx agentcash@latest install -y
-```
-
-This enables the agentcash MCP tools used by these skills.
-
-## Installation
-
-```bash
-npx skills add Merit-Systems/agentcash-skills --all --yes
-```
+These skills are also available in MCP mode (the [mcp](mcp/skills/) directory). Both directories contain the same skills — each skill has a `SKILL.md` and a `rules/` directory. Choose the mode that matches your environment.
 
 ## Quick Start
 
+### CLI mode
+
+1. **Check your balance:**
+```bash
+npx agentcash wallet info
+```
+
+2. **Discover available endpoints:**
+```bash
+npx agentcash discover https://stableenrich.dev
+```
+
+3. **Check endpoint pricing before calling:**
+```bash
+npx agentcash check https://stableenrich.dev/api/apollo/people-enrich
+```
+
+4. **Make API calls:**
+```bash
+npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b '{"email": "user@company.com"}'
+```
+
+### MCP mode
+
 1. **Check your balance:**
 ```mcp
-   agentcash.get_wallet_info
-   ```
+agentcash.get_wallet_info()
+```
 
 2. **Discover available endpoints:**
 ```mcp
-   agentcash.discover_api_endpoints(url="https://stableenrich.dev")
-   ```
+agentcash.discover_api_endpoints(url="https://stableenrich.dev")
+```
 
 3. **Check endpoint pricing before calling:**
 ```mcp
-   agentcash.check_endpoint_schema(url="https://stableenrich.dev/api/apollo/people-enrich")
-   ```
+agentcash.check_endpoint_schema(url="https://stableenrich.dev/api/apollo/people-enrich")
+```
 
 4. **Make API calls:**
 ```mcp
-   agentcash.fetch(
-     url="https://stableenrich.dev/api/apollo/people-enrich",
-     method="POST",
-     body={"email": "user@company.com"}
-   )
-   ```
+agentcash.fetch(
+  url="https://stableenrich.dev/api/apollo/people-enrich",
+  method="POST",
+  body={"email": "user@company.com"}
+)
+```
 
 ## IMPORTANT: Do Not Guess Endpoints
 
@@ -90,9 +112,8 @@ npx skills add Merit-Systems/agentcash-skills --all --yes
 | `/api/twitter/search` | `https://stableenrich.dev/api/grok/x-search` |
 
 If you don't know the exact endpoint path:
-1. **Use `discover_api_endpoints`** to list all available endpoints
+1. **Use discover** to list all available endpoints
 2. **Consult the skill documentation** (SKILL.md files have correct paths)
-3. **Check ENDPOINTS.md** for the complete reference
 
 Guessing endpoints will result in `405 Method Not Allowed` errors and wasted API calls.
 
@@ -100,9 +121,5 @@ Guessing endpoints will result in `405 Method Not Allowed` errors and wasted API
 
 If your balance is low:
 
-1. Redeem an invite code: `agentcash.redeem_invite(code="YOUR_CODE")`
+1. Redeem an invite code: `npx agentcash wallet redeem YOUR_CODE`
 2. Or deposit USDC on Base to your wallet address
-
-## All Endpoints Reference
-
-See [ENDPOINTS.md](ENDPOINTS.md) for a complete reference of all available endpoints with pricing.

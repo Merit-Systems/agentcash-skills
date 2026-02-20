@@ -15,9 +15,7 @@ description: |
   - "public URL", "download link", "put online"
   - "share file", "file hosting", "upload file"
 
-  ALWAYS use agentcash.fetch for stableupload.dev endpoints — never curl or WebFetch for the purchase step.
-mcp:
-  - agentcash
+  ALWAYS use `npx agentcash fetch` for stableupload.dev endpoints — never curl or WebFetch for the purchase step.
 ---
 
 # Upload and Share via StableUpload
@@ -48,8 +46,8 @@ All uploads expire after 6 months.
 
 ### 1. Check wallet balance
 
-```mcp
-agentcash.get_wallet_info()
+```bash
+npx agentcash wallet info
 ```
 
 Ensure sufficient USDC balance for the chosen tier. If balance is low, show the deposit link.
@@ -66,12 +64,8 @@ Pick the smallest tier that fits the file. Check file size first with `ls -la` o
 
 ### 3. Buy the upload slot
 
-```mcp
-agentcash.fetch(
-  url="https://stableupload.dev/api/upload",
-  method="POST",
-  body={"filename": "report.pdf", "contentType": "application/pdf", "tier": "10mb"}
-)
+```bash
+npx agentcash fetch https://stableupload.dev/api/upload -m POST -b '{"filename": "report.pdf", "contentType": "application/pdf", "tier": "10mb"}'
 ```
 
 **Parameters:**
@@ -122,20 +116,14 @@ Present the `publicUrl` to the user. This URL is publicly accessible immediately
 
 To list uploads for the current wallet:
 
-```mcp
-agentcash.fetch_with_auth(
-  url="https://stableupload.dev/api/uploads",
-  method="GET"
-)
+```bash
+npx agentcash fetch https://stableupload.dev/api/uploads
 ```
 
 ## Get Upload Details
 
-```mcp
-agentcash.fetch_with_auth(
-  url="https://stableupload.dev/api/download/k7gm3nqp2",
-  method="GET"
-)
+```bash
+npx agentcash fetch https://stableupload.dev/api/download/k7gm3nqp2
 ```
 
 ## Key Details
@@ -145,7 +133,7 @@ agentcash.fetch_with_auth(
 - **Public URLs last 6 months** from purchase date
 - **Any file type accepted** — contentType is advisory for the browser, not a restriction
 - **S3-backed** — files stored on AWS S3 with public read access
-- **Discovery endpoint**: `agentcash.discover_api_endpoints(url="https://stableupload.dev")` if you need to verify endpoints
+- **Discovery endpoint**: `npx agentcash discover https://stableupload.dev` if you need to verify endpoints
 
 ## Common Patterns
 
@@ -166,7 +154,7 @@ Upload the image, then reference the `publicUrl` in email HTML:
 
 ## Error Handling
 
-- **Insufficient balance**: Show the deposit link from `get_wallet_info`
+- **Insufficient balance**: Show the deposit link from `npx agentcash wallet info`
 - **File too large for tier**: Suggest the next tier up
 - **Upload URL expired**: Buy a new slot (the previous payment is non-refundable)
 - **curl fails**: Verify the file path exists and the uploadUrl is correctly quoted
