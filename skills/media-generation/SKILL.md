@@ -15,7 +15,7 @@ description: |
   - "edit image", "modify image"
   - "stablestudio", "nano-banana", "sora", "veo"
 
-  ALWAYS use agentcash.fetch for stablestudio.dev endpoints.
+  ALWAYS use agentcash.fetch or agentcash.fetch_with_auth for stablestudio.dev endpoints.
 mcp:
   - agentcash
 ---
@@ -32,11 +32,11 @@ If the agentcash MCP is not yet installed, see [rules/getting-started.md](rules/
 
 | Task | Endpoint | Cost | Time |
 |------|----------|------|------|
-| Image (default) | `/api/x402/nano-banana-pro/generate` | $0.13-0.24 | ~10s |
-| Image (budget) | `/api/x402/nano-banana/generate` | $0.039 | ~5s |
-| Video (default) | `/api/x402/veo-3.1/generate` | $1.60-3.20 | 1-2min |
-| Video (budget) | `/api/x402/wan-2.5/t2v` | $0.34-1.02 | 2-5min |
-| Image edit | `/api/x402/nano-banana-pro/edit` | $0.13-0.24 | ~10s |
+| Image (default) | `https://stablestudio.dev/api/x402/nano-banana-pro/generate` | $0.13-0.24 | ~10s |
+| Image (budget) | `https://stablestudio.dev/api/x402/nano-banana/generate` | $0.039 | ~5s |
+| Video (default) | `https://stablestudio.dev/api/x402/veo-3.1/generate` | $1.60-3.20 | 1-2min |
+| Video (budget) | `https://stablestudio.dev/api/x402/wan-2.5/t2v` | $0.34-1.02 | 2-5min |
+| Image edit | `https://stablestudio.dev/api/x402/nano-banana-pro/edit` | $0.13-0.24 | ~10s |
 
 ## Image Generation
 
