@@ -32,11 +32,11 @@ If the agentcash MCP is not yet installed, see [rules/getting-started.md](rules/
 
 | Task | Endpoint | Cost | Time |
 |------|----------|------|------|
-| Image (default) | `https://stablestudio.dev/api/x402/nano-banana-pro/generate` | $0.13-0.24 | ~10s |
-| Image (budget) | `https://stablestudio.dev/api/x402/nano-banana/generate` | $0.039 | ~5s |
-| Video (default) | `https://stablestudio.dev/api/x402/veo-3.1/generate` | $1.60-3.20 | 1-2min |
-| Video (budget) | `https://stablestudio.dev/api/x402/wan-2.5/t2v` | $0.34-1.02 | 2-5min |
-| Image edit | `https://stablestudio.dev/api/x402/nano-banana-pro/edit` | $0.13-0.24 | ~10s |
+| Image (default) | `https://stablestudio.dev/api/generate/nano-banana-pro/generate` | $0.13-0.24 | ~10s |
+| Image (budget) | `https://stablestudio.dev/api/generate/nano-banana/generate` | $0.039 | ~5s |
+| Video (default) | `https://stablestudio.dev/api/generate/veo-3.1/generate` | $1.60-3.20 | 1-2min |
+| Video (budget) | `https://stablestudio.dev/api/generate/wan-2.6/t2v` | $0.34-1.02 | 2-5min |
+| Image edit | `https://stablestudio.dev/api/generate/nano-banana-pro/edit` | $0.13-0.24 | ~10s |
 
 ## Image Generation
 
@@ -44,7 +44,7 @@ If the agentcash MCP is not yet installed, see [rules/getting-started.md](rules/
 
 ```mcp
 agentcash.fetch(
-  url="https://stablestudio.dev/api/x402/nano-banana-pro/generate",
+  url="https://stablestudio.dev/api/generate/nano-banana-pro/generate",
   method="POST",
   body={
     "prompt": "a cat wearing a space helmet, photorealistic",
@@ -64,7 +64,7 @@ agentcash.fetch(
 
 ```mcp
 agentcash.fetch(
-  url="https://stablestudio.dev/api/x402/veo-3.1/generate",
+  url="https://stablestudio.dev/api/generate/veo-3.1/generate",
   method="POST",
   body={
     "prompt": "a timelapse of clouds moving over mountains",
@@ -84,7 +84,7 @@ Generation returns a `jobId`. Poll until complete:
 
 ```mcp
 agentcash.fetch_with_auth(
-  url="https://stablestudio.dev/api/x402/jobs/{jobId}"
+  url="https://stablestudio.dev/api/jobs/{jobId}"
 )
 ```
 
@@ -96,7 +96,7 @@ Requires uploading the source image first. See [rules/uploads.md](rules/uploads.
 
 ```mcp
 agentcash.fetch(
-  url="https://stablestudio.dev/api/x402/nano-banana-pro/edit",
+  url="https://stablestudio.dev/api/generate/nano-banana-pro/edit",
   method="POST",
   body={
     "prompt": "change the background to a beach sunset",
@@ -113,5 +113,5 @@ agentcash.fetch(
 | nano-banana | Image | Quick drafts, budget |
 | gpt-image-1.5 | Image | Fast, variable quality |
 | veo-3.1 | Video | High quality, 1080p |
-| wan-2.5 | Video | Budget, text or image input |
+| wan-2.6 | Video | Budget, text or image input |
 | sora-2 | Video | Premium quality |

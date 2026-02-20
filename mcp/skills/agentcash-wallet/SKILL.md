@@ -12,7 +12,7 @@ description: |
   - Troubleshooting payment failures
 
   TRIGGERS:
-  - "balance", "wallet", "funds", "credits"
+  - "balance", "wallet", "funds", "credits", "x402"
   - "redeem", "invite code", "promo code"
   - "deposit", "add funds", "top up"
   - "discover", "endpoints", "what APIs", "pricing"

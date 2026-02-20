@@ -6,7 +6,7 @@ Upload images for editing or image-to-video. Cost: $0.01 per upload.
 
 **1. Get upload token** ($0.01)
 ```bash
-npx agentcash fetch https://stablestudio.dev/api/x402/uploads -m POST -b '{"filename": "image.png", "contentType": "image/png"}'
+npx agentcash fetch https://stablestudio.dev/api/upload -m POST -b '{"filename": "image.png", "contentType": "image/png"}'
 ```
 
 Returns: `{uploadId, clientToken, pathname}`
@@ -24,7 +24,7 @@ Returns: `{url: "https://....blob.vercel-storage.com/..."}`
 
 **3. Confirm upload**
 ```bash
-npx agentcash fetch https://stablestudio.dev/api/x402/uploads/confirm -m POST -b '{"uploadId": "...", "blobUrl": "https://..."}'
+npx agentcash fetch https://stablestudio.dev/api/upload/confirm -m POST -b '{"uploadId": "...", "blobUrl": "https://..."}'
 ```
 
 Use the `blobUrl` in edit/i2v requests.

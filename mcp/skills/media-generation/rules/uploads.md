@@ -7,7 +7,7 @@ Upload images for editing or image-to-video. Cost: $0.01 per upload.
 **1. Get upload token** ($0.01)
 ```mcp
 agentcash.fetch(
-  url="https://stablestudio.dev/api/x402/uploads",
+  url="https://stablestudio.dev/api/upload",
   method="POST",
   body={"filename": "image.png", "contentType": "image/png"}
 )
@@ -29,7 +29,7 @@ Returns: `{url: "https://....blob.vercel-storage.com/..."}`
 **3. Confirm upload**
 ```mcp
 agentcash.fetch_with_auth(
-  url="https://stablestudio.dev/api/x402/uploads/confirm",
+  url="https://stablestudio.dev/api/upload/confirm",
   method="POST",
   body={"uploadId": "...", "blobUrl": "https://..."}
 )

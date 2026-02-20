@@ -123,3 +123,15 @@ If your balance is low:
 
 1. Redeem an invite code: `npx agentcash wallet redeem YOUR_CODE`
 2. Or deposit USDC on Base to your wallet address
+
+
+## Update prompts
+
+### OpenClaw CLI mode
+
+```
+
+I want to use agentcash and all of the CLI mode skills available in the https://github.com/Merit-Systems/agentcash-skills repository.
+
+Follow the installation instructions in the README. If you have old versions of these skills, please update them to the latest version. Please remove the x402 MCP from your MCP list (or mcporter if you are openclaw).
+
