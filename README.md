@@ -135,3 +135,5 @@ I want to use agentcash and all of the CLI mode skills available in the https://
 
 Follow the installation instructions in the README. If you have old versions of these skills, please update them to the latest version. Please remove the x402 MCP from your MCP list (or mcporter if you are openclaw).
 
+Finally, test the skills by generating an image with the media-generation skill.
+```
