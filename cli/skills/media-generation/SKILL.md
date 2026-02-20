@@ -15,9 +15,7 @@ description: |
   - "edit image", "modify image"
   - "stablestudio", "nano-banana", "sora", "veo"
 
-  ALWAYS use agentcash.fetch or agentcash.fetch_with_auth for stablestudio.dev endpoints.
-mcp:
-  - agentcash
+  ALWAYS use `npx agentcash fetch` for stablestudio.dev endpoints.
 ---
 
 # Media Generation with StableStudio
@@ -26,7 +24,7 @@ Generate images and videos via x402 payments at `https://stablestudio.dev`.
 
 ## Setup
 
-If the agentcash MCP is not yet installed, see [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+If the agentcash CLI is not yet installed, see [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
 
 ## Quick Reference
 
@@ -42,16 +40,12 @@ If the agentcash MCP is not yet installed, see [rules/getting-started.md](rules/
 
 **Recommended: nano-banana-pro** (best quality/cost)
 
-```mcp
-agentcash.fetch(
-  url="https://stablestudio.dev/api/x402/nano-banana-pro/generate",
-  method="POST",
-  body={
-    "prompt": "a cat wearing a space helmet, photorealistic",
-    "aspectRatio": "16:9",
-    "imageSize": "2K"
-  }
-)
+```bash
+npx agentcash fetch https://stablestudio.dev/api/x402/nano-banana-pro/generate -m POST -b '{
+  "prompt": "a cat wearing a space helmet, photorealistic",
+  "aspectRatio": "16:9",
+  "imageSize": "2K"
+}'
 ```
 
 **Options:**
@@ -62,16 +56,12 @@ agentcash.fetch(
 
 **Recommended: veo-3.1** (best quality/cost)
 
-```mcp
-agentcash.fetch(
-  url="https://stablestudio.dev/api/x402/veo-3.1/generate",
-  method="POST",
-  body={
-    "prompt": "a timelapse of clouds moving over mountains",
-    "durationSeconds": "6",
-    "aspectRatio": "16:9"
-  }
-)
+```bash
+npx agentcash fetch https://stablestudio.dev/api/x402/veo-3.1/generate -m POST -b '{
+  "prompt": "a timelapse of clouds moving over mountains",
+  "durationSeconds": "6",
+  "aspectRatio": "16:9"
+}'
 ```
 
 **Options:**
@@ -82,10 +72,8 @@ agentcash.fetch(
 
 Generation returns a `jobId`. Poll until complete:
 
-```mcp
-agentcash.fetch_with_auth(
-  url="https://stablestudio.dev/api/x402/jobs/{jobId}"
-)
+```bash
+npx agentcash fetch https://stablestudio.dev/api/x402/jobs/{jobId}
 ```
 
 Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`.
@@ -94,15 +82,11 @@ Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`
 
 Requires uploading the source image first. See [rules/uploads.md](rules/uploads.md).
 
-```mcp
-agentcash.fetch(
-  url="https://stablestudio.dev/api/x402/nano-banana-pro/edit",
-  method="POST",
-  body={
-    "prompt": "change the background to a beach sunset",
-    "images": ["https://...blob-url..."]
-  }
-)
+```bash
+npx agentcash fetch https://stablestudio.dev/api/x402/nano-banana-pro/edit -m POST -b '{
+  "prompt": "change the background to a beach sunset",
+  "images": ["https://...blob-url..."]
+}'
 ```
 
 ## Model Comparison

@@ -16,9 +16,7 @@ description: |
   - "business details", "opening hours", "reviews for"
   - "places in", "what's near", "directions to"
 
-  Use agentcash.fetch for Google Maps endpoints. Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
-mcp:
-  - agentcash
+  Use `npx agentcash fetch` for Google Maps endpoints. Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
 ---
 
 # Local Search with Google Maps
@@ -46,14 +44,8 @@ See [rules/partial-vs-full.md](rules/partial-vs-full.md) for tier selection guid
 
 Search for places by text query:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/google-maps/text-search/partial",
-  method="POST",
-  body={
-    "textQuery": "coffee shops in downtown Seattle"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/google-maps/text-search/partial -m POST -b '{"textQuery": "coffee shops in downtown Seattle"}'
 ```
 
 **Parameters:**
@@ -69,23 +61,16 @@ agentcash.fetch(
 
 Search for places near a location:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/google-maps/nearby-search/partial",
-  method="POST",
-  body={
-    "locationRestriction": {
-      "circle": {
-        "center": {
-          "latitude": 47.6062,
-          "longitude": -122.3321
-        },
-        "radius": 1000
-      }
-    },
-    "includedTypes": ["restaurant", "cafe"]
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/google-maps/nearby-search/partial -m POST -b '{
+  "locationRestriction": {
+    "circle": {
+      "center": {"latitude": 47.6062, "longitude": -122.3321},
+      "radius": 1000
+    }
+  },
+  "includedTypes": ["restaurant", "cafe"]
+}'
 ```
 
 **Parameters:**
@@ -99,14 +84,8 @@ agentcash.fetch(
 
 Get detailed info for a specific place:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/google-maps/place-details/partial",
-  method="POST",
-  body={
-    "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/google-maps/place-details/partial -m POST -b '{"placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4"}'
 ```
 
 **Input:**
@@ -136,25 +115,17 @@ Use these with `includedTypes` / `excludedTypes`:
 
 ### Find Businesses in Area
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
 - [ ] Text search (partial) to find options
 - [ ] Review results and select top picks
 - [ ] Get full details for selected places
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/google-maps/text-search/partial",
-  method="POST",
-  body={"textQuery": "Italian restaurants downtown Portland"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/google-maps/text-search/partial -m POST -b '{"textQuery": "Italian restaurants downtown Portland"}'
 ```
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/google-maps/place-details/full",
-  method="POST",
-  body={"placeId": "ChIJ..."}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/google-maps/place-details/full -m POST -b '{"placeId": "ChIJ..."}'
 ```
 
 ### Nearby Search with Filters
@@ -163,22 +134,18 @@ agentcash.fetch(
 - [ ] Search with location restriction and filters
 - [ ] Present sorted results
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/google-maps/nearby-search/partial",
-  method="POST",
-  body={
-    "locationRestriction": {
-      "circle": {
-        "center": {"latitude": 40.7128, "longitude": -74.0060},
-        "radius": 500
-      }
-    },
-    "includedTypes": ["restaurant"],
-    "minRating": 4.0,
-    "openNow": true
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/google-maps/nearby-search/partial -m POST -b '{
+  "locationRestriction": {
+    "circle": {
+      "center": {"latitude": 40.7128, "longitude": -74.0060},
+      "radius": 500
+    }
+  },
+  "includedTypes": ["restaurant"],
+  "minRating": 4.0,
+  "openNow": true
+}'
 ```
 
 ### Compare Places with Reviews
@@ -187,12 +154,8 @@ agentcash.fetch(
 - [ ] Fetch full details for each candidate
 - [ ] Compare ratings, reviews, and amenities
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/google-maps/place-details/full",
-  method="POST",
-  body={"placeId": "place_id_here"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/google-maps/place-details/full -m POST -b '{"placeId": "place_id_here"}'
 ```
 
 ## Cost Optimization

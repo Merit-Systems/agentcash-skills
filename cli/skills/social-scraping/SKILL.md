@@ -21,11 +21,9 @@ description: |
 
   IMPORTANT: StableSocial uses an async two-step flow. Step 1: POST triggers data collection (paid, $0.06). Step 2: Poll GET /api/jobs?token=... until finished (free). All endpoints are $0.06 per call.
 
-  Use agentcash.fetch for paid POST triggers. Use agentcash.fetch_with_auth for free GET polling.
+  Use `npx agentcash fetch` for paid POST triggers. Use `npx agentcash fetch` for free GET polling.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference tables below. All paths include a platform prefix (e.g. `https://stablesocial.dev/api/tiktok/...`).
-mcp:
-  - agentcash
 ---
 
 # Social Media Scraping with StableSocial
@@ -42,12 +40,8 @@ Every request follows a **trigger-then-poll** pattern:
 
 ### Step 1: Trigger (paid, $0.06)
 
-```mcp
-agentcash.fetch(
-  url="https://stablesocial.dev/api/x/profile",
-  method="POST",
-  body={"handle": "elonmusk"}
-)
+```bash
+npx agentcash fetch https://stablesocial.dev/api/x/profile -m POST -b '{"handle": "elonmusk"}'
 ```
 
 Returns `202 Accepted` with a JWT token:
@@ -57,11 +51,8 @@ Returns `202 Accepted` with a JWT token:
 
 ### Step 2: Poll (free)
 
-```mcp
-agentcash.fetch(
-  url="https://stablesocial.dev/api/jobs?token=eyJhbGciOiJIUzI1NiIs...",
-  method="GET"
-)
+```bash
+npx agentcash fetch "https://stablesocial.dev/api/jobs?token=eyJhbGciOiJIUzI1NiIs..."
 ```
 
 - `{"status": "pending"}` — poll again in 3-5 seconds
@@ -173,21 +164,13 @@ Tokens expire after 30 minutes. Jobs typically finish in 5-60 seconds.
 
 Some endpoints require a prior collection. For example, to get followers you must first trigger the profile:
 
-```mcp
+```bash
 # 1. Trigger profile collection
-agentcash.fetch(
-  url="https://stablesocial.dev/api/instagram/profile",
-  method="POST",
-  body={"handle": "natgeo"}
-)
+npx agentcash fetch https://stablesocial.dev/api/instagram/profile -m POST -b '{"handle": "natgeo"}'
 # Poll until finished...
 
 # 2. Now fetch followers (depends on profile)
-agentcash.fetch(
-  url="https://stablesocial.dev/api/instagram/followers",
-  method="POST",
-  body={"handle": "natgeo"}
-)
+npx agentcash fetch https://stablesocial.dev/api/instagram/followers -m POST -b '{"handle": "natgeo"}'
 # Poll until finished...
 ```
 
@@ -195,12 +178,8 @@ agentcash.fetch(
 
 When results are paginated, the response includes `page_info.has_next_page` and a `cursor`. Pass the cursor to fetch the next page (each page is a new paid POST):
 
-```mcp
-agentcash.fetch(
-  url="https://stablesocial.dev/api/tiktok/followers",
-  method="POST",
-  body={"handle": "username", "cursor": "abc123"}
-)
+```bash
+npx agentcash fetch https://stablesocial.dev/api/tiktok/followers -m POST -b '{"handle": "username", "cursor": "abc123"}'
 ```
 
 ## Key Parameters
@@ -218,7 +197,7 @@ agentcash.fetch(
 
 ### Profile Deep Dive
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
 - [ ] Trigger profile collection
 - [ ] Poll until finished
 - [ ] Trigger posts collection
@@ -230,10 +209,10 @@ agentcash.fetch(
 - [ ] Search same keyword across multiple platforms
 - [ ] Compare results and synthesize findings
 
-```mcp
-agentcash.fetch(url="https://stablesocial.dev/api/x/search", method="POST", body={"query": "brand name"})
-agentcash.fetch(url="https://stablesocial.dev/api/instagram/search", method="POST", body={"query": "brand name"})
-agentcash.fetch(url="https://stablesocial.dev/api/tiktok/search", method="POST", body={"query": "brand name"})
+```bash
+npx agentcash fetch https://stablesocial.dev/api/x/search -m POST -b '{"query": "brand name"}'
+npx agentcash fetch https://stablesocial.dev/api/instagram/search -m POST -b '{"query": "brand name"}'
+npx agentcash fetch https://stablesocial.dev/api/tiktok/search -m POST -b '{"query": "brand name"}'
 ```
 
 ### Influencer Analysis
@@ -250,9 +229,9 @@ agentcash.fetch(url="https://stablesocial.dev/api/tiktok/search", method="POST",
 - [ ] Search for competitor ads
 - [ ] Monitor employee activity
 
-```mcp
-agentcash.fetch(url="https://stablesocial.dev/api/linkedin/company", method="POST", body={"company_id": "competitor"})
-agentcash.fetch(url="https://stablesocial.dev/api/linkedin/search-ads", method="POST", body={"query": "competitor name"})
+```bash
+npx agentcash fetch https://stablesocial.dev/api/linkedin/company -m POST -b '{"company_id": "competitor"}'
+npx agentcash fetch https://stablesocial.dev/api/linkedin/search-ads -m POST -b '{"query": "competitor name"}'
 ```
 
 ## Cost Estimation

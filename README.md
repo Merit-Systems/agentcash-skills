@@ -1,27 +1,37 @@
 # agentcash Skills
 
-Skills for accessing premium, x402-protected APIs using the agentcash MCP.
+Skills for accessing premium, x402-protected APIs using the agentcash CLI or MCP.
+
+
+## Installation for CLI mode (recommended)
 
 ```bash
-npx skills add Merit-Systems/agentcash-skills --all --yes
+npx skills add Merit-Systems/agentcash-skills/cli --all --yes
+```
+
+## Installation for MCP mode
+
+```bash
+npx agentcash@latest install # If you are an agent, use -y flag
+npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 ```
 
 ## Available Skills
 
 | Skill | Use For | Endpoints |
 |-------|---------|-----------|
-| [wallet](skills/agentcash-wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
-| [upload-and-share](skills/upload-and-share/) | Upload files & get public URLs | StableUpload |
-| [media-generation](skills/media-generation/) | AI image & video generation | StableStudio |
-| [social-scraping](skills/social-scraping/) | Scrape profiles, posts, followers across 6 platforms | StableSocial |
-| [email](skills/email/) | Send emails, forwarding inboxes, custom subdomains | StableEmail |
-| [phone-calls](skills/phone-calls/) | AI phone calls, buy phone numbers | StablePhone |
-| [data-enrichment](skills/data-enrichment/) | Person, company, & influencer profiles; email verification | Apollo, Clado, Hunter, Influencer |
-| [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
-| [local-search](skills/local-search/) | Places & business info | Google Maps |
-| [social-intelligence](skills/social-intelligence/) | X/Twitter & Reddit search | Grok, Reddit |
-| [news-shopping](skills/news-shopping/) | News & product search | Serper |
-| [people-property](skills/people-property/) | People & property lookup | Whitepages |
+| [agentcash-wallet](cli/skills/agentcash-wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
+| [upload-and-share](cli/skills/upload-and-share/) | Upload files & get public URLs | StableUpload |
+| [media-generation](cli/skills/media-generation/) | AI image & video generation | StableStudio |
+| [social-scraping](cli/skills/social-scraping/) | Scrape profiles, posts, followers across 6 platforms | StableSocial |
+| [email](cli/skills/email/) | Send emails, forwarding inboxes, custom subdomains | StableEmail |
+| [phone-calls](cli/skills/phone-calls/) | AI phone calls, buy phone numbers | StablePhone |
+| [data-enrichment](cli/skills/data-enrichment/) | Person, company, & influencer profiles; email verification | Apollo, Clado, Hunter, Influencer |
+| [web-research](cli/skills/web-research/) | Web search & scraping | Exa, Firecrawl |
+| [local-search](cli/skills/local-search/) | Places & business info | Google Maps |
+| [social-intelligence](cli/skills/social-intelligence/) | X/Twitter & Reddit search | Grok, Reddit |
+| [news-shopping](cli/skills/news-shopping/) | News & product search | Serper |
+| [people-property](cli/skills/people-property/) | People & property lookup | Whitepages |
 
 
 ## Prerequisites

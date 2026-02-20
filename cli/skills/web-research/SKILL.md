@@ -18,9 +18,7 @@ description: |
   - "blocked site", "can't access", "paywall"
   - "what is", "explain", "answer this"
 
-  Use agentcash.fetch for stableenrich.dev endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
-mcp:
-  - agentcash
+  Use `npx agentcash fetch` for stableenrich.dev endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
 ---
 
 # Web Research with x402 APIs
@@ -60,16 +58,12 @@ See [rules/when-to-use.md](rules/when-to-use.md) for detailed guidance.
 
 Semantic search that understands meaning, not just keywords:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/exa/search",
-  method="POST",
-  body={
-    "query": "startups building AI agents for customer support",
-    "numResults": 10,
-    "type": "neural"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/exa/search -m POST -b '{
+  "query": "startups building AI agents for customer support",
+  "numResults": 10,
+  "type": "neural"
+}'
 ```
 
 **Options:**
@@ -86,15 +80,11 @@ agentcash.fetch(
 
 Find pages semantically similar to a reference URL:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/exa/find-similar",
-  method="POST",
-  body={
-    "url": "https://example.com/article-i-like",
-    "numResults": 10
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/exa/find-similar -m POST -b '{
+  "url": "https://example.com/article-i-like",
+  "numResults": 10
+}'
 ```
 
 Great for:
@@ -106,17 +96,13 @@ Great for:
 
 Get clean, structured text from URLs:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/exa/contents",
-  method="POST",
-  body={
-    "urls": [
-      "https://example.com/article1",
-      "https://example.com/article2"
-    ]
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/exa/contents -m POST -b '{
+  "urls": [
+    "https://example.com/article1",
+    "https://example.com/article2"
+  ]
+}'
 ```
 
 **Options:**
@@ -130,14 +116,8 @@ Cheapest option ($0.002) when you already have URLs and just need the content.
 
 Get factual answers to questions:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/exa/answer",
-  method="POST",
-  body={
-    "query": "What is the population of Tokyo?"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/exa/answer -m POST -b '{"query": "What is the population of Tokyo?"}'
 ```
 
 Returns a direct answer with source citations. Best for:
@@ -149,14 +129,8 @@ Returns a direct answer with source citations. Best for:
 
 Scrape a single page to clean markdown:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/firecrawl/scrape",
-  method="POST",
-  body={
-    "url": "https://example.com/page-to-scrape"
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/firecrawl/scrape -m POST -b '{"url": "https://example.com/page-to-scrape"}'
 ```
 
 **Options:**
@@ -175,15 +149,11 @@ agentcash.fetch(
 
 Web search with automatic scraping of results:
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/firecrawl/search",
-  method="POST",
-  body={
-    "query": "best practices for react server components",
-    "limit": 5
-  }
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/firecrawl/search -m POST -b '{
+  "query": "best practices for react server components",
+  "limit": 5
+}'
 ```
 
 **Options:**
@@ -197,34 +167,22 @@ Returns search results with full scraped content for each.
 
 ### Deep Research
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `npx agentcash wallet info`
 - [ ] Search broadly with Exa
 - [ ] Find related sources with find-similar
 - [ ] Extract content from top sources
 - [ ] Synthesize findings
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/exa/search",
-  method="POST",
-  body={"query": "AI agents in healthcare 2024", "numResults": 15}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/exa/search -m POST -b '{"query": "AI agents in healthcare 2024", "numResults": 15}'
 ```
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/exa/find-similar",
-  method="POST",
-  body={"url": "https://best-article-found.com"}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/exa/find-similar -m POST -b '{"url": "https://best-article-found.com"}'
 ```
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/exa/contents",
-  method="POST",
-  body={"urls": ["url1", "url2", "url3"]}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/exa/contents -m POST -b '{"urls": ["url1", "url2", "url3"]}'
 ```
 
 ### Blocked Site Scraping
@@ -232,12 +190,8 @@ agentcash.fetch(
 - [ ] Try WebFetch first (free)
 - [ ] If blocked/empty, use Firecrawl with `waitFor` for JS-heavy sites
 
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/firecrawl/scrape",
-  method="POST",
-  body={"url": "https://blocked-site.com/article", "waitFor": 3000}
-)
+```bash
+npx agentcash fetch https://stableenrich.dev/api/firecrawl/scrape -m POST -b '{"url": "https://blocked-site.com/article", "waitFor": 3000}'
 ```
 
 ## Cost Optimization
@@ -246,13 +200,3 @@ agentcash.fetch(
 - **Use WebSearch/WebFetch first** (free) and fall back to x402 endpoints
 - **Batch URL extraction** - pass multiple URLs to Exa contents
 - **Limit results** - request only as many as needed
-
-## Parallel Calls
-
-Independent searches can run in parallel:
-
-```mcp
-# These don't depend on each other
-agentcash.fetch(url=".../exa/search", body={"query": "topic A"})
-agentcash.fetch(url=".../exa/search", body={"query": "topic B"})
-```
