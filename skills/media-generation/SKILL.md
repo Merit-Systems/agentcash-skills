@@ -15,7 +15,7 @@ description: |
   - "edit image", "modify image"
   - "stablestudio", "nano-banana", "sora", "veo"
 
-  ALWAYS use `npx agentcash fetch` for stablestudio.dev endpoints.
+  ALWAYS use `npx agentcash fetch` or `npx agentcash fetch-auth` for stablestudio.dev endpoints.
 ---
 
 # Media Generation with StableStudio
@@ -73,7 +73,7 @@ npx agentcash fetch https://stablestudio.dev/api/x402/veo-3.1/generate -m POST -
 Generation returns a `jobId`. Poll until complete:
 
 ```bash
-npx agentcash fetch https://stablestudio.dev/api/x402/jobs/{jobId}
+npx agentcash fetch-auth https://stablestudio.dev/api/x402/jobs/{jobId}
 ```
 
 Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`.
