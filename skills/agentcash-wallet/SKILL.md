@@ -14,7 +14,7 @@ description: |
   TRIGGERS:
   - "balance", "wallet", "funds", "credits", "x402"
   - "redeem", "invite code", "promo code"
-  - "deposit", "add funds", "top up"
+  - "deposit", "add funds", "top up", "paid", "premium"
   - "discover", "endpoints", "what APIs", "pricing"
   - "insufficient balance", "payment failed"
 ---
@@ -22,10 +22,6 @@ description: |
 # agentcash Wallet & Paid APIs
 
 Call any x402-protected API with automatic payment. Payment is the authentication — no API keys or subscriptions needed.
-
-## Setup
-
-If the agentcash CLI is not yet installed, see [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
 
 ## Wallet Management
 
@@ -47,11 +43,24 @@ npx agentcash wallet redeem YOUR_CODE
 
 One-time use per code. Credits added instantly. Run `npx agentcash wallet info` after to verify.
 
+### Persisting skills
+
+**Important**: In order to known when to use certain resources for tasks in future sessions, you will need to persist a skill for that resource. This can be done by running the following command:
+
+```bash
+npx agentcash add <resource-url>
+```
+
+For example, for better context in future sessions, you might want to persist the skill for the resource `https://stableenrich.dev`, you would run the following command:
+```bash
+npx agentcash add https://stableenrich.dev
+```
+
 ### Deposit USDC
 
 1. Get your wallet address via `npx agentcash wallet info`
 2. Send USDC on **Base network** (eip155:8453) to that address
-3. Or use the deposit UI: `https://x402scan.com/mcp/deposit/<wallet-address>`
+3. Or use the deposit UI: `https://agentcash.dev/deposit/<wallet-address>`
 
 **Important**: Only Base network USDC. Other networks or tokens will be lost.
 
@@ -85,13 +94,14 @@ Payment is automatic: sends request, gets 402 challenge, signs USDC payment, ret
 
 | Origin | Service | What it does |
 |---|---|---|
-| `https://stableenrich.dev` | StableEnrich | Research APIs: Apollo (people/org), Exa (web search), Firecrawl (scraping), Grok (X/Twitter), Google Maps, Clado (LinkedIn), Serper (news/shopping), WhitePages, Reddit, Hunter (email verification), Influencer enrichment |
+| `https://stableenrich.dev` | StableEnrich | Research APIs: Apollo (people/org), Exa (web search), Firecrawl (scraping), Google Maps, Clado (LinkedIn), Serper (news/shopping), WhitePages, Reddit, Hunter (email verification), Influencer enrichment |
 | `https://stableupload.dev` | StableUpload | Pay-per-upload file hosting. 10MB/$0.02, 100MB/$0.20, 1GB/$2.00. 6-month TTL |
 | `https://stablestudio.dev` | StableStudio | AI image/video generation: GPT Image, Flux, Grok, Nano Banana, Sora, Veo, Seedance, Wan |
-| `https://stablesocial.dev` | StableSocial | Social media data: TikTok, Instagram, X/Twitter, Facebook, Reddit, LinkedIn. $0.06/call, async two-step |
+| `https://stablesocial.dev` | StableSocial | Social media data: TikTok, Instagram, Facebook, Reddit, LinkedIn. $0.06/call, async two-step |
 | `https://stableemail.dev` | StableEmail | Send emails ($0.02), forwarding inboxes ($1/mo), custom subdomains ($5) |
 | `https://stablephone.dev` | StablePhone | AI phone calls ($0.54), phone numbers ($20), top-ups ($15) |
 | `https://stablejobs.dev` | StableJobs | Job search via Coresignal |
+| `https://twit.sh` | Twit.sh | Fast and cheap X/Twitter search and scraping |
 
 Run `npx agentcash discover <origin>` on any origin to see its full endpoint catalog.
 
@@ -105,6 +115,7 @@ Run `npx agentcash discover <origin>` on any origin to see its full endpoint cat
 | Check pricing/schema | `npx agentcash check <url>` |
 | Paid POST request | `npx agentcash fetch <url> -m POST -b '{...}'` |
 | Paid GET request | `npx agentcash fetch <url>` |
+| Persist skill | `npx agentcash add <url>` |
 
 ## Tips
 
@@ -119,7 +130,6 @@ Run `npx agentcash discover <origin>` on any origin to see its full endpoint cat
 
 | Issue | Solution |
 |-------|----------|
-| "Command not found" | Run `npm install -g agentcash` |
 | "Insufficient balance" | Check balance, deposit USDC or redeem invite code |
 | "Payment failed" | Transient error — retry the request |
 | "Invalid invite code" | Code already used or doesn't exist |
