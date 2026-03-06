@@ -9,7 +9,7 @@ x402 endpoints don't have strict rate limits per se, but:
 3. **Cache results** - Don't re-fetch the same data repeatedly
 4. **Be specific** - Targeted queries work better than broad ones
 
-## X/Twitter (Grok) Considerations
+## X/Twitter (twit.sh) Considerations
 
 ### Search Tips
 - Use specific keywords, not generic terms
@@ -57,7 +57,7 @@ x402 endpoints don't have strict rate limits per se, but:
 
 ### Do This
 ```bash
-# One targeted search
+# One targeted search (Reddit)
 npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "specific topic", "subreddit": "relevant", "sort": "top"}'
 ```
 
@@ -73,12 +73,12 @@ Instead, craft one good query or search sequentially only when each result infor
 
 ## Cost Management
 
-All social intelligence endpoints are $0.02 per call.
+X/Twitter (twit.sh) endpoints are $0.005–$0.01 per call; Reddit endpoints are $0.02 per call.
 
 | Scenario | Typical Calls | Cost |
 |----------|---------------|------|
-| Quick check | 1 | $0.02 |
-| Thorough research | 3-5 | $0.06-0.10 |
-| Full monitoring | 5-10 | $0.10-0.20 |
+| Quick X check | 1 | $0.01 |
+| Thorough research | 3-5 | $0.04-0.08 |
+| Full monitoring | 5-10 | $0.08-0.15 |
 
-Budget for ~10 calls per monitoring session to cover X search, user lookup, Reddit search, and comments.
+Budget for ~10 calls per monitoring session to cover X search (twit.sh), user lookup, Reddit search, and comments.

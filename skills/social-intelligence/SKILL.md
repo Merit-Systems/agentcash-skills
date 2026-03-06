@@ -1,7 +1,7 @@
 ---
 name: social-intelligence
 description: |
-  Search and monitor social media using X/Twitter (via Grok) and Reddit APIs.
+  Search and monitor social media using X/Twitter (via twit.sh) and Reddit APIs.
 
   USE FOR:
   - Searching X/Twitter posts by keywords or hashtags
@@ -18,14 +18,14 @@ description: |
   - "trending", "viral", "popular posts"
   - "user's posts", "timeline", "recent activity"
 
-  Use `npx agentcash fetch` for Grok (X) and Reddit endpoints. All endpoints are $0.02 per call.
+  Use `npx agentcash fetch` for twit.sh (X) and Reddit endpoints. X endpoints $0.005–$0.01/call; Reddit $0.02/call.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
 ---
 
 # Social Intelligence with x402 APIs
 
-Access X/Twitter (via Grok) and Reddit through x402-protected endpoints.
+Access X/Twitter (via twit.sh) and Reddit through x402-protected endpoints.
 
 ## Setup
 
@@ -35,60 +35,63 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Description |
 |------|----------|-------|-------------|
-| Search X posts | `https://stableenrich.dev/api/grok/x-search` | $0.02 | Search tweets by keywords |
-| Find X users | `https://stableenrich.dev/api/grok/user-search` | $0.02 | Search users by criteria |
-| Get user posts | `https://stableenrich.dev/api/grok/user-posts` | $0.02 | Recent posts from user |
+| Search X posts | `https://twit.sh/tweets/search` | $0.01 | Search tweets (GET; use `words`, `phrase`, `from`, etc.) |
+| Find X users | `https://twit.sh/users/search` | $0.01 | Search users by keyword (GET; `query`) |
+| Get user posts | `https://twit.sh/tweets/user` | $0.01 | User timeline (GET; `username`) |
+| Look up user | `https://twit.sh/users/by/username` | $0.005 | User profile by handle (GET; `username`) |
 | Search Reddit | `https://stableenrich.dev/api/reddit/search` | $0.02 | Search Reddit posts |
 | Get comments | `https://stableenrich.dev/api/reddit/post-comments` | $0.02 | Comments on a post |
 
 See [rules/rate-limits.md](rules/rate-limits.md) for usage guidance.
 
-## X/Twitter via Grok
+## X/Twitter via twit.sh
+
+All twit.sh endpoints are GET with query parameters. Run `npx agentcash discover https://twit.sh` or `npx agentcash check https://twit.sh/<path>` for full parameter lists.
 
 ### Search Posts
 
-Search for X posts by keywords:
+Search for X posts by keywords (at least one filter required):
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/grok/x-search -m POST -b '{"query": "AI agents"}'
+npx agentcash fetch "https://twit.sh/tweets/search?words=AI%20agents"
 ```
 
-**Parameters:**
-- `query` - Search keywords (required)
+**Parameters (query string):**
+- `words` - All these words must appear
+- `phrase` - Exact phrase match
+- `anyWords` - Any of these words
+- `from` - Tweets from this username
+- `minLikes`, `minReplies`, `minReposts` - Engagement filters
+- `since`, `until` - Date range (YYYY-MM-DD)
+- `next_token` - Pagination cursor
 
-**Returns:**
-- Post text and author info
-- Engagement metrics (likes, retweets, replies)
-- Timestamps and URLs
-- Media attachments
+**Returns:** Up to 20 tweets per page, X v2 API–compatible JSON (text, author, metrics, timestamps, media).
 
 ### Search Users
 
-Find X users matching criteria:
+Find X users matching a keyword:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/grok/user-search -m POST -b '{"query": "AI researcher San Francisco"}'
+npx agentcash fetch "https://twit.sh/users/search?query=AI%20researcher%20San%20Francisco"
 ```
 
-**Returns:**
-- Username and display name
-- Bio/description
-- Follower/following counts
-- Verification status
-- Profile links
+**Parameters:**
+- `query` - Search keyword or phrase (required)
+
+**Returns:** Up to 20 user profiles per page (username, display name, bio, followers, verification, profile image).
 
 ### Get User's Posts
 
 Fetch recent posts from a specific user:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/grok/user-posts -m POST -b '{"username": "elonmusk"}'
+npx agentcash fetch "https://twit.sh/tweets/user?username=elonmusk"
 ```
 
 **Parameters:**
 - `username` - X username without @ (required)
 
-**Returns:** Recent posts with full engagement metrics.
+**Returns:** Up to 20 tweets per page from the user's timeline.
 
 ## Reddit
 
@@ -142,7 +145,7 @@ npx agentcash fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b
 ### Standard
 
 - [ ] (Optional) Check balance: `npx agentcash wallet info`
-- [ ] Use `npx agentcash discover https://stableenrich.dev` to list all endpoints
+- [ ] Use `npx agentcash discover https://twit.sh` or `https://stableenrich.dev` to list endpoints
 - [ ] Use `npx agentcash check <endpoint-url>` to see expected parameters and pricing
 - [ ] Call endpoint with `npx agentcash fetch`
 - [ ] Parse and present results
@@ -155,7 +158,7 @@ npx agentcash fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b
 - [ ] Summarize sentiment and key mentions
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/grok/x-search -m POST -b '{"query": "YourBrand OR @YourBrand"}'
+npx agentcash fetch "https://twit.sh/tweets/search?words=YourBrand&from=YourBrand"
 ```
 
 ```bash
@@ -179,7 +182,7 @@ npx agentcash fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"que
 - [ ] Get recent posts for top candidates
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/grok/user-search -m POST -b '{"query": "tech blogger 100k followers"}'
+npx agentcash fetch "https://twit.sh/users/search?query=tech%20blogger%20100k%20followers"
 ```
 
 ### Community Sentiment
@@ -236,7 +239,7 @@ npx agentcash fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b
 
 | Task | Calls | Cost |
 |------|-------|------|
-| Quick X search | 1 | $0.02 |
-| User profile + posts | 2 | $0.04 |
+| Quick X search | 1 | $0.01 |
+| User profile + posts | 2 | $0.015–0.02 |
 | Reddit thread + comments | 2 | $0.04 |
 | Full monitoring scan | 4-6 | $0.08-0.12 |

@@ -248,7 +248,7 @@ All endpoints are $0.06 per trigger call. Polling is free.
 
 ## vs social-intelligence Skill
 
-The `social-intelligence` skill uses X/Twitter (Grok) and Reddit on stableenrich.dev ($0.02/call, synchronous). Use it for quick X/Twitter keyword searches and Reddit post lookups.
+The `social-intelligence` skill uses X/Twitter (twit.sh) and Reddit (stableenrich.dev). Use it for quick X/Twitter keyword searches and Reddit post lookups.
 
 Use `social-scraping` (this skill) when you need:
 - **TikTok, Instagram, Facebook, or LinkedIn** data
