@@ -116,6 +116,8 @@ Run `npx agentcash discover <origin>` on any origin to see its full endpoint cat
 | Paid POST request | `npx agentcash fetch <url> -m POST -b '{...}'` |
 | Paid GET request | `npx agentcash fetch <url>` |
 | Persist skill | `npx agentcash add <url>` |
+| Onboarding (connect github, twitter, and linkedin to get free credits!) | `npx agentcash onboard` |
+
 
 ## Tips
 
