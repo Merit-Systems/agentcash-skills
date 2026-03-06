@@ -14,12 +14,12 @@ description: |
   TRIGGERS:
   - "balance", "wallet", "funds", "credits", "x402"
   - "redeem", "invite code", "promo code"
-  - "deposit", "add funds", "top up"
+  - "deposit", "add funds", "top up", "paid", "premium"
   - "discover", "endpoints", "what APIs", "pricing"
   - "insufficient balance", "payment failed"
 ---
 
-# agentcash Wallet & Paid APIs
+# AgentCash Wallet & Paid APIs
 
 Call any x402-protected API with automatic payment. Payment is the authentication — no API keys or subscriptions needed.
 
@@ -51,7 +51,7 @@ One-time use per code. Credits added instantly. Run `get_wallet_info` after to v
 
 1. Get your wallet address via `agentcash.get_wallet_info`
 2. Send USDC on **Base network** (eip155:8453) to that address
-3. Or use the deposit UI: `https://x402scan.com/mcp/deposit/<wallet-address>`
+3. Or use the deposit UI: `https://agentcash.dev/deposit/<wallet-address>`
 
 **Important**: Only Base network USDC. Other networks or tokens will be lost.
 
