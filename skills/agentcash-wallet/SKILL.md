@@ -64,6 +64,14 @@ npx agentcash fetch '<url>?param=value'
 
 Payment is automatic: sends request, gets 402 challenge, signs USDC payment, retries with credential, returns result.
 
+### 4. Fetch with wallet authentication (for async jobs)
+
+```bash
+npx agentcash fetch-auth <url>
+```
+
+Some endpoints use SIWX (Sign-In With X) wallet authentication instead of x402 payment. Use `fetch-auth` for these — it signs a wallet proof automatically. Common pattern for async services (stablestudio.dev, stablesocial.dev): `fetch` to submit a job (paid), then `fetch-auth` to poll for results (authenticated, not paid).
+
 ## Available Services
 
 | Origin | What it does |
