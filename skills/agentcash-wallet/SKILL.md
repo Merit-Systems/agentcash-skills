@@ -2,7 +2,7 @@
 name: agentcash
 description: |
   Pay-per-call access to premium APIs via x402 micropayments (USDC on Base).
-  Run `npx agentcash discover <origin>` to get endpoints, pricing, and usage instructions for any service below.
+  Run `npx agentcash@latest discover <origin>` to get endpoints, pricing, and usage instructions for any service below.
 
   AVAILABLE SERVICES:
   - stableenrich.dev — people/company search, LinkedIn scraping, Google Maps, Exa web search, Firecrawl web scraping, Twitter/X search, GTM & sales prospecting (name → contact info)
@@ -26,8 +26,8 @@ Call any x402-protected API with automatic payment. No API keys, no subscription
 
 | Task | Command |
 |------|---------|
-| Check balance | `npx agentcash wallet info` |
-| Redeem invite code | `npx agentcash wallet redeem <code>` |
+| Check balance | `npx agentcash@latest wallet info` |
+| Redeem invite code | `npx agentcash@latest wallet redeem <code>` |
 | Deposit | Send USDC (Base) to your wallet address |
 
 If your balance is 0, tell the user they need to deposit USDC (Base) to their wallet address or redeem an invite code.
@@ -37,17 +37,17 @@ If your balance is 0, tell the user they need to deposit USDC (Base) to their wa
 ### 1. Discover endpoints on a service
 
 ```bash
-npx agentcash discover <origin>
+npx agentcash@latest discover <origin>
 ```
 
-Example: `npx agentcash discover https://stableenrich.dev`
+Example: `npx agentcash@latest discover https://stableenrich.dev`
 
 Read the output carefully — it includes endpoint paths, pricing, required parameters, and usage instructions. **Read the `instructions` field** — it has critical endpoint-specific guidance.
 
 ### 2. Check a specific endpoint (optional)
 
 ```bash
-npx agentcash check <endpoint-url>
+npx agentcash@latest check <endpoint-url>
 ```
 
 Returns full request/response JSON schemas and pricing.
@@ -56,10 +56,10 @@ Returns full request/response JSON schemas and pricing.
 
 ```bash
 # POST
-npx agentcash fetch <url> -m POST -b '{"key": "value"}'
+npx agentcash@latest fetch <url> -m POST -b '{"key": "value"}'
 
 # GET
-npx agentcash fetch '<url>?param=value'
+npx agentcash@latest fetch '<url>?param=value'
 ```
 
 Payment is automatic: sends request, gets 402 challenge, signs USDC payment, retries with credential, returns result.
@@ -67,7 +67,7 @@ Payment is automatic: sends request, gets 402 challenge, signs USDC payment, ret
 ### 4. Fetch with wallet authentication (for async jobs)
 
 ```bash
-npx agentcash fetch-auth <url>
+npx agentcash@latest fetch-auth <url>
 ```
 
 Some endpoints use SIWX (Sign-In With X) wallet authentication instead of x402 payment. Use `fetch-auth` for these — it signs a wallet proof automatically. Common pattern for async services (stablestudio.dev, stablesocial.dev): `fetch` to submit a job (paid), then `fetch-auth` to poll for results (authenticated, not paid).
@@ -86,7 +86,7 @@ Some endpoints use SIWX (Sign-In With X) wallet authentication instead of x402 p
 | `stabletravel.dev` | Travel search |
 | `twit.sh` | Fast X/Twitter search and scraping |
 
-Run `npx agentcash discover <origin>` on any origin to see its full endpoint catalog.
+Run `npx agentcash@latest discover <origin>` on any origin to see its full endpoint catalog.
 
 ## Important Rules
 
@@ -97,7 +97,7 @@ Run `npx agentcash discover <origin>` on any origin to see its full endpoint cat
 
 ## Tips
 
-- Use `npx agentcash check <url>` when unsure about request/response format.
+- Use `npx agentcash@latest check <url>` when unsure about request/response format.
 - Add `--format json` for machine-readable output, `--format pretty` for human-readable.
 - Network: Base (eip155:8453), Currency: USDC.
 

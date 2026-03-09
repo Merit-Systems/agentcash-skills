@@ -16,7 +16,7 @@ description: |
   - "business details", "opening hours", "reviews for"
   - "places in", "what's near", "directions to"
 
-  Use `npx agentcash fetch` for Google Maps endpoints. Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
+  Use `npx agentcash@latest fetch` for Google Maps endpoints. Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
 ---
 
 # Local Search with Google Maps
@@ -45,7 +45,7 @@ See [rules/partial-vs-full.md](rules/partial-vs-full.md) for tier selection guid
 Search for places by text query:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/google-maps/text-search/partial -m POST -b '{"textQuery": "coffee shops in downtown Seattle"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/text-search/partial -m POST -b '{"textQuery": "coffee shops in downtown Seattle"}'
 ```
 
 **Parameters:**
@@ -62,7 +62,7 @@ npx agentcash fetch https://stableenrich.dev/api/google-maps/text-search/partial
 Search for places near a location:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/google-maps/nearby-search/partial -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/nearby-search/partial -m POST -b '{
   "locationRestriction": {
     "circle": {
       "center": {"latitude": 47.6062, "longitude": -122.3321},
@@ -85,7 +85,7 @@ npx agentcash fetch https://stableenrich.dev/api/google-maps/nearby-search/parti
 Get detailed info for a specific place:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/google-maps/place-details/partial -m POST -b '{"placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/place-details/partial -m POST -b '{"placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4"}'
 ```
 
 **Input:**
@@ -115,17 +115,17 @@ Use these with `includedTypes` / `excludedTypes`:
 
 ### Find Businesses in Area
 
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
 - [ ] Text search (partial) to find options
 - [ ] Review results and select top picks
 - [ ] Get full details for selected places
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/google-maps/text-search/partial -m POST -b '{"textQuery": "Italian restaurants downtown Portland"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/text-search/partial -m POST -b '{"textQuery": "Italian restaurants downtown Portland"}'
 ```
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/google-maps/place-details/full -m POST -b '{"placeId": "ChIJ..."}'
+npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/place-details/full -m POST -b '{"placeId": "ChIJ..."}'
 ```
 
 ### Nearby Search with Filters
@@ -135,7 +135,7 @@ npx agentcash fetch https://stableenrich.dev/api/google-maps/place-details/full 
 - [ ] Present sorted results
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/google-maps/nearby-search/partial -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/nearby-search/partial -m POST -b '{
   "locationRestriction": {
     "circle": {
       "center": {"latitude": 40.7128, "longitude": -74.0060},
@@ -155,7 +155,7 @@ npx agentcash fetch https://stableenrich.dev/api/google-maps/nearby-search/parti
 - [ ] Compare ratings, reviews, and amenities
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/google-maps/place-details/full -m POST -b '{"placeId": "place_id_here"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/place-details/full -m POST -b '{"placeId": "place_id_here"}'
 ```
 
 ## Cost Optimization

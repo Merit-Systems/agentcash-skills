@@ -16,7 +16,7 @@ When the user wants to set up or onboard into AgentCash:
    - **If the user provided an invite code:** run `npx agentcash@latest onboard <code>` so they get free credits as part of setup.
    - **If no invite code:** run `npx agentcash@latest onboard`. This installs the core skill and prompts the user to open a link to get credits (e.g. deposit or redeem later).
 
-After that, the user can check balance with `npx agentcash wallet info`, deposit USDC (Base), or redeem an invite code later with `npx agentcash wallet redeem <code>`.
+After that, the user can check balance with `npx agentcash@latest wallet info`, deposit USDC (Base), or redeem an invite code later with `npx agentcash@latest wallet redeem <code>`.
 
 ## Quick Start
 
@@ -39,7 +39,7 @@ This sets up the wallet and core integration. Without a code, the user will be p
 ### 2. Check your balance
 
 ```bash
-npx agentcash wallet info
+npx agentcash@latest wallet info
 ```
 
 Shows wallet address, USDC balance, and deposit link. If balance is 0, direct the user to https://agentcash.dev/onboard to get free credits.
@@ -57,11 +57,11 @@ Use this skill when the user says they want to:
 
 Once onboarding is done, read the **agentcash** (core) skill for:
 
-- Discovering endpoints: `npx agentcash discover <origin>`
-- Making paid requests: `npx agentcash fetch <url>`
-- Wallet: balance, redeem, deposit (see core skill or `npx agentcash wallet info`)
+- Discovering endpoints: `npx agentcash@latest discover <origin>`
+- Making paid requests: `npx agentcash@latest fetch <url>`
+- Wallet: balance, redeem, deposit (see core skill or `npx agentcash@latest wallet info`)
 
 ## Support
 
 - **Homepage**: https://agentcash.dev
-- **Deposit**: User’s deposit link is shown in `npx agentcash wallet info`
+- **Deposit**: User’s deposit link is shown in `npx agentcash@latest wallet info`

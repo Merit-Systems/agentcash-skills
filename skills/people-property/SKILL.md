@@ -17,7 +17,7 @@ description: |
   IMPORTANT: These endpoints contain personal information. Use responsibly and only for legitimate purposes.
   See rules/privacy.md for guidance.
 
-  Use `npx agentcash fetch` for Whitepages endpoints. Both endpoints are $0.44 per call.
+  Use `npx agentcash@latest fetch` for Whitepages endpoints. Both endpoints are $0.44 per call.
 ---
 
 # People & Property Search with Whitepages
@@ -42,7 +42,7 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 Search for a person by name and location:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{
   "firstName": "John",
   "lastName": "Smith",
   "city": "Seattle",
@@ -69,7 +69,7 @@ npx agentcash fetch https://stableenrich.dev/api/whitepages/person-search -m POS
 Include more details for better matches:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{
   "firstName": "John",
   "lastName": "Smith",
   "address": "123 Main St",
@@ -84,7 +84,7 @@ npx agentcash fetch https://stableenrich.dev/api/whitepages/person-search -m POS
 Search for property information:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/whitepages/property-search -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/property-search -m POST -b '{
   "address": "123 Main Street",
   "city": "Seattle",
   "state": "WA"
@@ -126,22 +126,22 @@ npx agentcash fetch https://stableenrich.dev/api/whitepages/property-search -m P
 ### Verify Contact Information
 
 - [ ] Confirm legitimate purpose (see [rules/privacy.md](rules/privacy.md))
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
 - [ ] Search with available details
 - [ ] Verify results match expected person
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{"firstName": "Jane", "lastName": "Doe", "city": "Portland", "state": "OR"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{"firstName": "Jane", "lastName": "Doe", "city": "Portland", "state": "OR"}'
 ```
 
 ### Property Research
 
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
 - [ ] Search by address
 - [ ] Review owner and property details
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/whitepages/property-search -m POST -b '{"address": "456 Oak Avenue", "city": "Austin", "state": "TX"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/property-search -m POST -b '{"address": "456 Oak Avenue", "city": "Austin", "state": "TX"}'
 ```
 
 ### Reconnect with Someone
@@ -151,7 +151,7 @@ npx agentcash fetch https://stableenrich.dev/api/whitepages/property-search -m P
 - [ ] Review results for correct match
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{"firstName": "Michael", "lastName": "Johnson", "state": "CA"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{"firstName": "Michael", "lastName": "Johnson", "state": "CA"}'
 ```
 
 ## Cost Considerations

@@ -18,7 +18,7 @@ description: |
   - "blocked site", "can't access", "paywall"
   - "what is", "explain", "answer this"
 
-  Use `npx agentcash fetch` for stableenrich.dev endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
+  Use `npx agentcash@latest fetch` for stableenrich.dev endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
 ---
 
 # Web Research with x402 APIs
@@ -59,7 +59,7 @@ See [rules/when-to-use.md](rules/when-to-use.md) for detailed guidance.
 Semantic search that understands meaning, not just keywords:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/exa/search -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/exa/search -m POST -b '{
   "query": "startups building AI agents for customer support",
   "numResults": 10,
   "type": "neural"
@@ -81,7 +81,7 @@ npx agentcash fetch https://stableenrich.dev/api/exa/search -m POST -b '{
 Find pages semantically similar to a reference URL:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/exa/find-similar -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/exa/find-similar -m POST -b '{
   "url": "https://example.com/article-i-like",
   "numResults": 10
 }'
@@ -97,7 +97,7 @@ Great for:
 Get clean, structured text from URLs:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/exa/contents -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/exa/contents -m POST -b '{
   "urls": [
     "https://example.com/article1",
     "https://example.com/article2"
@@ -117,7 +117,7 @@ Cheapest option ($0.002) when you already have URLs and just need the content.
 Get factual answers to questions:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/exa/answer -m POST -b '{"query": "What is the population of Tokyo?"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/exa/answer -m POST -b '{"query": "What is the population of Tokyo?"}'
 ```
 
 Returns a direct answer with source citations. Best for:
@@ -130,7 +130,7 @@ Returns a direct answer with source citations. Best for:
 Scrape a single page to clean markdown:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/firecrawl/scrape -m POST -b '{"url": "https://example.com/page-to-scrape"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/firecrawl/scrape -m POST -b '{"url": "https://example.com/page-to-scrape"}'
 ```
 
 **Options:**
@@ -150,7 +150,7 @@ npx agentcash fetch https://stableenrich.dev/api/firecrawl/scrape -m POST -b '{"
 Web search with automatic scraping of results:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/firecrawl/search -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/firecrawl/search -m POST -b '{
   "query": "best practices for react server components",
   "limit": 5
 }'
@@ -167,22 +167,22 @@ Returns search results with full scraped content for each.
 
 ### Deep Research
 
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
 - [ ] Search broadly with Exa
 - [ ] Find related sources with find-similar
 - [ ] Extract content from top sources
 - [ ] Synthesize findings
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/exa/search -m POST -b '{"query": "AI agents in healthcare 2024", "numResults": 15}'
+npx agentcash@latest fetch https://stableenrich.dev/api/exa/search -m POST -b '{"query": "AI agents in healthcare 2024", "numResults": 15}'
 ```
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/exa/find-similar -m POST -b '{"url": "https://best-article-found.com"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/exa/find-similar -m POST -b '{"url": "https://best-article-found.com"}'
 ```
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/exa/contents -m POST -b '{"urls": ["url1", "url2", "url3"]}'
+npx agentcash@latest fetch https://stableenrich.dev/api/exa/contents -m POST -b '{"urls": ["url1", "url2", "url3"]}'
 ```
 
 ### Blocked Site Scraping
@@ -191,7 +191,7 @@ npx agentcash fetch https://stableenrich.dev/api/exa/contents -m POST -b '{"urls
 - [ ] If blocked/empty, use Firecrawl with `waitFor` for JS-heavy sites
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/firecrawl/scrape -m POST -b '{"url": "https://blocked-site.com/article", "waitFor": 3000}'
+npx agentcash@latest fetch https://stableenrich.dev/api/firecrawl/scrape -m POST -b '{"url": "https://blocked-site.com/article", "waitFor": 3000}'
 ```
 
 ## Cost Optimization

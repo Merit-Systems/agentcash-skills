@@ -9,11 +9,11 @@
 
 2. **Check wallet:**
    ```bash
-   npx agentcash wallet info
+   npx agentcash@latest wallet info
    ```
 
 3. **Fund wallet** (if needed):
-   - Redeem invite: `npx agentcash wallet redeem YOUR_CODE`
+   - Redeem invite: `npx agentcash@latest wallet redeem YOUR_CODE`
    - Or send USDC on Base to your wallet address
 
 ## Troubleshooting

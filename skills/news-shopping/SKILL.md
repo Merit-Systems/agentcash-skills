@@ -16,7 +16,7 @@ description: |
   - "shopping", "buy", "price", "product search"
   - "compare prices", "where to buy", "deals on"
 
-  Use `npx agentcash fetch` for Serper endpoints. Both endpoints are $0.04 per call.
+  Use `npx agentcash@latest fetch` for Serper endpoints. Both endpoints are $0.04 per call.
 ---
 
 # News & Shopping Search with Serper
@@ -39,7 +39,7 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 Search Google News for articles:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "artificial intelligence regulation"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "artificial intelligence regulation"}'
 ```
 
 **Parameters:**
@@ -62,13 +62,13 @@ npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "
 Example - news from past week:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "AI startups funding", "tbs": "qdr:w"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "AI startups funding", "tbs": "qdr:w"}'
 ```
 
 ### Country/Language Filtering
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "technology news", "gl": "uk", "hl": "en"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "technology news", "gl": "uk", "hl": "en"}'
 ```
 
 **Returns:**
@@ -83,7 +83,7 @@ npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "
 Search Google Shopping for products:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "wireless noise cancelling headphones"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "wireless noise cancelling headphones"}'
 ```
 
 **Parameters:**
@@ -105,19 +105,19 @@ npx agentcash fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q
 Get local pricing and availability:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "MacBook Pro M3", "gl": "us"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "MacBook Pro M3", "gl": "us"}'
 ```
 
 ## Workflows
 
 ### News Monitoring
 
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
 - [ ] Search with appropriate time filter
 - [ ] Review and summarize top stories
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "company name OR competitor name", "tbs": "qdr:d", "num": 20}'
+npx agentcash@latest fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "company name OR competitor name", "tbs": "qdr:d", "num": 20}'
 ```
 
 ### Breaking News Research
@@ -127,7 +127,7 @@ npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "
 - [ ] Note developing aspects
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "breaking news topic", "tbs": "qdr:h"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "breaking news topic", "tbs": "qdr:h"}'
 ```
 
 ### Product Research
@@ -138,7 +138,7 @@ npx agentcash fetch https://stableenrich.dev/api/serper/news -m POST -b '{"q": "
 - [ ] Present top options with pros/cons
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "ergonomic office chair under $500", "num": 20}'
+npx agentcash@latest fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "ergonomic office chair under $500", "num": 20}'
 ```
 
 ### Price Comparison
@@ -148,7 +148,7 @@ npx agentcash fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q
 - [ ] Note shipping and availability
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "exact product name model number"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/serper/shopping -m POST -b '{"q": "exact product name model number"}'
 ```
 
 ## Response Data

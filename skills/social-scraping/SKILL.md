@@ -21,7 +21,7 @@ description: |
 
   IMPORTANT: StableSocial uses an async two-step flow. Step 1: POST triggers data collection (paid, $0.06). Step 2: Poll GET /api/jobs?token=... until finished (free). All endpoints are $0.06 per call.
 
-  Use `npx agentcash fetch` for paid POST triggers. Use `npx agentcash fetch` for free GET polling.
+  Use `npx agentcash@latest fetch` for paid POST triggers. Use `npx agentcash@latest fetch` for free GET polling.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference tables below. All paths include a platform prefix (e.g. `https://stablesocial.dev/api/tiktok/...`).
 ---
@@ -41,7 +41,7 @@ Every request follows a **trigger-then-poll** pattern:
 ### Step 1: Trigger (paid, $0.06)
 
 ```bash
-npx agentcash fetch https://stablesocial.dev/api/x/profile -m POST -b '{"handle": "elonmusk"}'
+npx agentcash@latest fetch https://stablesocial.dev/api/x/profile -m POST -b '{"handle": "elonmusk"}'
 ```
 
 Returns `202 Accepted` with a JWT token:
@@ -52,7 +52,7 @@ Returns `202 Accepted` with a JWT token:
 ### Step 2: Poll (free)
 
 ```bash
-npx agentcash fetch "https://stablesocial.dev/api/jobs?token=eyJhbGciOiJIUzI1NiIs..."
+npx agentcash@latest fetch "https://stablesocial.dev/api/jobs?token=eyJhbGciOiJIUzI1NiIs..."
 ```
 
 - `{"status": "pending"}` — poll again in 3-5 seconds
@@ -166,11 +166,11 @@ Some endpoints require a prior collection. For example, to get followers you mus
 
 ```bash
 # 1. Trigger profile collection
-npx agentcash fetch https://stablesocial.dev/api/instagram/profile -m POST -b '{"handle": "natgeo"}'
+npx agentcash@latest fetch https://stablesocial.dev/api/instagram/profile -m POST -b '{"handle": "natgeo"}'
 # Poll until finished...
 
 # 2. Now fetch followers (depends on profile)
-npx agentcash fetch https://stablesocial.dev/api/instagram/followers -m POST -b '{"handle": "natgeo"}'
+npx agentcash@latest fetch https://stablesocial.dev/api/instagram/followers -m POST -b '{"handle": "natgeo"}'
 # Poll until finished...
 ```
 
@@ -179,7 +179,7 @@ npx agentcash fetch https://stablesocial.dev/api/instagram/followers -m POST -b 
 When results are paginated, the response includes `page_info.has_next_page` and a `cursor`. Pass the cursor to fetch the next page (each page is a new paid POST):
 
 ```bash
-npx agentcash fetch https://stablesocial.dev/api/tiktok/followers -m POST -b '{"handle": "username", "cursor": "abc123"}'
+npx agentcash@latest fetch https://stablesocial.dev/api/tiktok/followers -m POST -b '{"handle": "username", "cursor": "abc123"}'
 ```
 
 ## Key Parameters
@@ -197,7 +197,7 @@ npx agentcash fetch https://stablesocial.dev/api/tiktok/followers -m POST -b '{"
 
 ### Profile Deep Dive
 
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
 - [ ] Trigger profile collection
 - [ ] Poll until finished
 - [ ] Trigger posts collection
@@ -210,9 +210,9 @@ npx agentcash fetch https://stablesocial.dev/api/tiktok/followers -m POST -b '{"
 - [ ] Compare results and synthesize findings
 
 ```bash
-npx agentcash fetch https://stablesocial.dev/api/x/search -m POST -b '{"query": "brand name"}'
-npx agentcash fetch https://stablesocial.dev/api/instagram/search -m POST -b '{"query": "brand name"}'
-npx agentcash fetch https://stablesocial.dev/api/tiktok/search -m POST -b '{"query": "brand name"}'
+npx agentcash@latest fetch https://stablesocial.dev/api/x/search -m POST -b '{"query": "brand name"}'
+npx agentcash@latest fetch https://stablesocial.dev/api/instagram/search -m POST -b '{"query": "brand name"}'
+npx agentcash@latest fetch https://stablesocial.dev/api/tiktok/search -m POST -b '{"query": "brand name"}'
 ```
 
 ### Influencer Analysis
@@ -230,8 +230,8 @@ npx agentcash fetch https://stablesocial.dev/api/tiktok/search -m POST -b '{"que
 - [ ] Monitor employee activity
 
 ```bash
-npx agentcash fetch https://stablesocial.dev/api/linkedin/company -m POST -b '{"company_id": "competitor"}'
-npx agentcash fetch https://stablesocial.dev/api/linkedin/search-ads -m POST -b '{"query": "competitor name"}'
+npx agentcash@latest fetch https://stablesocial.dev/api/linkedin/company -m POST -b '{"company_id": "competitor"}'
+npx agentcash@latest fetch https://stablesocial.dev/api/linkedin/search-ads -m POST -b '{"query": "competitor name"}'
 ```
 
 ## Cost Estimation

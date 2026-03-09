@@ -15,7 +15,7 @@ description: |
   - "edit image", "modify image"
   - "stablestudio", "nano-banana", "sora", "veo"
 
-  ALWAYS use `npx agentcash fetch` or `npx agentcash fetch-auth` for stablestudio.dev endpoints.
+  ALWAYS use `npx agentcash@latest fetch` or `npx agentcash@latest fetch-auth` for stablestudio.dev endpoints.
 ---
 
 # Media Generation with StableStudio
@@ -41,7 +41,7 @@ If the agentcash CLI is not yet installed, see [rules/getting-started.md](rules/
 **Recommended: nano-banana-pro** (best quality/cost)
 
 ```bash
-npx agentcash fetch https://stablestudio.dev/api/generate/nano-banana-pro/generate -m POST -b '{
+npx agentcash@latest fetch https://stablestudio.dev/api/generate/nano-banana-pro/generate -m POST -b '{
   "prompt": "a cat wearing a space helmet, photorealistic",
   "aspectRatio": "16:9",
   "imageSize": "2K"
@@ -57,7 +57,7 @@ npx agentcash fetch https://stablestudio.dev/api/generate/nano-banana-pro/genera
 **Recommended: veo-3.1** (best quality/cost)
 
 ```bash
-npx agentcash fetch https://stablestudio.dev/api/generate/veo-3.1/generate -m POST -b '{
+npx agentcash@latest fetch https://stablestudio.dev/api/generate/veo-3.1/generate -m POST -b '{
   "prompt": "a timelapse of clouds moving over mountains",
   "durationSeconds": "6",
   "aspectRatio": "16:9"
@@ -73,7 +73,7 @@ npx agentcash fetch https://stablestudio.dev/api/generate/veo-3.1/generate -m PO
 Generation returns a `jobId`. Poll until complete:
 
 ```bash
-npx agentcash fetch-auth https://stablestudio.dev/api/jobs/{jobId}
+npx agentcash@latest fetch-auth https://stablestudio.dev/api/jobs/{jobId}
 ```
 
 Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`.
@@ -83,7 +83,7 @@ Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`
 Requires uploading the source image first. See [rules/uploads.md](rules/uploads.md).
 
 ```bash
-npx agentcash fetch https://stablestudio.dev/api/generate/nano-banana-pro/edit -m POST -b '{
+npx agentcash@latest fetch https://stablestudio.dev/api/generate/nano-banana-pro/edit -m POST -b '{
   "prompt": "change the background to a beach sunset",
   "images": ["https://...blob-url..."]
 }'

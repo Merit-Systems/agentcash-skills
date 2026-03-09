@@ -18,7 +18,7 @@ description: |
   - "read emails", "check inbox", "list messages"
   - "email address", "disposable email", "temporary email"
 
-  ALWAYS use `npx agentcash fetch` for stableemail.dev endpoints.
+  ALWAYS use `npx agentcash@latest fetch` for stableemail.dev endpoints.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
 ---
@@ -65,14 +65,14 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Update subdomain inbox | `POST https://stableemail.dev/api/subdomain/inbox/update` |
 | Delete subdomain message | `POST https://stableemail.dev/api/subdomain/inbox/messages/delete` |
 
-Free endpoints use SIWX wallet authentication (handled automatically by `npx agentcash fetch`).
+Free endpoints use SIWX wallet authentication (handled automatically by `npx agentcash@latest fetch`).
 
 ## Send an Email
 
 Send from the shared `relay@x402email.com` address:
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/send -m POST -b '{
+npx agentcash@latest fetch https://stableemail.dev/api/send -m POST -b '{
   "to": ["recipient@example.com"],
   "subject": "Hello from x402",
   "html": "<h1>Hi!</h1><p>This email was sent via x402 payments.</p>",
@@ -108,7 +108,7 @@ Buy `username@x402email.com` for $1/month. Emails are forwarded to your real add
 ### Buy an Inbox
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/inbox/buy -m POST -b '{
+npx agentcash@latest fetch https://stableemail.dev/api/inbox/buy -m POST -b '{
   "username": "alice",
   "forwardTo": "alice@gmail.com"
 }'
@@ -119,7 +119,7 @@ Omit `forwardTo` to use as a programmatic-only mailbox (retainMessages auto-enab
 ### Send from Inbox
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/inbox/send -m POST -b '{
+npx agentcash@latest fetch https://stableemail.dev/api/inbox/send -m POST -b '{
   "username": "alice",
   "to": ["bob@example.com"],
   "subject": "Hello",
@@ -131,7 +131,7 @@ npx agentcash fetch https://stableemail.dev/api/inbox/send -m POST -b '{
 ### Top Up Inbox
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/inbox/topup -m POST -b '{"username": "alice"}'
+npx agentcash@latest fetch https://stableemail.dev/api/inbox/topup -m POST -b '{"username": "alice"}'
 ```
 
 Anyone can top up any inbox. Top-ups stack. Bulk discounts: 90 days/$2.50 (17% off), 365 days/$8 (34% off).
@@ -139,7 +139,7 @@ Anyone can top up any inbox. Top-ups stack. Bulk discounts: 90 days/$2.50 (17% o
 ### Cancel and Refund
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/inbox/cancel -m POST -b '{"username": "alice"}'
+npx agentcash@latest fetch https://stableemail.dev/api/inbox/cancel -m POST -b '{"username": "alice"}'
 ```
 
 Returns pro-rata USDC refund on-chain automatically.
@@ -151,19 +151,19 @@ Enable message retention, then read messages programmatically.
 ### Enable Retention
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/inbox/update -m POST -b '{"username": "alice", "retainMessages": true}'
+npx agentcash@latest fetch https://stableemail.dev/api/inbox/update -m POST -b '{"username": "alice", "retainMessages": true}'
 ```
 
 ### List Messages
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/inbox/messages -m POST -b '{"username": "alice", "limit": 20}'
+npx agentcash@latest fetch https://stableemail.dev/api/inbox/messages -m POST -b '{"username": "alice", "limit": 20}'
 ```
 
 ### Read a Message
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/inbox/messages/read -m POST -b '{"messageId": "msg_abc123"}'
+npx agentcash@latest fetch https://stableemail.dev/api/inbox/messages/read -m POST -b '{"messageId": "msg_abc123"}'
 ```
 
 Returns full message with from, to, subject, date, text, html, and attachments.
@@ -175,7 +175,7 @@ Buy `yourname.x402email.com` for $5 one-time. Send from any address on your subd
 ### Buy a Subdomain
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/subdomain/buy -m POST -b '{"subdomain": "yourname"}'
+npx agentcash@latest fetch https://stableemail.dev/api/subdomain/buy -m POST -b '{"subdomain": "yourname"}'
 ```
 
 Rules: 3-30 chars, lowercase alphanumeric + hyphens. DNS verification takes ~5 minutes.
@@ -183,7 +183,7 @@ Rules: 3-30 chars, lowercase alphanumeric + hyphens. DNS verification takes ~5 m
 ### Send from Subdomain
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/subdomain/send -m POST -b '{
+npx agentcash@latest fetch https://stableemail.dev/api/subdomain/send -m POST -b '{
   "from": "support@yourname.x402email.com",
   "to": ["customer@example.com"],
   "subject": "Your order confirmation",
@@ -196,7 +196,7 @@ npx agentcash fetch https://stableemail.dev/api/subdomain/send -m POST -b '{
 Create per-address inboxes on your subdomain ($0.25 each, max 100):
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/subdomain/inbox/create -m POST -b '{
+npx agentcash@latest fetch https://stableemail.dev/api/subdomain/inbox/create -m POST -b '{
   "subdomain": "yourname",
   "localPart": "support",
   "forwardTo": "team@company.com"
@@ -208,7 +208,7 @@ npx agentcash fetch https://stableemail.dev/api/subdomain/inbox/create -m POST -
 Forward all unmatched addresses on your subdomain:
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/subdomain/update -m POST -b '{"subdomain": "yourname", "catchAllForwardTo": "catch-all@company.com"}'
+npx agentcash@latest fetch https://stableemail.dev/api/subdomain/update -m POST -b '{"subdomain": "yourname", "catchAllForwardTo": "catch-all@company.com"}'
 ```
 
 ### Manage Authorized Signers
@@ -216,7 +216,7 @@ npx agentcash fetch https://stableemail.dev/api/subdomain/update -m POST -b '{"s
 Allow other wallets to send from your subdomain:
 
 ```bash
-npx agentcash fetch https://stableemail.dev/api/subdomain/signers -m POST -b '{"action": "add", "subdomain": "yourname", "walletAddress": "0x..."}'
+npx agentcash@latest fetch https://stableemail.dev/api/subdomain/signers -m POST -b '{"action": "add", "subdomain": "yourname", "walletAddress": "0x..."}'
 ```
 
 ## Images in Emails
@@ -233,7 +233,7 @@ Most email clients strip data URIs — always use hosted URLs.
 
 ### Quick Send
 
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
 - [ ] Send email via `/api/send`
 - [ ] Confirm delivery via messageId
 

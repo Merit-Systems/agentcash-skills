@@ -56,22 +56,22 @@ These skills are also available in MCP mode (the [mcp](mcp/skills/) directory). 
 
 1. **Check your balance:**
 ```bash
-npx agentcash wallet info
+npx agentcash@latest wallet info
 ```
 
 2. **Discover available endpoints:**
 ```bash
-npx agentcash discover https://stableenrich.dev
+npx agentcash@latest discover https://stableenrich.dev
 ```
 
 3. **Check endpoint pricing before calling:**
 ```bash
-npx agentcash check https://stableenrich.dev/api/apollo/people-enrich
+npx agentcash@latest check https://stableenrich.dev/api/apollo/people-enrich
 ```
 
 4. **Make API calls:**
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b '{"email": "user@company.com"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b '{"email": "user@company.com"}'
 ```
 
 ### MCP mode
@@ -121,7 +121,7 @@ Guessing endpoints will result in `405 Method Not Allowed` errors and wasted API
 
 If your balance is low:
 
-1. Redeem an invite code: `npx agentcash wallet redeem YOUR_CODE`
+1. Redeem an invite code: `npx agentcash@latest wallet redeem YOUR_CODE`
 2. Or deposit USDC on Base to your wallet address
 
 

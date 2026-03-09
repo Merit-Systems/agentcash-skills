@@ -9,11 +9,11 @@
 
 2. **Check wallet:**
    ```bash
-   npx agentcash wallet info
+   npx agentcash@latest wallet info
    ```
 
 3. **Fund wallet** (if needed):
-   - Redeem invite: `npx agentcash wallet redeem YOUR_CODE`
+   - Redeem invite: `npx agentcash@latest wallet redeem YOUR_CODE`
    - Or send USDC on Base to your wallet address
 
 ## Troubleshooting
@@ -23,7 +23,7 @@
 | "Command not found" | Run `npm install -g agentcash` |
 | "Insufficient balance" | Fund wallet with USDC — calls cost $0.54 each |
 | "Payment failed" | Check balance, retry (transient errors) |
-| Call not completing | Poll `npx agentcash fetch https://stablephone.dev/api/call/{call_id}` every 5-10s until `completed: true` |
+| Call not completing | Poll `npx agentcash@latest fetch https://stablephone.dev/api/call/{call_id}` every 5-10s until `completed: true` |
 | "405 Method Not Allowed" | Verify endpoint path matches exactly from Quick Reference table in SKILL.md |
 | Invalid phone number | Use E.164 format: +1XXXXXXXXXX for US numbers |
 

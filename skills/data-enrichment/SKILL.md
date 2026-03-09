@@ -21,7 +21,7 @@ description: |
   - "verify email", "check email", "is this email valid"
   - "influencer", "creator", "influencer contact", "influencer marketing"
 
-  ALWAYS use `npx agentcash fetch` for stableenrich.dev endpoints - never curl or WebFetch.
+  ALWAYS use `npx agentcash@latest fetch` for stableenrich.dev endpoints - never curl or WebFetch.
   Returns structured JSON data, not web page HTML.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`https://stableenrich.dev/api/apollo/...`, `https://stableenrich.dev/api/clado/...`, etc.).
@@ -55,14 +55,14 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 ### Standard Enrichment
 
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
-- [ ] Use `npx agentcash discover https://stableenrich.dev` to list all endpoints
-- [ ] Use `npx agentcash check <endpoint-url>` to see expected parameters and pricing
-- [ ] Call endpoint with `npx agentcash fetch`
+- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] Use `npx agentcash@latest discover https://stableenrich.dev` to list all endpoints
+- [ ] Use `npx agentcash@latest check <endpoint-url>` to see expected parameters and pricing
+- [ ] Call endpoint with `npx agentcash@latest fetch`
 - [ ] Parse and present results
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b '{"email": "user@company.com"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b '{"email": "user@company.com"}'
 ```
 
 ## Person Enrichment
@@ -70,7 +70,7 @@ npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b
 Enrich a person using any available identifier:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b '{
   "email": "john@company.com",
   "first_name": "John",
   "last_name": "Doe",
@@ -93,7 +93,7 @@ npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b
 Enrich a company by domain:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/apollo/org-enrich -m POST -b '{"domain": "stripe.com"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/apollo/org-enrich -m POST -b '{"domain": "stripe.com"}'
 ```
 
 **Returns**: Company name, industry, employee count, revenue estimates, funding info, technologies used, social links.
@@ -103,7 +103,7 @@ npx agentcash fetch https://stableenrich.dev/api/apollo/org-enrich -m POST -b '{
 Search for people matching criteria:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/apollo/people-search -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/apollo/people-search -m POST -b '{
   "q_keywords": "software engineer",
   "person_titles": ["CTO", "VP Engineering"],
   "organization_domains": ["google.com", "meta.com"],
@@ -123,7 +123,7 @@ npx agentcash fetch https://stableenrich.dev/api/apollo/people-search -m POST -b
 Search for companies matching criteria:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/apollo/org-search -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/apollo/org-search -m POST -b '{
   "q_keywords": "fintech",
   "organization_locations": ["New York, NY"],
   "organization_num_employees_ranges": ["51-200", "201-500"]
@@ -135,7 +135,7 @@ npx agentcash fetch https://stableenrich.dev/api/apollo/org-search -m POST -b '{
 Get full LinkedIn profile data:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/clado/linkedin-scrape -m POST -b '{"linkedin_url": "https://linkedin.com/in/johndoe"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/clado/linkedin-scrape -m POST -b '{"linkedin_url": "https://linkedin.com/in/johndoe"}'
 ```
 
 **Returns**: Experience history, education, skills, certifications, recommendations, connection count.
@@ -145,7 +145,7 @@ npx agentcash fetch https://stableenrich.dev/api/clado/linkedin-scrape -m POST -
 Find missing email or phone:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/clado/contacts-enrich -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/clado/contacts-enrich -m POST -b '{
   "linkedin_url": "https://linkedin.com/in/johndoe",
   "email": "john@example.com"
 }'
@@ -158,7 +158,7 @@ npx agentcash fetch https://stableenrich.dev/api/clado/contacts-enrich -m POST -
 Process up to 10 records in one request:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich/bulk -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/apollo/people-enrich/bulk -m POST -b '{
   "people": [
     {"email": "person1@company.com"},
     {"email": "person2@company.com"},
@@ -170,7 +170,7 @@ npx agentcash fetch https://stableenrich.dev/api/apollo/people-enrich/bulk -m PO
 For companies:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/apollo/org-enrich/bulk -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/apollo/org-enrich/bulk -m POST -b '{
   "organizations": [
     {"domain": "company1.com"},
     {"domain": "company2.com"}
@@ -217,7 +217,7 @@ Use search endpoints ($0.02) to find the right records before enriching ($0.0495
 Verify if an email address is deliverable before sending outreach:
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/hunter/email-verifier -m POST -b '{"email": "john@stripe.com"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/hunter/email-verifier -m POST -b '{"email": "john@stripe.com"}'
 ```
 
 **Returns**: Deliverability status, MX record validation, SMTP verification, confidence score, and flags for catch-all, disposable, or role-based addresses.
@@ -241,7 +241,7 @@ Enrich social media influencer/creator profiles across Instagram, TikTok, YouTub
 ### Find Profiles by Email
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/influencer/enrich-by-email -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/influencer/enrich-by-email -m POST -b '{
   "email": "creator@example.com",
   "platform": "instagram",
   "enrichment_mode": "enhanced"
@@ -258,7 +258,7 @@ npx agentcash fetch https://stableenrich.dev/api/influencer/enrich-by-email -m P
 ### Enrich by Social Handle
 
 ```bash
-npx agentcash fetch https://stableenrich.dev/api/influencer/enrich-by-social -m POST -b '{
+npx agentcash@latest fetch https://stableenrich.dev/api/influencer/enrich-by-social -m POST -b '{
   "platform": "instagram",
   "username": "creator_handle",
   "enrichment_mode": "enhanced",

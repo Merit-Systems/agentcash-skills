@@ -17,7 +17,7 @@ description: |
   - "transcript", "call recording", "call summary"
   - "AI call", "automated call", "bland"
 
-  ALWAYS use `npx agentcash fetch` for stablephone.dev endpoints.
+  ALWAYS use `npx agentcash@latest fetch` for stablephone.dev endpoints.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
 ---
@@ -43,7 +43,7 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 ## Make a Call
 
 ```bash
-npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
+npx agentcash@latest fetch https://stablephone.dev/api/call -m POST -b '{
   "phone_number": "+14155551234",
   "task": "Call this person and ask if they are available for a meeting tomorrow at 2pm. Be polite and professional."
 }'
@@ -71,7 +71,7 @@ npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
 Poll until `completed` is true:
 
 ```bash
-npx agentcash fetch https://stablephone.dev/api/call/{call_id}
+npx agentcash@latest fetch https://stablephone.dev/api/call/{call_id}
 ```
 
 **Response fields:**
@@ -104,7 +104,7 @@ Poll every 5-10 seconds. Calls typically complete in 1-5 minutes depending on `m
 Buy a number to use as outbound caller ID:
 
 ```bash
-npx agentcash fetch https://stablephone.dev/api/number -m POST -b '{"area_code": "415", "country_code": "US"}'
+npx agentcash@latest fetch https://stablephone.dev/api/number -m POST -b '{"area_code": "415", "country_code": "US"}'
 ```
 
 **Optional:**
@@ -116,7 +116,7 @@ Numbers expire after 30 days. Top up to extend.
 ## Top Up a Number
 
 ```bash
-npx agentcash fetch https://stablephone.dev/api/number/topup -m POST -b '{"phone_number": "+14155551234"}'
+npx agentcash@latest fetch https://stablephone.dev/api/number/topup -m POST -b '{"phone_number": "+14155551234"}'
 ```
 
 Extends by 30 days from current expiry. Top-ups stack. Anyone can top up any number.
@@ -124,20 +124,20 @@ Extends by 30 days from current expiry. Top-ups stack. Anyone can top up any num
 ## List Your Numbers
 
 ```bash
-npx agentcash fetch https://stablephone.dev/api/numbers?wallet=YOUR_WALLET_ADDRESS
+npx agentcash@latest fetch https://stablephone.dev/api/numbers?wallet=YOUR_WALLET_ADDRESS
 ```
 
 ## Workflows
 
 ### Quick Call
 
-- [ ] (Optional) Check balance: `npx agentcash wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
 - [ ] Make call with task instructions
 - [ ] Poll status until completed
 - [ ] Review transcript and summary
 
 ```bash
-npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
+npx agentcash@latest fetch https://stablephone.dev/api/call -m POST -b '{
   "phone_number": "+14155551234",
   "task": "Ask if the business is open on weekends and what their hours are."
 }'
@@ -146,7 +146,7 @@ npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
 ### Leave a Voicemail
 
 ```bash
-npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
+npx agentcash@latest fetch https://stablephone.dev/api/call -m POST -b '{
   "phone_number": "+14155551234",
   "task": "Leave a voicemail about the appointment.",
   "voicemail_action": "leave_message",
@@ -159,7 +159,7 @@ For natural voicemail delivery, use `"voicemail_action": "ignore"` which bypasse
 ### Call with Transfer
 
 ```bash
-npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
+npx agentcash@latest fetch https://stablephone.dev/api/call -m POST -b '{
   "phone_number": "+14155551234",
   "task": "Qualify this lead. Ask about their budget and timeline. If they are interested, offer to transfer to a sales rep.",
   "transfer_phone_number": "+14155559999",
@@ -175,13 +175,13 @@ npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
 - [ ] Top up before expiry ($15/30 days)
 
 ```bash
-npx agentcash fetch https://stablephone.dev/api/number -m POST -b '{"area_code": "212", "country_code": "US"}'
+npx agentcash@latest fetch https://stablephone.dev/api/number -m POST -b '{"area_code": "212", "country_code": "US"}'
 ```
 
 Then use it as `from`:
 
 ```bash
-npx agentcash fetch https://stablephone.dev/api/call -m POST -b '{
+npx agentcash@latest fetch https://stablephone.dev/api/call -m POST -b '{
   "phone_number": "+14155551234",
   "from": "+12125551234",
   "task": "Confirm the reservation for Friday at 7pm."
