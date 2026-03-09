@@ -16,11 +16,13 @@ description: |
   - twit.sh — fast X/Twitter search & scraping
 
   TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact"
+homepage: https://agentcash.dev
 ---
 
-# agentcash — Paid API Access
+# AgentCash — Paid API Access
 
-Call any x402-protected API with automatic payment. No API keys, no subscriptions — just a funded wallet (USDC on Base).
+Call any x402-protected API with automatic payment. No API keys or subscriptions required.
+
 
 ## Wallet
 
