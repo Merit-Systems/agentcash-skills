@@ -37,21 +37,13 @@ npx agentcash onboard
 
 This sets up the wallet and core integration. Without a code, the user will be prompted to open a link to add credits (deposit or redeem).
 
-### 2. Add the core skill
-
-```bash
-npx agentcash add agentcash.dev
-```
-
-This installs the main AgentCash skill into your agent’s skills directory so you can discover endpoints, make paid requests, and manage the wallet.
-
-### 3. Verify
+### 2. Check your balance
 
 ```bash
 npx agentcash wallet info
 ```
 
-Shows wallet address, USDC balance, and deposit link. If balance is 0, direct the user to deposit USDC on Base or redeem an invite code.
+Shows wallet address, USDC balance, and deposit link. If balance is 0, direct the user to https://agentcash.dev/onboard to get free credits.
 
 ## Triggers
 
