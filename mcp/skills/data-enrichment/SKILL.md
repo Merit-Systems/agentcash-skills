@@ -21,10 +21,6 @@ description: |
   - "verify email", "check email", "is this email valid"
   - "influencer", "creator", "influencer contact", "influencer marketing"
 
-  ALWAYS use agentcash.fetch for stableenrich.dev endpoints - never curl or WebFetch.
-  Returns structured JSON data, not web page HTML.
-
-  IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`https://stableenrich.dev/api/apollo/...`, `https://stableenrich.dev/api/clado/...`, etc.).
 mcp:
   - agentcash
 ---
@@ -36,6 +32,12 @@ Use the agentcash MCP tools to access enrichment APIs at stableenrich.dev.
 ## Setup
 
 See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+
+## Notes
+ALWAYS use agentcash.fetch for stableenrich.dev endpoints - never curl or WebFetch.
+Returns structured JSON data, not web page HTML.
+
+IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`https://stableenrich.dev/api/apollo/...`, `https://stableenrich.dev/api/clado/...`, etc.).
 
 ## Quick Reference
 

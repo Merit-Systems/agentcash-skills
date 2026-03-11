@@ -20,10 +20,6 @@ description: |
   - "cross-platform", "social media research"
 
   IMPORTANT: StableSocial uses an async two-step flow. Step 1: POST triggers data collection (paid, $0.06). Step 2: Poll GET /api/jobs?token=... until finished (free). All endpoints are $0.06 per call.
-
-  Use `npx agentcash@latest fetch` for paid POST triggers. Use `npx agentcash@latest fetch` for free GET polling.
-
-  IMPORTANT: Use exact endpoint paths from the Quick Reference tables below. All paths include a platform prefix (e.g. `https://stablesocial.dev/api/tiktok/...`).
 ---
 
 # Social Media Scraping with StableSocial
@@ -33,6 +29,11 @@ Scrape profiles, posts, comments, followers, and search across TikTok, Instagram
 ## Setup
 
 See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+
+## Notes
+Use `npx agentcash@latest fetch` for paid POST triggers. Use `npx agentcash@latest fetch` for free GET polling.
+
+IMPORTANT: Use exact endpoint paths from the Quick Reference tables below. All paths include a platform prefix (e.g. `https://stablesocial.dev/api/tiktok/...`).
 
 ## How It Works: Async Two-Step Flow
 

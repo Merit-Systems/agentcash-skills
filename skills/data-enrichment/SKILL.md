@@ -20,11 +20,6 @@ description: |
   - "employee at", "works at", "company details"
   - "verify email", "check email", "is this email valid"
   - "influencer", "creator", "influencer contact", "influencer marketing"
-
-  ALWAYS use `npx agentcash@latest fetch` for stableenrich.dev endpoints - never curl or WebFetch.
-  Returns structured JSON data, not web page HTML.
-
-  IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`https://stableenrich.dev/api/apollo/...`, `https://stableenrich.dev/api/clado/...`, etc.).
 ---
 
 # Data Enrichment with x402 APIs
@@ -34,6 +29,14 @@ Use the agentcash CLI to access enrichment APIs at stableenrich.dev.
 ## Setup
 
 See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
+
+
+## Notes
+
+ALWAYS use `npx agentcash@latest fetch` for stableenrich.dev endpoints - never curl or WebFetch.
+Returns structured JSON data, not web page HTML.
+
+IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All paths include a provider prefix (`https://stableenrich.dev/api/apollo/...`, `https://stableenrich.dev/api/clado/...`, etc.).
 
 ## Quick Reference
 
