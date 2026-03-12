@@ -5,16 +5,14 @@ description: |
   Run `npx agentcash@latest discover <origin>` to get endpoints, pricing, and usage instructions for any service below.
 
   AVAILABLE SERVICES:
-  - stableenrich.dev — people/company search, LinkedIn scraping, Google Maps, Exa web search, Firecrawl web scraping, Twitter/X search, GTM & sales prospecting (name → contact info)
-  - stablesocial.dev — social media data (Twitter, Instagram, TikTok, YouTube, Facebook, Reddit)
+  - stableenrich.dev — people/company search, LinkedIn scraping, Google Maps, Exa web search, Firecrawl web scraping, GTM & sales prospecting (name → contact info)
+  - stablesocial.dev — social media data (Instagram, TikTok, YouTube, Facebook, Reddit)
   - stablestudio.dev — AI image & video generation
   - stableupload.dev — file hosting & sharing
   - stableemail.dev — send emails
   - stablephone.dev — AI phone calls
   - stablejobs.dev — job search
   - stabletravel.dev — travel search
-  - twit.sh — fast X/Twitter search & scraping
-
   TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact"
 homepage: https://agentcash.dev
 ---
@@ -78,7 +76,7 @@ Some endpoints use SIWX (Sign-In With X) wallet authentication instead of x402 p
 
 | Origin | What it does |
 |--------|-------------|
-| `stableenrich.dev` | Apollo (people/org search), Exa (web search), Firecrawl (scraping), Google Maps, Clado (LinkedIn), Serper (news/shopping), WhitePages, Hunter (email verification), Grok (X/Twitter) |
+| `stableenrich.dev` | Apollo (people/org search), Exa (web search), Firecrawl (scraping), Google Maps, Clado (LinkedIn), Serper (news/shopping), WhitePages, Hunter (email verification) |
 | `stablesocial.dev` | Social media data: TikTok, Instagram, Facebook, Reddit, LinkedIn ($0.06/call, async two-step) |
 | `stablestudio.dev` | AI image/video generation: GPT Image, Flux, Grok, Nano Banana, Sora, Veo, Seedance, Wan |
 | `stableupload.dev` | Pay-per-upload file hosting (10MB/$0.02, 100MB/$0.20, 1GB/$2.00, 6-month TTL) |
@@ -86,7 +84,6 @@ Some endpoints use SIWX (Sign-In With X) wallet authentication instead of x402 p
 | `stablephone.dev` | AI phone calls ($0.54), phone numbers ($20), top-ups ($15) |
 | `stablejobs.dev` | Job search via Coresignal |
 | `stabletravel.dev` | Travel search |
-| `twit.sh` | Fast X/Twitter search and scraping |
 
 Run `npx agentcash@latest discover <origin>` on any origin to see its full endpoint catalog.
 

@@ -299,7 +299,7 @@ agentcash.fetch(
 
 ## Influencer Enrichment
 
-Enrich social media influencer/creator profiles across Instagram, TikTok, YouTube, X/Twitter, and Facebook.
+Enrich social media influencer/creator profiles across Instagram, TikTok, YouTube, and Facebook.
 
 ### Find Profiles by Email
 

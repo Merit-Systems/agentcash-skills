@@ -9,28 +9,6 @@ x402 endpoints don't have strict rate limits per se, but:
 3. **Cache results** - Don't re-fetch the same data repeatedly
 4. **Be specific** - Targeted queries work better than broad ones
 
-## X/Twitter (twit.sh) Considerations
-
-### Search Tips
-- Use specific keywords, not generic terms
-- Include usernames with @ for targeted search
-- Combine terms: "AI agents" works better than just "AI"
-
-### User Posts
-- User posts are relatively stable
-- Don't fetch the same user repeatedly in short timeframes
-- Consider summarizing after one fetch rather than re-fetching
-
-### What Works Well
-- Keyword searches for topics
-- Finding users by description
-- Getting recent activity for specific accounts
-
-### What May Not Work
-- Historical searches far in the past
-- Very high-volume accounts (may be truncated)
-- Protected/private accounts
-
 ## Reddit Considerations
 
 ### Search Tips
@@ -73,12 +51,12 @@ Instead, craft one good query or search sequentially only when each result infor
 
 ## Cost Management
 
-X/Twitter (twit.sh) endpoints are $0.005–$0.01 per call; Reddit endpoints are $0.02 per call.
+Reddit endpoints are $0.02 per call.
 
 | Scenario | Typical Calls | Cost |
 |----------|---------------|------|
-| Quick X check | 1 | $0.01 |
-| Thorough research | 3-5 | $0.04-0.08 |
-| Full monitoring | 5-10 | $0.08-0.15 |
+| Quick Reddit search | 1 | $0.02 |
+| Thorough research | 3-5 | $0.06-0.10 |
+| Full monitoring | 5-10 | $0.10-0.20 |
 
-Budget for ~10 calls per monitoring session to cover X search (twit.sh), user lookup, Reddit search, and comments.
+Budget for ~5-10 calls per monitoring session to cover Reddit search and comments.

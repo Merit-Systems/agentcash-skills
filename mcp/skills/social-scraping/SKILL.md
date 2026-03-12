@@ -4,7 +4,7 @@ description: |
   Scrape social media profiles, posts, comments, followers, and search across 6 platforms via x402.
 
   USE FOR:
-  - Getting TikTok, Instagram, X/Twitter, Facebook, Reddit, or LinkedIn profiles
+  - Getting TikTok, Instagram, Facebook, Reddit, or LinkedIn profiles
   - Fetching a user's posts, stories, highlights, or videos
   - Getting comments, replies, and reactions on posts
   - Listing followers and following for any account
@@ -26,7 +26,7 @@ mcp:
 
 # Social Media Scraping with StableSocial
 
-Scrape profiles, posts, comments, followers, and search across TikTok, Instagram, X/Twitter, Facebook, Reddit, and LinkedIn. All endpoints cost $0.06 per call.
+Scrape profiles, posts, comments, followers, and search across TikTok, Instagram, Facebook, Reddit, and LinkedIn. All endpoints cost $0.06 per call.
 
 ## Setup
 
@@ -45,9 +45,9 @@ Every request follows a **trigger-then-poll** pattern:
 
 ```mcp
 agentcash.fetch(
-  url="https://stablesocial.dev/api/x/profile",
+  url="https://stablesocial.dev/api/instagram/profile",
   method="POST",
-  body={"handle": "elonmusk"}
+  body={"handle": "natgeo"}
 )
 ```
 
@@ -102,22 +102,6 @@ Tokens expire after 30 minutes. Jobs typically finish in 5-60 seconds.
 | Highlights | `https://stablesocial.dev/api/instagram/highlights` | profile |
 | Search posts | `https://stablesocial.dev/api/instagram/search` | — |
 | Search tags | `https://stablesocial.dev/api/instagram/search-tags` | — |
-
-**Input:** `{"handle": "username"}` for profile/posts/followers. `{"query": "keyword"}` for search.
-
-## Quick Reference — X/Twitter
-
-| Task | Endpoint | Depends On |
-|------|----------|------------|
-| Get profile | `https://stablesocial.dev/api/x/profile` | — |
-| Get posts | `https://stablesocial.dev/api/x/posts` | profile |
-| Post replies | `https://stablesocial.dev/api/x/post-replies` | posts |
-| Post retweets | `https://stablesocial.dev/api/x/post-retweets` | posts |
-| Quote tweets | `https://stablesocial.dev/api/x/post-quotes` | posts |
-| Followers | `https://stablesocial.dev/api/x/followers` | profile |
-| Following | `https://stablesocial.dev/api/x/following` | profile |
-| Search posts | `https://stablesocial.dev/api/x/search` | — |
-| Search profiles | `https://stablesocial.dev/api/x/search-profiles` | — |
 
 **Input:** `{"handle": "username"}` for profile/posts/followers. `{"query": "keyword"}` for search.
 
@@ -232,9 +216,9 @@ agentcash.fetch(
 - [ ] Compare results and synthesize findings
 
 ```mcp
-agentcash.fetch(url="https://stablesocial.dev/api/x/search", method="POST", body={"query": "brand name"})
 agentcash.fetch(url="https://stablesocial.dev/api/instagram/search", method="POST", body={"query": "brand name"})
 agentcash.fetch(url="https://stablesocial.dev/api/tiktok/search", method="POST", body={"query": "brand name"})
+agentcash.fetch(url="https://stablesocial.dev/api/reddit/search", method="POST", body={"query": "brand name"})
 ```
 
 ### Influencer Analysis
@@ -270,7 +254,7 @@ All endpoints are $0.06 per trigger call. Polling is free.
 
 ## vs social-intelligence Skill
 
-The `social-intelligence` skill uses X/Twitter (twit.sh) and Reddit (stableenrich.dev). Use it for quick X/Twitter keyword searches and Reddit post lookups.
+The `social-intelligence` skill uses Reddit (stableenrich.dev). Use it for quick Reddit post lookups and discussions.
 
 Use `social-scraping` (this skill) when you need:
 - **TikTok, Instagram, Facebook, or LinkedIn** data
