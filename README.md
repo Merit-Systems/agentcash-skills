@@ -44,7 +44,7 @@ npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 | [data-enrichment](skills/data-enrichment/) | Person, company, & influencer profiles; email verification | Apollo, Clado, Hunter, Influencer |
 | [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
 | [local-search](skills/local-search/) | Places & business info | Google Maps |
-| [social-intelligence](skills/social-intelligence/) | X/Twitter & Reddit search | Grok, Reddit |
+| [social-intelligence](skills/social-intelligence/) | Reddit search | Reddit |
 | [news-shopping](skills/news-shopping/) | News & product search | Serper |
 | [people-property](skills/people-property/) | People & property lookup | Whitepages |
 
@@ -108,8 +108,6 @@ agentcash.fetch(
 |-----------------|---------|
 | `/api/people/search` | `https://stableenrich.dev/api/apollo/people-search` |
 | `/api/people-enrich` | `https://stableenrich.dev/api/apollo/people-enrich` |
-| `https://stableenrich.dev/api/grok/search` | `https://stableenrich.dev/api/grok/x-search` |
-| `/api/twitter/search` | `https://stableenrich.dev/api/grok/x-search` |
 
 If you don't know the exact endpoint path:
 1. **Use discover** to list all available endpoints
