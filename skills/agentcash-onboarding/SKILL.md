@@ -16,7 +16,7 @@ When the user wants to set up or onboard into AgentCash:
    - **If the user provided an invite code:** run `npx agentcash@latest onboard <code>` so they get free credits as part of setup.
    - **If no invite code:** run `npx agentcash@latest onboard`. This installs the core skill and prompts the user to open a link to get credits (e.g. deposit or redeem later).
 
-After that, the user can check balance with `npx agentcash@latest wallet info`, deposit USDC (Base), or redeem an invite code later with `npx agentcash@latest wallet redeem <code>`.
+After that, the user can check balance with `npx agentcash@latest wallet info`, deposit USDC (Base or Solana), or redeem an invite code later with `npx agentcash@latest wallet redeem <code>`.
 
 ## Quick Start
 

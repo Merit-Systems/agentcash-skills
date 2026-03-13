@@ -1,7 +1,7 @@
 ---
 name: agentcash-wallet
 description: |
-  Manage your agentcash wallet and call any x402-protected API with automatic payment. No API keys, no subscriptions — just a funded wallet (USDC on Base).
+  Manage your agentcash wallet and call any x402-protected API with automatic payment. No API keys, no subscriptions — just a funded wallet (USDC on Base or Solana).
 
   USE FOR:
   - Checking wallet balance before API calls
@@ -50,10 +50,10 @@ One-time use per code. Credits added instantly. Run `get_wallet_info` after to v
 ### Deposit USDC
 
 1. Get your wallet address via `agentcash.get_wallet_info`
-2. Send USDC on **Base network** (eip155:8453) to that address
+2. Send USDC on **Base network** (eip155:8453) or **Solana** (solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp) to that address
 3. Or use the deposit UI: `https://agentcash.dev/deposit/<wallet-address>`
 
-**Important**: Only Base network USDC. Other networks or tokens will be lost.
+**Important**: Only Base or Solana network USDC. Other networks or tokens will be lost.
 
 ## Calling Paid APIs
 
@@ -117,7 +117,7 @@ Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its 
 - Payments settle only on success (2xx) — failed requests cost nothing.
 - Use `check_endpoint_schema` when unsure about request/response format.
 - Independent `agentcash.fetch` calls can run in parallel for better throughput.
-- Network: Base (eip155:8453), Currency: USDC.
+- Network: Base (eip155:8453) or Solana (solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp), Currency: USDC.
 
 ## Troubleshooting
 
@@ -127,4 +127,4 @@ Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its 
 | "Insufficient balance" | Check balance, deposit USDC or redeem invite code |
 | "Payment failed" | Transient error — retry the request |
 | "Invalid invite code" | Code already used or doesn't exist |
-| Balance not updating | Wait for Base network confirmation (~2 sec) |
+| Balance not updating | Wait for Base or Solana network confirmation (~2 sec) |

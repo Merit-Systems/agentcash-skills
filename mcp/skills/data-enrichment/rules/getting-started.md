@@ -14,7 +14,7 @@
 
 3. **Fund wallet** (if needed):
    - Redeem invite: `agentcash.redeem_invite(code="YOUR_CODE")`
-   - Or send USDC on Base to your wallet address
+   - Or send USDC on Base or Solana to your wallet address
 
 ## Troubleshooting
 

@@ -120,7 +120,7 @@ Guessing endpoints will result in `405 Method Not Allowed` errors and wasted API
 If your balance is low:
 
 1. Redeem an invite code: `npx agentcash@latest wallet redeem YOUR_CODE`
-2. Or deposit USDC on Base to your wallet address
+2. Or deposit USDC on Base or Solana to your wallet address
 
 
 ## Update prompts

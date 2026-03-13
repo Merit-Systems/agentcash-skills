@@ -1,7 +1,7 @@
 ---
 name: agentcash
 description: |
-  Pay-per-call access to premium APIs via x402 micropayments (USDC on Base).
+  Pay-per-call access to premium APIs via x402 micropayments (USDC on Base or Solana).
   Run `npx agentcash@latest discover <origin>` to get endpoints, pricing, and usage instructions for any service below.
 
   AVAILABLE SERVICES:
@@ -28,9 +28,9 @@ Call any x402-protected API with automatic payment. No API keys or subscriptions
 |------|---------|
 | Check balance | `npx agentcash@latest wallet info` |
 | Redeem invite code | `npx agentcash@latest wallet redeem <code>` |
-| Deposit | Send USDC (Base) to your wallet address |
+| Deposit | Send USDC (Base or Solana) to your wallet address |
 
-If your balance is 0, tell the user they need to deposit USDC (Base) to their wallet address or redeem an invite code.
+If your balance is 0, tell the user they need to deposit USDC (Base or Solana) to their wallet address or redeem an invite code.
 
 ## Using Services
 
@@ -66,6 +66,11 @@ Payment is automatic: sends request, gets 402 challenge, signs USDC payment, ret
 
 ### 4. Fetch with wallet authentication (for async jobs)
 
+** Important: Always use the same network for the corresponding fetch and fetch-auth requests.**
+- Base (eip155:8453) for USDC on Base
+- Solana (solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp) for USDC on Solana
+- Network can be specified with the --payment-network flag.
+
 ```bash
 npx agentcash@latest fetch-auth <url>
 ```
@@ -98,7 +103,7 @@ Run `npx agentcash@latest discover <origin>` on any origin to see its full endpo
 
 - Use `npx agentcash@latest check <url>` when unsure about request/response format.
 - Add `--format json` for machine-readable output, `--format pretty` for human-readable.
-- Network: Base (eip155:8453), Currency: USDC.
+- Network: Base (eip155:8453) or Solana (solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp), Currency: USDC.
 
 ## Troubleshooting
 
@@ -107,4 +112,4 @@ Run `npx agentcash@latest discover <origin>` on any origin to see its full endpo
 | "Insufficient balance" | Check balance, deposit USDC or redeem invite code |
 | "Payment failed" | Transient error — retry the request |
 | "Invalid invite code" | Code already used or doesn't exist |
-| Balance not updating | Wait for Base network confirmation (~2 sec) |
+| Balance not updating | Wait for Base or Solana network confirmation (~2 sec) |
