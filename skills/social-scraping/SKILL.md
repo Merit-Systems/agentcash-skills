@@ -182,7 +182,7 @@ npx agentcash@latest fetch https://stablesocial.dev/api/tiktok/followers -m POST
 
 ### Profile Deep Dive
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Trigger profile collection
 - [ ] Poll until finished
 - [ ] Trigger posts collection

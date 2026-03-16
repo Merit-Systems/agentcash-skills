@@ -104,7 +104,7 @@ agentcash.fetch(
 
 ### Standard
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Use `agentcash.discover_api_endpoints(url="https://stableenrich.dev")` to list endpoints
 - [ ] Use `agentcash.check_endpoint_schema(url="...")` to see expected parameters and pricing
 - [ ] Call endpoint with `agentcash.fetch`
@@ -112,7 +112,7 @@ agentcash.fetch(
 
 ### Brand Monitoring
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Search Reddit for discussions
 - [ ] Summarize sentiment and key mentions
 

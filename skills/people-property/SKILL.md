@@ -126,7 +126,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/property-sear
 ### Verify Contact Information
 
 - [ ] Confirm legitimate purpose (see [rules/privacy.md](rules/privacy.md))
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Search with available details
 - [ ] Verify results match expected person
 
@@ -136,7 +136,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search
 
 ### Property Research
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Search by address
 - [ ] Review owner and property details
 

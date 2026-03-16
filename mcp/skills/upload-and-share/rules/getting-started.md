@@ -9,12 +9,12 @@
 
 2. **Check wallet:**
 ```mcp
-   agentcash.get_wallet_info
+   agentcash.get_balance()
    ```
 
 3. **Fund wallet** (if needed):
    - Redeem invite: `agentcash.redeem_invite(code="YOUR_CODE")`
-   - Or use the deposit UI (point the user towards this URL: https://x402scan.com/mcp/deposit/<their-wallet-address>)
+   - Or call `agentcash.list_accounts()` to get Base or Solana deposit links and wallet addresses
 
 ## Troubleshooting
 

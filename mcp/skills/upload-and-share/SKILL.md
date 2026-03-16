@@ -49,10 +49,11 @@ All uploads expire after 6 months.
 ### 1. Check wallet balance
 
 ```mcp
-agentcash.get_wallet_info()
+agentcash.get_balance()
 ```
 
-Ensure sufficient USDC balance for the chosen tier. If balance is low, show the deposit link.
+Ensure sufficient USDC balance for the chosen tier.
+If balance is low and the user needs funding details, call `agentcash.list_accounts()`.
 
 ### 2. Determine the tier
 
@@ -123,7 +124,7 @@ Present the `publicUrl` to the user. This URL is publicly accessible immediately
 To list uploads for the current wallet:
 
 ```mcp
-agentcash.fetch_with_auth(
+agentcash.fetch(
   url="https://stableupload.dev/api/uploads",
   method="GET"
 )
@@ -132,7 +133,7 @@ agentcash.fetch_with_auth(
 ## Get Upload Details
 
 ```mcp
-agentcash.fetch_with_auth(
+agentcash.fetch(
   url="https://stableupload.dev/api/download/k7gm3nqp2",
   method="GET"
 )
@@ -166,7 +167,7 @@ Upload the image, then reference the `publicUrl` in email HTML:
 
 ## Error Handling
 
-- **Insufficient balance**: Show the deposit link from `get_wallet_info`
+- **Insufficient balance**: Call `agentcash.list_accounts()` to show deposit links and wallet addresses
 - **File too large for tier**: Suggest the next tier up
 - **Upload URL expired**: Buy a new slot (the previous payment is non-refundable)
 - **curl fails**: Verify the file path exists and the uploadUrl is correctly quoted

@@ -233,7 +233,7 @@ Most email clients strip data URIs — always use hosted URLs.
 
 ### Quick Send
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Send email via `/api/send`
 - [ ] Confirm delivery via messageId
 

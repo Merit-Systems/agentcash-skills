@@ -112,7 +112,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/serper/shopping -m POST 
 
 ### News Monitoring
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Search with appropriate time filter
 - [ ] Review and summarize top stories
 

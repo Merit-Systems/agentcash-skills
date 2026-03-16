@@ -167,7 +167,7 @@ Returns search results with full scraped content for each.
 
 ### Deep Research
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Search broadly with Exa
 - [ ] Find related sources with find-similar
 - [ ] Extract content from top sources

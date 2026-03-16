@@ -1,6 +1,7 @@
 ---
 name: agentcash-onboarding
 description: Set up AgentCash for your AI agent — wallet, core skill, and optional invite credits
+x-agentcash-skill-version: 2
 homepage: https://agentcash.dev
 ---
 
@@ -14,9 +15,9 @@ When the user wants to set up or onboard into AgentCash:
 
 1. **Run onboard** — With or without an invite code:
    - **If the user provided an invite code:** run `npx agentcash@latest onboard <code>` so they get free credits as part of setup.
-   - **If no invite code:** run `npx agentcash@latest onboard`. This installs the core skill and prompts the user to open a link to get credits (e.g. deposit or redeem later).
+   - **If no invite code:** run `npx agentcash@latest onboard`. This installs the core skill and prompts the user to open a link to get credits (for example deposit or redeem later).
 
-After that, the user can check balance with `npx agentcash@latest wallet info`, deposit USDC (Base or Solana), or redeem an invite code later with `npx agentcash@latest wallet redeem <code>`.
+After that, the user can check balance with `npx agentcash balance`, open the funding flow with `npx agentcash fund`, inspect funding addresses only when needed with `npx agentcash accounts`, or redeem an invite code later with `npx agentcash redeem <code>`.
 
 ## Quick Start
 
@@ -34,15 +35,15 @@ npx agentcash@latest onboard <invite-code>
 npx agentcash@latest onboard
 ```
 
-This sets up the wallet and core integration. Without a code, the user will be prompted to open a link to add credits (deposit or redeem).
+This sets up the wallet and core integration. Without a code, the user will be prompted to open a link to add credits.
 
 ### 2. Check your balance
 
 ```bash
-npx agentcash@latest wallet info
+npx agentcash balance
 ```
 
-Shows wallet address, USDC balance, and deposit link. If balance is 0, direct the user to https://agentcash.dev/onboard to get free credits.
+Shows total USDC balance. If balance is 0, direct the user to `npx agentcash fund` or https://agentcash.dev/onboard to get free credits. Only use `npx agentcash accounts` if the user needs deposit links or network-specific addresses.
 
 ## Triggers
 
@@ -57,11 +58,11 @@ Use this skill when the user says they want to:
 
 Once onboarding is done, read the **agentcash** (core) skill for:
 
-- Discovering endpoints: `npx agentcash@latest discover <origin>`
-- Making paid requests: `npx agentcash@latest fetch <url>`
-- Wallet: balance, redeem, deposit (see core skill or `npx agentcash@latest wallet info`)
+- Discovering endpoints: `npx agentcash discover <origin>`
+- Making paid requests: `npx agentcash fetch <url>`
+- Wallet: balance, fund, redeem, and deposit details
 
 ## Support
 
 - **Homepage**: https://agentcash.dev
-- **Deposit**: User’s deposit link is shown in `npx agentcash@latest wallet info`
+- **Deposit**: User deposit links are shown in `npx agentcash accounts`

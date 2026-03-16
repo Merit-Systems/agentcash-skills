@@ -56,7 +56,7 @@ These skills are also available in MCP mode (the [mcp](mcp/skills/) directory). 
 
 1. **Check your balance:**
 ```bash
-npx agentcash@latest wallet info
+npx agentcash@latest balance
 ```
 
 2. **Discover available endpoints:**
@@ -78,8 +78,10 @@ npx agentcash@latest fetch https://stableenrich.dev/api/apollo/people-enrich -m 
 
 1. **Check your balance:**
 ```mcp
-agentcash.get_wallet_info()
+agentcash.get_balance()
 ```
+
+If you need deposit links or per-network wallet addresses, call `agentcash.list_accounts()` separately.
 
 2. **Discover available endpoints:**
 ```mcp
@@ -119,8 +121,8 @@ Guessing endpoints will result in `405 Method Not Allowed` errors and wasted API
 
 If your balance is low:
 
-1. Redeem an invite code: `npx agentcash@latest wallet redeem YOUR_CODE`
-2. Or deposit USDC on Base or Solana to your wallet address
+1. Redeem an invite code: `npx agentcash@latest redeem YOUR_CODE`
+2. Or run `npx agentcash@latest accounts` to get Base or Solana deposit links and wallet addresses
 
 
 ## Update prompts

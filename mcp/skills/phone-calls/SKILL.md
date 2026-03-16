@@ -154,7 +154,7 @@ agentcash.fetch(
 
 ### Quick Call
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Make call with task instructions
 - [ ] Poll status until completed
 - [ ] Review transcript and summary

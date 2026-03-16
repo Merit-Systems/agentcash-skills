@@ -145,7 +145,7 @@ agentcash.fetch(
 
 ### News Monitoring
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Search with appropriate time filter
 - [ ] Review and summarize top stories
 

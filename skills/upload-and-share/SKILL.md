@@ -47,10 +47,11 @@ All uploads expire after 6 months.
 ### 1. Check wallet balance
 
 ```bash
-npx agentcash@latest wallet info
+npx agentcash@latest balance
 ```
 
-Ensure sufficient USDC balance for the chosen tier. If balance is low, show the deposit link.
+Ensure sufficient USDC balance for the chosen tier.
+If balance is low and the user needs funding details, run `npx agentcash@latest accounts` to get deposit links and wallet addresses.
 
 ### 2. Determine the tier
 
@@ -154,7 +155,7 @@ Upload the image, then reference the `publicUrl` in email HTML:
 
 ## Error Handling
 
-- **Insufficient balance**: Show the deposit link from `npx agentcash@latest wallet info`
+- **Insufficient balance**: Run `npx agentcash@latest accounts` to show deposit links and wallet addresses
 - **File too large for tier**: Suggest the next tier up
 - **Upload URL expired**: Buy a new slot (the previous payment is non-refundable)
 - **curl fails**: Verify the file path exists and the uploadUrl is correctly quoted

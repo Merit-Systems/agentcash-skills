@@ -28,7 +28,7 @@ Returns: `{url: "https://....blob.vercel-storage.com/..."}`
 
 **3. Confirm upload**
 ```mcp
-agentcash.fetch_with_auth(
+agentcash.fetch(
   url="https://stablestudio.dev/api/upload/confirm",
   method="POST",
   body={"uploadId": "...", "blobUrl": "https://..."}

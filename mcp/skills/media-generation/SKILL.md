@@ -15,7 +15,7 @@ description: |
   - "edit image", "modify image"
   - "stablestudio", "nano-banana", "sora", "veo"
 
-  ALWAYS use agentcash.fetch or agentcash.fetch_with_auth for stablestudio.dev endpoints.
+  ALWAYS use agentcash.fetch for stablestudio.dev endpoints.
 mcp:
   - agentcash
 ---
@@ -83,12 +83,13 @@ agentcash.fetch(
 Generation returns a `jobId`. Poll until complete:
 
 ```mcp
-agentcash.fetch_with_auth(
+agentcash.fetch(
   url="https://stablestudio.dev/api/jobs/{jobId}"
 )
 ```
 
 Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`.
+`agentcash.fetch` handles both paid submission requests and free SIWX polling requests.
 
 ## Image Editing
 

@@ -115,7 +115,7 @@ Use these with `includedTypes` / `excludedTypes`:
 
 ### Find Businesses in Area
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Text search (partial) to find options
 - [ ] Review results and select top picks
 - [ ] Get full details for selected places

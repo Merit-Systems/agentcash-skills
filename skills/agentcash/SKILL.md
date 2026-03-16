@@ -14,23 +14,26 @@ description: |
   - stablejobs.dev — job search
   - stabletravel.dev — travel search
   TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact"
+x-agentcash-skill-version: 2
 homepage: https://agentcash.dev
 ---
 
 # AgentCash — Paid API Access
 
-Call any x402-protected API with automatic payment. No API keys or subscriptions required.
-
+Call any x402-protected API with automatic wallet authentication and payment. No API keys or subscriptions required.
 
 ## Wallet
 
 | Task | Command |
 |------|---------|
-| Check balance | `npx agentcash@latest wallet info` |
-| Redeem invite code | `npx agentcash@latest wallet redeem <code>` |
-| Deposit | Send USDC (Base or Solana) to your wallet address |
+| Check total balance | `npx agentcash@latest balance` |
+| Funding addresses and deposit links | `npx agentcash@latest accounts` |
+| Redeem invite code | `npx agentcash@latest redeem <code>` |
+| Open guided funding flow | `npx agentcash@latest fund` |
 
-If your balance is 0, tell the user they need to deposit USDC (Base or Solana) to their wallet address or redeem an invite code.
+Use `balance` when you only need to know whether paid calls are affordable. Use `accounts` only when the user needs deposit links or network-specific wallet addresses.
+
+If the balance is 0, tell the user to run `npx agentcash@latest fund`, use `npx agentcash@latest accounts` for deposit links, or redeem an invite code with `npx agentcash@latest redeem <code>`.
 
 ## Using Services
 
@@ -42,17 +45,17 @@ npx agentcash@latest discover <origin>
 
 Example: `npx agentcash@latest discover https://stableenrich.dev`
 
-Read the output carefully — it includes endpoint paths, pricing, required parameters, and usage instructions. **Read the `instructions` field** — it has critical endpoint-specific guidance.
+Read the output carefully. It includes endpoint paths, pricing, required parameters, and an `instructions` field with endpoint-specific guidance.
 
-### 2. Check a specific endpoint (optional)
+### 2. Check a specific endpoint before calling it
 
 ```bash
 npx agentcash@latest check <endpoint-url>
 ```
 
-Returns full request/response JSON schemas and pricing.
+Returns the request and response schema plus pricing guidance. Use this before `fetch` to avoid 400 errors from wrong field names.
 
-### 3. Make a paid request
+### 3. Make the request
 
 ```bash
 # POST
@@ -62,20 +65,15 @@ npx agentcash@latest fetch <url> -m POST -b '{"key": "value"}'
 npx agentcash@latest fetch '<url>?param=value'
 ```
 
-Payment is automatic: sends request, gets 402 challenge, signs USDC payment, retries with credential, returns result.
+`fetch` handles both paid routes and SIWX routes. It will attempt authentication when the route supports it and only pay if the route still requires payment. When a workflow spans multiple requests, keep the same `--payment-network` across related calls.
 
-### 4. Fetch with wallet authentication (for async jobs)
-
-** Important: Always use the same network for the corresponding fetch and fetch-auth requests.**
-- Base (eip155:8453) for USDC on Base
-- Solana (solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp) for USDC on Solana
-- Network can be specified with the --payment-network flag.
+### 4. `fetch-auth` is a legacy alias
 
 ```bash
 npx agentcash@latest fetch-auth <url>
 ```
 
-Some endpoints use SIWX (Sign-In With X) wallet authentication instead of x402 payment. Use `fetch-auth` for these — it signs a wallet proof automatically. Common pattern for async services (stablestudio.dev, stablesocial.dev): `fetch` to submit a job (paid), then `fetch-auth` to poll for results (authenticated, not paid).
+`fetch-auth` still works, but it is a deprecated alias for `fetch`. Prefer `fetch` for all new workflows.
 
 ## Available Services
 
@@ -94,22 +92,22 @@ Run `npx agentcash@latest discover <origin>` on any origin to see its full endpo
 
 ## Important Rules
 
-- **Always discover before guessing.** Endpoint paths include provider prefixes (e.g. `/api/apollo/people-search`, not `/people-search`). Run discover first.
-- **Read the instructions field.** Discovery output includes endpoint-specific guidance — required field ordering, multi-step workflows, polling patterns, etc.
-- **Payments settle on success only.** Failed requests (non-2xx) don't cost anything.
+- **Always discover before guessing.** Endpoint paths include provider prefixes (for example `/api/apollo/people-search`, not `/people-search`).
+- **Read the instructions field.** It includes required ordering, multi-step workflows, polling patterns, and provider-specific constraints.
+- **Payments settle on success only.** Failed requests (non-2xx) do not cost anything.
 - **Check balance before expensive operations.** Video generation can cost $1-3 per call.
 
 ## Tips
 
-- Use `npx agentcash@latest check <url>` when unsure about request/response format.
-- Add `--format json` for machine-readable output, `--format pretty` for human-readable.
-- Network: Base (eip155:8453) or Solana (solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp), Currency: USDC.
+- Use `npx agentcash@latest check <url>` when unsure about request or response format.
+- Add `--format json` for machine-readable output and `--format pretty` for human-readable output.
+- Base and Solana are both supported payment networks. Use the one called out by the endpoint or the one where the user has funds.
 
 ## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| "Insufficient balance" | Check balance, deposit USDC or redeem invite code |
-| "Payment failed" | Transient error — retry the request |
-| "Invalid invite code" | Code already used or doesn't exist |
-| Balance not updating | Wait for Base or Solana network confirmation (~2 sec) |
+| "Insufficient balance" | Run `balance`, then `fund` or `accounts`, or redeem an invite code |
+| "Payment failed" | Retry the request |
+| "Invalid invite code" | The code is used or does not exist |
+| Balance not updating | Wait for the network confirmation and rerun `balance` |

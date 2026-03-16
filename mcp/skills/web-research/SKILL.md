@@ -197,7 +197,7 @@ Returns search results with full scraped content for each.
 
 ### Deep Research
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Search broadly with Exa
 - [ ] Find related sources with find-similar
 - [ ] Extract content from top sources
