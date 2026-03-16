@@ -16,6 +16,8 @@ description: |
   - "share file", "file hosting", "upload file"
 
   ALWAYS use `npx agentcash@latest fetch` for stableupload.dev endpoints — never curl or WebFetch for the purchase step.
+metadata:
+  version: 2
 ---
 
 # Upload and Share via StableUpload

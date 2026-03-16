@@ -17,6 +17,8 @@ description: |
   - "deposit", "add funds", "top up", "paid", "premium"
   - "discover", "endpoints", "what APIs", "pricing"
   - "insufficient balance", "payment failed"
+metadata:
+  version: 2
 ---
 
 # AgentCash Wallet & Paid APIs

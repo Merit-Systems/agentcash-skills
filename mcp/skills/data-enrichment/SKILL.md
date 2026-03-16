@@ -23,6 +23,8 @@ description: |
 
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # Data Enrichment with x402 APIs

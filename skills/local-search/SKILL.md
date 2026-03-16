@@ -17,6 +17,8 @@ description: |
   - "places in", "what's near", "directions to"
 
   Use `npx agentcash@latest fetch` for Google Maps endpoints. Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
+metadata:
+  version: 2
 ---
 
 # Local Search with Google Maps

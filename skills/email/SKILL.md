@@ -21,6 +21,8 @@ description: |
   ALWAYS use `npx agentcash@latest fetch` for stableemail.dev endpoints.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
+metadata:
+  version: 2
 ---
 
 # Email with StableEmail

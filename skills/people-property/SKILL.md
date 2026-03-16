@@ -18,6 +18,8 @@ description: |
   See rules/privacy.md for guidance.
 
   Use `npx agentcash@latest fetch` for Whitepages endpoints. Both endpoints are $0.44 per call.
+metadata:
+  version: 2
 ---
 
 # People & Property Search with Whitepages

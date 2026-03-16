@@ -20,6 +20,8 @@ description: |
   - "employee at", "works at", "company details"
   - "verify email", "check email", "is this email valid"
   - "influencer", "creator", "influencer contact", "influencer marketing"
+metadata:
+  version: 2
 ---
 
 # Data Enrichment with x402 APIs

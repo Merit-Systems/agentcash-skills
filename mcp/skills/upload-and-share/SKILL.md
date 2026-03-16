@@ -18,6 +18,8 @@ description: |
   ALWAYS use agentcash.fetch for stableupload.dev endpoints — never curl or WebFetch for the purchase step.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # Upload and Share via StableUpload

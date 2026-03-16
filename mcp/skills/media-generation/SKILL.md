@@ -18,6 +18,8 @@ description: |
   ALWAYS use agentcash.fetch for stablestudio.dev endpoints.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # Media Generation with StableStudio

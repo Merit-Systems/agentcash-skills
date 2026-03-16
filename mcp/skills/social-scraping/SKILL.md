@@ -22,6 +22,8 @@ description: |
   IMPORTANT: StableSocial uses an async two-step flow. Step 1: POST triggers data collection (paid, $0.06). Step 2: Poll GET /api/jobs?token=... until finished (free). All endpoints are $0.06 per call.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # Social Media Scraping with StableSocial

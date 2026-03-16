@@ -17,6 +17,8 @@ description: |
   - "compare prices", "where to buy", "deals on"
 
   Use `npx agentcash@latest fetch` for Serper endpoints. Both endpoints are $0.04 per call.
+metadata:
+  version: 2
 ---
 
 # News & Shopping Search with Serper

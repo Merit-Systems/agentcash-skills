@@ -20,6 +20,8 @@ description: |
   ALWAYS use `npx agentcash@latest fetch` for stablephone.dev endpoints.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
+metadata:
+  version: 2
 ---
 
 # AI Phone Calls with StablePhone

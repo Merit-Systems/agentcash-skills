@@ -19,6 +19,8 @@ description: |
   - "what is", "explain", "answer this"
 
   Use `npx agentcash@latest fetch` for stableenrich.dev endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
+metadata:
+  version: 2
 ---
 
 # Web Research with x402 APIs

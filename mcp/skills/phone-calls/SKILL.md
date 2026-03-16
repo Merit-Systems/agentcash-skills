@@ -22,6 +22,8 @@ description: |
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # AI Phone Calls with StablePhone

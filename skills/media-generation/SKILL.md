@@ -16,6 +16,8 @@ description: |
   - "stablestudio", "nano-banana", "sora", "veo"
 
   ALWAYS use `npx agentcash@latest fetch` for stablestudio.dev endpoints.
+metadata:
+  version: 2
 ---
 
 # Media Generation with StableStudio

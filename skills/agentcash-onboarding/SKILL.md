@@ -1,8 +1,9 @@
 ---
 name: agentcash-onboarding
 description: Set up AgentCash for your AI agent — wallet, core skill, and optional invite credits
-x-agentcash-skill-version: 2
 homepage: https://agentcash.dev
+metadata:
+  version: 2
 ---
 
 # AgentCash Onboarding

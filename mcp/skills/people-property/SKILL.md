@@ -20,6 +20,8 @@ description: |
   Use agentcash.fetch for Whitepages endpoints. Both endpoints are $0.44 per call.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # People & Property Search with Whitepages

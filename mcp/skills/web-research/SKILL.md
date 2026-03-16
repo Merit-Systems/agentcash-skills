@@ -21,6 +21,8 @@ description: |
   Use agentcash.fetch for stableenrich.dev endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # Web Research with x402 APIs

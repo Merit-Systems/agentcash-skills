@@ -16,6 +16,8 @@ description: |
   Use `npx agentcash@latest fetch` for Reddit endpoints. Reddit $0.02/call.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
+metadata:
+  version: 2
 ---
 
 # Social Intelligence with x402 APIs

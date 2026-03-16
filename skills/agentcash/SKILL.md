@@ -14,8 +14,9 @@ description: |
   - stablejobs.dev — job search
   - stabletravel.dev — travel search
   TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact"
-x-agentcash-skill-version: 2
 homepage: https://agentcash.dev
+metadata:
+  version: 2
 ---
 
 # AgentCash — Paid API Access
