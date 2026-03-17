@@ -21,6 +21,8 @@ description: |
   ALWAYS use `npx agentcash@latest fetch` for stableemail.dev endpoints.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
+metadata:
+  version: 2
 ---
 
 # Email with StableEmail
@@ -233,7 +235,7 @@ Most email clients strip data URIs — always use hosted URLs.
 
 ### Quick Send
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Send email via `/api/send`
 - [ ] Confirm delivery via messageId
 

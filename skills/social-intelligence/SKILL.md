@@ -16,6 +16,8 @@ description: |
   Use `npx agentcash@latest fetch` for Reddit endpoints. Reddit $0.02/call.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
+metadata:
+  version: 2
 ---
 
 # Social Intelligence with x402 APIs
@@ -86,7 +88,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/reddit/post-comments -m 
 
 ### Standard
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Use `npx agentcash@latest discover https://stableenrich.dev` to list endpoints
 - [ ] Use `npx agentcash@latest check <endpoint-url>` to see expected parameters and pricing
 - [ ] Call endpoint with `npx agentcash@latest fetch`
@@ -94,7 +96,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/reddit/post-comments -m 
 
 ### Brand Monitoring
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Search Reddit for discussions
 - [ ] Summarize sentiment and key mentions
 

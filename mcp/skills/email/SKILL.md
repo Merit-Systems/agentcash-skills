@@ -23,6 +23,8 @@ description: |
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # Email with StableEmail
@@ -67,7 +69,7 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Update subdomain inbox | `POST https://stableemail.dev/api/subdomain/inbox/update` |
 | Delete subdomain message | `POST https://stableemail.dev/api/subdomain/inbox/messages/delete` |
 
-Free endpoints use SIWX wallet authentication (handled automatically by agentcash). Use `agentcash.fetch_with_auth` for free GET endpoints, `agentcash.fetch` for free POST endpoints.
+Free endpoints use SIWX wallet authentication when needed, and `agentcash.fetch` handles that automatically for both GET and POST requests.
 
 ## Send an Email
 
@@ -287,7 +289,7 @@ Most email clients strip data URIs — always use hosted URLs.
 
 ### Quick Send
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Send email via `/api/send`
 - [ ] Confirm delivery via messageId
 

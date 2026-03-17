@@ -19,6 +19,8 @@ description: |
   Use agentcash.fetch for Serper endpoints. Both endpoints are $0.04 per call.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # News & Shopping Search with Serper
@@ -145,7 +147,7 @@ agentcash.fetch(
 
 ### News Monitoring
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Search with appropriate time filter
 - [ ] Review and summarize top stories
 

@@ -20,6 +20,8 @@ description: |
   - "employee at", "works at", "company details"
   - "verify email", "check email", "is this email valid"
   - "influencer", "creator", "influencer contact", "influencer marketing"
+metadata:
+  version: 2
 ---
 
 # Data Enrichment with x402 APIs
@@ -58,7 +60,7 @@ IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All pa
 
 ### Standard Enrichment
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Use `npx agentcash@latest discover https://stableenrich.dev` to list all endpoints
 - [ ] Use `npx agentcash@latest check <endpoint-url>` to see expected parameters and pricing
 - [ ] Call endpoint with `npx agentcash@latest fetch`

@@ -19,6 +19,8 @@ description: |
   Use agentcash.fetch for Google Maps endpoints. Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # Local Search with Google Maps
@@ -136,7 +138,7 @@ Use these with `includedTypes` / `excludedTypes`:
 
 ### Find Businesses in Area
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Text search (partial) to find options
 - [ ] Review results and select top picks
 - [ ] Get full details for selected places

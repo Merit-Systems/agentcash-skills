@@ -20,6 +20,8 @@ description: |
   ALWAYS use `npx agentcash@latest fetch` for stablephone.dev endpoints.
 
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
+metadata:
+  version: 2
 ---
 
 # AI Phone Calls with StablePhone
@@ -131,7 +133,7 @@ npx agentcash@latest fetch https://stablephone.dev/api/numbers?wallet=YOUR_WALLE
 
 ### Quick Call
 
-- [ ] (Optional) Check balance: `npx agentcash@latest wallet info`
+- [ ] (Optional) Check balance: `npx agentcash@latest balance`
 - [ ] Make call with task instructions
 - [ ] Poll status until completed
 - [ ] Review transcript and summary

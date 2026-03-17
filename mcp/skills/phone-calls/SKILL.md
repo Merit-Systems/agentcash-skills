@@ -22,6 +22,8 @@ description: |
   IMPORTANT: Use exact endpoint paths from the Quick Reference table below.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # AI Phone Calls with StablePhone
@@ -154,7 +156,7 @@ agentcash.fetch(
 
 ### Quick Call
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Make call with task instructions
 - [ ] Poll status until completed
 - [ ] Review transcript and summary

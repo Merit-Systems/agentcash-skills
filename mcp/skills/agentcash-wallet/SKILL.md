@@ -17,11 +17,13 @@ description: |
   - "deposit", "add funds", "top up", "paid", "premium"
   - "discover", "endpoints", "what APIs", "pricing"
   - "insufficient balance", "payment failed"
+metadata:
+  version: 2
 ---
 
 # AgentCash Wallet & Paid APIs
 
-Call any x402-protected API with automatic payment. Payment is the authentication — no API keys or subscriptions needed.
+Call any x402-protected API with automatic wallet authentication and payment. No API keys or subscriptions needed.
 
 ## Setup
 
@@ -34,10 +36,10 @@ Your wallet is auto-created on first use and stored at `~/.agentcash/wallet.json
 ### Check Balance
 
 ```mcp
-agentcash.get_wallet_info()
+agentcash.get_balance()
 ```
 
-Returns wallet address, USDC balance, and deposit link. Always check before expensive operations.
+Returns total USDC balance across supported networks. Use this before paid calls to confirm funds are available.
 
 ### Redeem Invite Code
 
@@ -45,13 +47,13 @@ Returns wallet address, USDC balance, and deposit link. Always check before expe
 agentcash.redeem_invite(code="YOUR_CODE")
 ```
 
-One-time use per code. Credits added instantly. Run `get_wallet_info` after to verify.
+One-time use per code. Credits added instantly. Run `agentcash.get_balance()` after to verify.
 
 ### Deposit USDC
 
-1. Get your wallet address via `agentcash.get_wallet_info`
-2. Send USDC on **Base network** (eip155:8453) or **Solana** (solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp) to that address
-3. Or use the deposit UI: `https://agentcash.dev/deposit/<wallet-address>`
+1. Call `agentcash.list_accounts()` to get per-network wallet addresses and deposit links
+2. Send USDC on **Base network** (eip155:8453) or **Solana** (solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp) to the matching address
+3. Or open the returned deposit link for the selected network
 
 **Important**: Only Base or Solana network USDC. Other networks or tokens will be lost.
 
@@ -84,6 +86,7 @@ agentcash.fetch(
 ```
 
 Payment is automatic: sends request, gets 402 challenge, signs USDC payment, retries with credential, returns result. Payments settle only on success (2xx) — failed requests cost nothing.
+`agentcash.fetch` also handles SIWX-authenticated endpoints automatically when the route supports that flow.
 
 ## Available Services
 
@@ -103,13 +106,14 @@ Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its 
 
 | Task | Tool |
 |------|------|
-| Check balance | `agentcash.get_wallet_info` |
+| Check balance | `agentcash.get_balance` |
+| Get deposit links and wallet addresses | `agentcash.list_accounts` |
 | Redeem code | `agentcash.redeem_invite(code="...")` |
 | Discover endpoints | `agentcash.discover_api_endpoints(url="...")` |
 | Check pricing/schema | `agentcash.check_endpoint_schema(url="...")` |
 | Paid POST request | `agentcash.fetch(url="...", method="POST", body={...})` |
 | Paid GET request | `agentcash.fetch(url="...")` |
-| Authenticated GET (no payment) | `agentcash.fetch_with_auth(url="...")` |
+| Authenticated GET (no payment) | `agentcash.fetch(url="...")` |
 
 ## Tips
 
@@ -124,7 +128,7 @@ Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its 
 | Issue | Solution |
 |-------|----------|
 | "MCP tool not found" | Reinstall MCP, restart IDE |
-| "Insufficient balance" | Check balance, deposit USDC or redeem invite code |
+| "Insufficient balance" | Run `agentcash.get_balance()`, then `agentcash.list_accounts()` or redeem an invite code |
 | "Payment failed" | Transient error — retry the request |
 | "Invalid invite code" | Code already used or doesn't exist |
 | Balance not updating | Wait for Base or Solana network confirmation (~2 sec) |

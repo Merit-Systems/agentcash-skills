@@ -22,6 +22,8 @@ description: |
   IMPORTANT: StableSocial uses an async two-step flow. Step 1: POST triggers data collection (paid, $0.06). Step 2: Poll GET /api/jobs?token=... until finished (free). All endpoints are $0.06 per call.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # Social Media Scraping with StableSocial
@@ -33,7 +35,7 @@ Scrape profiles, posts, comments, followers, and search across TikTok, Instagram
 See [rules/getting-started.md](rules/getting-started.md) for installation and wallet setup.
 
 ## Notes
-Use agentcash.fetch for paid POST triggers. Use agentcash.fetch_with_auth for free GET polling.
+Use `agentcash.fetch` for both the paid POST trigger and the free GET polling step.
 
 IMPORTANT: Use exact endpoint paths from the Quick Reference tables below. All paths include a platform prefix (e.g. `https://stablesocial.dev/api/tiktok/...`).
 
@@ -203,7 +205,7 @@ agentcash.fetch(
 
 ### Profile Deep Dive
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Trigger profile collection
 - [ ] Poll until finished
 - [ ] Trigger posts collection

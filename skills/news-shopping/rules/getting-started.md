@@ -9,12 +9,12 @@
 
 2. **Check wallet:**
    ```bash
-   npx agentcash@latest wallet info
+   npx agentcash@latest balance
    ```
 
 3. **Fund wallet** (if needed):
-   - Redeem invite: `npx agentcash@latest wallet redeem YOUR_CODE`
-   - Or send USDC on Base or Solana to your wallet address
+   - Redeem invite: `npx agentcash@latest redeem YOUR_CODE`
+   - Or run `npx agentcash@latest accounts` to get Base or Solana deposit links and wallet addresses
 
 ## Troubleshooting
 

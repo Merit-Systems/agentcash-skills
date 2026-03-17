@@ -20,6 +20,8 @@ description: |
   Use agentcash.fetch for Whitepages endpoints. Both endpoints are $0.44 per call.
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # People & Property Search with Whitepages
@@ -139,7 +141,7 @@ agentcash.fetch(
 ### Verify Contact Information
 
 - [ ] Confirm legitimate purpose (see [rules/privacy.md](rules/privacy.md))
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Search with available details
 - [ ] Verify results match expected person
 
@@ -153,7 +155,7 @@ agentcash.fetch(
 
 ### Property Research
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Search by address
 - [ ] Review owner and property details
 

@@ -23,6 +23,8 @@ description: |
 
 mcp:
   - agentcash
+metadata:
+  version: 2
 ---
 
 # Data Enrichment with x402 APIs
@@ -59,7 +61,7 @@ IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All pa
 
 ### Standard Enrichment
 
-- [ ] (Optional) Check balance: `agentcash.get_wallet_info`
+- [ ] (Optional) Check balance: `agentcash.get_balance`
 - [ ] Use `agentcash.discover_api_endpoints(url="https://stableenrich.dev")` to list all endpoints
 - [ ] Use `agentcash.check_endpoint_schema(url="...")` to see expected parameters and pricing
 - [ ] Call endpoint with `agentcash.fetch`

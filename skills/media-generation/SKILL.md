@@ -15,7 +15,9 @@ description: |
   - "edit image", "modify image"
   - "stablestudio", "nano-banana", "sora", "veo"
 
-  ALWAYS use `npx agentcash@latest fetch` or `npx agentcash@latest fetch-auth` for stablestudio.dev endpoints.
+  ALWAYS use `npx agentcash@latest fetch` for stablestudio.dev endpoints.
+metadata:
+  version: 2
 ---
 
 # Media Generation with StableStudio
@@ -73,10 +75,11 @@ npx agentcash@latest fetch https://stablestudio.dev/api/generate/veo-3.1/generat
 Generation returns a `jobId`. Poll until complete:
 
 ```bash
-npx agentcash@latest fetch-auth https://stablestudio.dev/api/jobs/{jobId}
+npx agentcash@latest fetch https://stablestudio.dev/api/jobs/{jobId}
 ```
 
 Poll images every 3s, videos every 10s. Result contains `imageUrl` or `videoUrl`.
+`fetch` handles both paid submission requests and free SIWX polling requests.
 
 ## Image Editing
 
