@@ -1,7 +1,7 @@
 ---
 name: agentcash
 description: |
-  Pay-per-call access to premium APIs via x402 micropayments (USDC on Base or Solana).
+  Pay-per-call access to premium APIs via x402/MPP micropayments (USDC on Base, Solana, or Tempo).
   Run `npx agentcash@latest discover <origin>` to get endpoints, pricing, and usage instructions for any payment-protected service.
 
   FEATURED SERVICES:

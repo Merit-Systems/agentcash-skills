@@ -1,0 +1,128 @@
+---
+name: agentcash
+description: |
+  Pay-per-call access to premium APIs via x402/MPP micropayments (USDC on Base, Solana, or Tempo).
+
+  Run `agentcash.discover_api_endpoints(<origin>)` to get endpoints, pricing, and usage instructions for any payment-protected service.
+
+  FEATURED SERVICES:
+  - stableenrich.dev — people/company search, LinkedIn scraping, Google Maps, Exa web search, Firecrawl web scraping, GTM & sales prospecting (name → contact info)
+  - stablesocial.dev — social media data (Instagram, TikTok, YouTube, Facebook, Reddit)
+  - stablestudio.dev — AI image & video generation
+  - stableupload.dev — file hosting & sharing
+  - stableemail.dev — send emails
+  - stablephone.dev — AI phone calls
+  - stablejobs.dev — job search
+  - stabletravel.dev — travel search
+  - stablebrowser.dev — browser use
+  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", agentcash, x402, solana
+homepage: https://agentcash.dev
+metadata:
+  version: 2.1
+---
+
+# AgentCash — Paid API Access
+
+Call any x402 or MPP-protected API with automatic wallet authentication and payment. No API keys or subscriptions required.
+
+### Check Balance
+
+```mcp
+agentcash.get_balance()
+```
+
+Returns total USDC balance across supported networks. Use this before paid calls to confirm funds are available.
+
+### Redeem Invite Code
+
+```mcp
+agentcash.redeem_invite(code="YOUR_CODE")
+```
+
+One-time use per code. Credits added instantly. Run `agentcash.get_balance()` after to verify.
+
+### Deposit USDC
+
+1. Call `agentcash.list_accounts()` to get per-network wallet addresses and deposit links
+2. Send USDC on **Base network** (eip155:8453) or **Solana** (solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp) to the matching address
+3. Or open the returned deposit link for the selected network
+
+**Important**: Only Base or Solana network USDC. Other networks or tokens will be lost.
+
+## Calling Paid APIs
+
+### 1. Discover endpoints
+
+```mcp
+agentcash.discover_api_endpoints(url="https://stableenrich.dev")
+```
+
+Returns all endpoints, pricing, and usage instructions. **Read the `instructions` field** — it has critical endpoint-specific guidance.
+
+### 2. Check schema (optional)
+
+```mcp
+agentcash.check_endpoint_schema(url="https://stableenrich.dev/api/apollo/people-search")
+```
+
+Returns full request/response JSON schemas and pricing for a specific endpoint.
+
+### 3. Make a paid request
+
+```mcp
+agentcash.fetch(
+  url="https://stableenrich.dev/api/apollo/people-search",
+  method="POST",
+  body={"person_titles": ["CEO"], "person_locations": ["San Francisco"]}
+)
+```
+
+Payment is automatic: sends request, gets 402 challenge, signs USDC payment, retries with credential, returns result. Payments settle only on success (2xx) — failed requests cost nothing.
+`agentcash.fetch` also handles SIWX-authenticated endpoints automatically when the route supports that flow.
+
+## Available Services
+
+| Origin | Service | What it does |
+|---|---|---|
+| `https://stableenrich.dev` | StableEnrich | Research APIs: Apollo (people/org), Exa (web search), Firecrawl (scraping), Google Maps, Clado (LinkedIn), Serper (news/shopping), WhitePages, Reddit, Hunter (email verification), Influencer enrichment |
+| `https://stableupload.dev` | StableUpload | Pay-per-upload file hosting. 10MB/$0.02, 100MB/$0.20, 1GB/$2.00. 6-month TTL |
+| `https://stablestudio.dev` | StableStudio | AI image/video generation: GPT Image, Flux, Nano Banana, Sora, Veo, Seedance, Wan |
+| `https://stablesocial.dev` | StableSocial | Social media data: TikTok, Instagram, Facebook, Reddit, LinkedIn. $0.06/call, async two-step |
+| `https://stableemail.dev` | StableEmail | Send emails ($0.02), forwarding inboxes ($1/mo), custom subdomains ($5) |
+| `https://stablephone.dev` | StablePhone | AI phone calls ($0.54), phone numbers ($20), top-ups ($15) |
+| `https://stablejobs.dev` | StableJobs | Job search via Coresignal |
+| `https://stabletravel.dev` | StableTravel | Travel search via Amadeus |
+| `https://stablebrowser.dev` | StableBrowser | Browser Use |
+
+Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its full endpoint catalog.
+
+## Quick Reference
+
+| Task | Tool |
+|------|------|
+| Check balance | `agentcash.get_balance` |
+| Get deposit links and wallet addresses | `agentcash.list_accounts` |
+| Redeem code | `agentcash.redeem_invite(code="...")` |
+| Discover endpoints | `agentcash.discover_api_endpoints(url="...")` |
+| Check pricing/schema | `agentcash.check_endpoint_schema(url="...")` |
+| Paid POST request | `agentcash.fetch(url="...", method="POST", body={...})` |
+| Paid GET request | `agentcash.fetch(url="...")` |
+| Authenticated GET (no payment) | `agentcash.fetch(url="...")` |
+
+## Tips
+
+- Always discover first — the `instructions` field has critical endpoint-specific patterns and required parameters.
+- Payments settle only on success (2xx) — failed requests cost nothing.
+- Use `check_endpoint_schema` when unsure about request/response format.
+- Independent `agentcash.fetch` calls can run in parallel for better throughput.
+- Network: Base (eip155:8453) or Solana (solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp), Currency: USDC.
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| "MCP tool not found" | Reinstall MCP, restart IDE |
+| "Insufficient balance" | Run `agentcash.get_balance()`, then `agentcash.list_accounts()` or redeem an invite code |
+| "Payment failed" | Transient error — retry the request |
+| "Invalid invite code" | Code already used or doesn't exist |
+| Balance not updating | Wait for Base or Solana network confirmation (~2 sec) |
