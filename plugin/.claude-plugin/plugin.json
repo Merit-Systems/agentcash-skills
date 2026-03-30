@@ -1,17 +1,10 @@
 {
   "name": "agentcash",
-  "version": "0.1.1",
-  "description": "Pay-per-call access to premium APIs via x402 micropayments.",
+  "version": "0.1.2",
+  "description": "Pay-per-call access to premium APIs via x402/MPP micropayments.",
   "author": {
     "name": "Merit Systems",
     "url": "https://github.com/Merit-Systems"
   },
-  "license": "Apache-2.0",
-  "mcpServers": {
-    "agentcash": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["agentcash@latest", "server"]
-    }
-  }
+  "license": "Apache-2.0"
 }
