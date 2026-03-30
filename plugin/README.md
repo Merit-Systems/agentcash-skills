@@ -17,7 +17,7 @@ claude --plugin-dir /path/to/plugin
 ## What's Included
 
 - **AgentCash MCP server** — automatically connected via `.mcp.json`
-- **agentcash-wallet skill** — wallet management, endpoint discovery, and paid API calls
+- **agentcash skill** — pay-per-call access to premium APIs via x402/MPP micropayments
 
 ## Quick Start
 
