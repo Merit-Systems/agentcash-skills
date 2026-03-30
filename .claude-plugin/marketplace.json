@@ -1,0 +1,13 @@
+{
+  "name": "agentcash-skills",
+  "owner": {
+    "name": "Merit Systems"
+  },
+  "plugins": [
+    {
+      "name": "agentcash",
+      "source": "./plugin",
+      "description": "Pay-per-call access to premium APIs via x402/MPP micropayments. Bundles the AgentCash MCP server and core wallet skill — no API keys or subscriptions required."
+    }
+  ]
+}
