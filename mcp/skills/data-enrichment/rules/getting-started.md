@@ -35,9 +35,10 @@
 | org-enrich | $0.0495 |
 | people-search | $0.02 |
 | org-search | $0.02 |
-| linkedin-scrape | $0.04 |
 | contacts-enrich | $0.20 |
 | email-verifier (Hunter) | $0.03 |
 | influencer enrich-by-email | $0.40 |
 | influencer enrich-by-social | $0.40 |
-| bulk endpoints | $0.495 (for 10) |
+| minerva/resolve | $0.02 |
+| minerva/enrich | $0.05 |
+| minerva/validate-emails | $0.01 |

@@ -50,21 +50,23 @@ agentcash.fetch(
   url="https://stableenrich.dev/api/whitepages/person-search",
   method="POST",
   body={
-    "firstName": "John",
-    "lastName": "Smith",
+    "first_name": "John",
+    "last_name": "Smith",
     "city": "Seattle",
-    "state": "WA"
+    "state_code": "WA"
   }
 )
 ```
 
+IMPORTANT: The state parameter is named `state_code`, NOT `state`. Use two-letter state abbreviations (e.g., 'CA', 'NY', 'TX').
+
 **Parameters:**
-- `firstName` - First name (required)
-- `lastName` - Last name (required)
+- `first_name` - First name (required)
+- `last_name` - Last name (required)
 - `city` - City name
-- `state` - State abbreviation (US)
+- `state_code` - Two-letter state abbreviation (US)
 - `zip` - ZIP code
-- `address` - Street address
+- `street` - Street address
 
 **Returns:**
 - Full name and age range
@@ -80,11 +82,11 @@ Include more details for better matches:
 agentcash.fetch(
   url=".../whitepages/person-search",
   body={
-    "firstName": "John",
-    "lastName": "Smith",
-    "address": "123 Main St",
+    "first_name": "John",
+    "last_name": "Smith",
+    "street": "123 Main St",
     "city": "Seattle",
-    "state": "WA",
+    "state_code": "WA",
     "zip": "98101"
   }
 )
@@ -99,17 +101,19 @@ agentcash.fetch(
   url="https://stableenrich.dev/api/whitepages/property-search",
   method="POST",
   body={
-    "address": "123 Main Street",
+    "street": "123 Main Street",
     "city": "Seattle",
-    "state": "WA"
+    "state_code": "WA"
   }
 )
 ```
 
+IMPORTANT: The state parameter is named `state_code`, NOT `state`. Use two-letter state abbreviations (e.g., 'CA', 'NY', 'TX').
+
 **Parameters:**
-- `address` - Street address (required)
+- `street` - Street address (required)
 - `city` - City name
-- `state` - State abbreviation
+- `state_code` - Two-letter state abbreviation
 - `zip` - ZIP code
 
 **Returns:**
@@ -149,7 +153,7 @@ agentcash.fetch(
 agentcash.fetch(
   url="https://stableenrich.dev/api/whitepages/person-search",
   method="POST",
-  body={"firstName": "Jane", "lastName": "Doe", "city": "Portland", "state": "OR"}
+  body={"first_name": "Jane", "last_name": "Doe", "city": "Portland", "state_code": "OR"}
 )
 ```
 
@@ -163,7 +167,7 @@ agentcash.fetch(
 agentcash.fetch(
   url="https://stableenrich.dev/api/whitepages/property-search",
   method="POST",
-  body={"address": "456 Oak Avenue", "city": "Austin", "state": "TX"}
+  body={"street": "456 Oak Avenue", "city": "Austin", "state_code": "TX"}
 )
 ```
 
@@ -177,7 +181,7 @@ agentcash.fetch(
 agentcash.fetch(
   url="https://stableenrich.dev/api/whitepages/person-search",
   method="POST",
-  body={"firstName": "Michael", "lastName": "Johnson", "state": "CA"}
+  body={"first_name": "Michael", "last_name": "Johnson", "state_code": "CA"}
 )
 ```
 

@@ -8,12 +8,14 @@ description: |
   - Sharing files via download links
   - Hosting images, documents, or any file type
   - Making files publicly accessible for 6 months
+  - Hosting static websites with custom domains
 
   TRIGGERS:
   - "upload this", "share this file", "get me a link"
   - "host this file", "make this downloadable"
   - "public URL", "download link", "put online"
   - "share file", "file hosting", "upload file"
+  - "host site", "deploy site", "static site"
 
   ALWAYS use `npx agentcash@latest fetch` for stableupload.dev endpoints — never curl or WebFetch for the purchase step.
 metadata:
@@ -43,6 +45,13 @@ All uploads expire after 6 months.
 | Buy upload slot | `https://stableupload.dev/api/upload` | Tier-based |
 | List uploads | `GET https://stableupload.dev/api/uploads` | Free (auth) |
 | Get upload details | `GET https://stableupload.dev/api/download/:uploadId` | Free (auth) |
+| Buy site slot | `https://stableupload.dev/api/site` | Tier-based |
+| Activate site | `POST https://stableupload.dev/api/site/activate` | Free (auth) |
+| Update site | `PUT https://stableupload.dev/api/site` | Free (auth) |
+| Renew site | `https://stableupload.dev/api/site/renew` | Tier-based |
+| Attach domain | `POST https://stableupload.dev/api/site/domain` | Free (auth) |
+| Detach domain | `DELETE https://stableupload.dev/api/site/domain` | Free (auth) |
+| Domain status | `GET https://stableupload.dev/api/site/domain/status?uploadId=...` | Free (auth) |
 
 ## Workflow
 
@@ -154,6 +163,76 @@ Upload the image, then reference the `publicUrl` in email HTML:
 ```html
 <img src="https://f.stableupload.dev/abc/photo.png" alt="Photo" />
 ```
+
+## Static Site Hosting
+
+Host static sites (HTML/CSS/JS) with custom domains and automatic HTTPS.
+
+### Deploy a Site
+
+**1. Buy a site slot (paid, tier-based):**
+
+```bash
+npx agentcash@latest fetch https://stableupload.dev/api/site -m POST -b '{"filename": "my-site.zip", "tier": "100mb"}'
+```
+
+Returns `{uploadId, uploadUrl}`.
+
+**2. Upload the zip:**
+
+```bash
+curl -X PUT "$uploadUrl" -H "Content-Type: application/zip" --data-binary @site.zip
+```
+
+**3. Activate the site (SIWX, free):**
+
+```bash
+npx agentcash@latest fetch https://stableupload.dev/api/site/activate -m POST -b '{"uploadId": "..."}'
+```
+
+Returns `{siteUrl, fileCount, files}`. Site is live at `https://{uploadId}.s.stableupload.dev/`.
+
+### Update an Existing Site
+
+Update for free: PUT /api/site to get a new upload URL, upload the new zip, then activate.
+
+```bash
+npx agentcash@latest fetch https://stableupload.dev/api/site -m PUT -b '{"uploadId": "...", "filename": "my-site.zip"}'
+```
+
+Then upload the new zip and call activate again.
+
+### Custom Domain
+
+```bash
+npx agentcash@latest fetch https://stableupload.dev/api/site/domain -m POST -b '{"uploadId": "...", "hostname": "www.example.com"}'
+```
+
+Returns DNS records to configure. Check status:
+
+```bash
+npx agentcash@latest fetch "https://stableupload.dev/api/site/domain/status?uploadId=..."
+```
+
+Detach a domain:
+
+```bash
+npx agentcash@latest fetch https://stableupload.dev/api/site/domain -m DELETE -b '{"uploadId": "...", "hostname": "www.example.com"}'
+```
+
+### Renew a Site
+
+```bash
+npx agentcash@latest fetch https://stableupload.dev/api/site/renew -m POST -b '{"uploadId": "...", "count": 4}'
+```
+
+Extends 4 x 6 months.
+
+### Notes
+
+- Max 500 files per site
+- Tier limit applies to uncompressed size
+- Custom domains get automatic HTTPS via Cloudflare
 
 ## Error Handling
 

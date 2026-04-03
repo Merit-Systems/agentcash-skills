@@ -103,11 +103,8 @@ Get detailed info for a specific place:
 
 ```mcp
 agentcash.fetch(
-  url="https://stableenrich.dev/api/google-maps/place-details/partial",
-  method="POST",
-  body={
-    "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4"
-  }
+  url="https://stableenrich.dev/api/google-maps/place-details/partial?placeId=ChIJN1t_tDeuEmsRUsoyG83frY4",
+  method="GET"
 )
 ```
 
@@ -153,9 +150,8 @@ agentcash.fetch(
 
 ```mcp
 agentcash.fetch(
-  url="https://stableenrich.dev/api/google-maps/place-details/full",
-  method="POST",
-  body={"placeId": "ChIJ..."}
+  url="https://stableenrich.dev/api/google-maps/place-details/full?placeId=ChIJ...",
+  method="GET"
 )
 ```
 
@@ -191,9 +187,8 @@ agentcash.fetch(
 
 ```mcp
 agentcash.fetch(
-  url="https://stableenrich.dev/api/google-maps/place-details/full",
-  method="POST",
-  body={"placeId": "place_id_here"}
+  url="https://stableenrich.dev/api/google-maps/place-details/full?placeId=place_id_here",
+  method="GET"
 )
 ```
 

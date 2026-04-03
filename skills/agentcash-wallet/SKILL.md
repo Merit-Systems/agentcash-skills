@@ -5,12 +5,12 @@ description: |
   Run `npx agentcash@latest discover <origin>` to get endpoints, pricing, and usage instructions for any service below.
 
   AVAILABLE SERVICES:
-  - stableenrich.dev — people/company search, LinkedIn scraping, Google Maps, Exa web search, Firecrawl web scraping, GTM & sales prospecting (name → contact info)
-  - stablesocial.dev — social media data (Instagram, TikTok, YouTube, Facebook, Reddit)
+  - stableenrich.dev — people/company search, Minerva identity resolution, Google Maps, Exa web search, Firecrawl web scraping, Cloudflare site crawling, GTM & sales prospecting (name → contact info)
+  - stablesocial.dev — social media data (TikTok, Instagram, Facebook, Reddit)
   - stablestudio.dev — AI image & video generation
-  - stableupload.dev — file hosting & sharing
-  - stableemail.dev — send emails
-  - stablephone.dev — AI phone calls
+  - stableupload.dev — file hosting, sharing & static site hosting
+  - stableemail.dev — send emails, inboxes, custom subdomains
+  - stablephone.dev — AI phone calls, iMessage/FaceTime lookup
   - stablejobs.dev — job search
   - stabletravel.dev — travel search
   TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact"

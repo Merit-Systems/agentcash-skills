@@ -87,7 +87,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/nearby-searc
 Get detailed info for a specific place:
 
 ```bash
-npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/place-details/partial -m POST -b '{"placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4"}'
+npx agentcash@latest fetch "https://stableenrich.dev/api/google-maps/place-details/partial?placeId=ChIJN1t_tDeuEmsRUsoyG83frY4"
 ```
 
 **Input:**
@@ -127,7 +127,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/text-search/
 ```
 
 ```bash
-npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/place-details/full -m POST -b '{"placeId": "ChIJ..."}'
+npx agentcash@latest fetch "https://stableenrich.dev/api/google-maps/place-details/full?placeId=ChIJ..."
 ```
 
 ### Nearby Search with Filters
@@ -157,7 +157,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/nearby-searc
 - [ ] Compare ratings, reviews, and amenities
 
 ```bash
-npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/place-details/full -m POST -b '{"placeId": "place_id_here"}'
+npx agentcash@latest fetch "https://stableenrich.dev/api/google-maps/place-details/full?placeId=place_id_here"
 ```
 
 ## Cost Optimization

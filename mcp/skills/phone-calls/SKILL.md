@@ -9,6 +9,7 @@ description: |
   - Buying and managing phone numbers
   - Leaving voicemails
   - Transferring calls to humans
+  - Checking if a number has iMessage/FaceTime
 
   TRIGGERS:
   - "call", "phone call", "make a call", "dial"
@@ -16,6 +17,7 @@ description: |
   - "voicemail", "leave a message"
   - "transcript", "call recording", "call summary"
   - "AI call", "automated call", "bland"
+  - "imessage", "facetime", "check number", "lookup number"
 
   ALWAYS use agentcash.fetch for stablephone.dev endpoints.
 
@@ -42,7 +44,9 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Check call status | `GET https://stablephone.dev/api/call/{call_id}` | Free |
 | Buy phone number | `https://stablephone.dev/api/number` | $20.00 |
 | Top up number (30d) | `https://stablephone.dev/api/number/topup` | $15.00 |
-| List your numbers | `GET https://stablephone.dev/api/numbers?wallet=0x...` | Free |
+| List your numbers | `GET https://stablephone.dev/api/numbers` | Free |
+| iMessage/FaceTime lookup | `https://stablephone.dev/api/lookup` | $0.05 |
+| Lookup status | `GET https://stablephone.dev/api/lookup/status?token=...` | Free |
 
 ## Make a Call
 
@@ -145,12 +149,58 @@ Extends by 30 days from current expiry. Top-ups stack. Anyone can top up any num
 
 ## List Your Numbers
 
+Uses SIWX auth (wallet from auth header):
+
 ```mcp
 agentcash.fetch(
-  url="https://stablephone.dev/api/numbers?wallet=YOUR_WALLET_ADDRESS",
+  url="https://stablephone.dev/api/numbers",
   method="GET"
 )
 ```
+
+## iMessage/FaceTime Lookup
+
+Check if a phone number has iMessage or FaceTime. The lookup is async (30-90 seconds).
+
+**Step 1: Start the lookup (paid, $0.05)**
+
+```mcp
+agentcash.fetch(
+  url="https://stablephone.dev/api/lookup",
+  method="POST",
+  body={"phone_number": "+14155551234"}
+)
+```
+
+Returns 202 with `{"token": "jwt..."}`.
+
+**Step 2: Poll for results (SIWX, free)**
+
+```mcp
+agentcash.fetch(
+  url="https://stablephone.dev/api/lookup/status?token=JWT_TOKEN",
+  method="GET"
+)
+```
+
+Poll every 3-5 seconds until `status` is `"complete"`.
+
+**Response when complete:**
+```json
+{
+  "status": "complete",
+  "phone_number": "+1...",
+  "imessage": "available|unavailable|unknown",
+  "facetime": "available|unavailable|unknown|pending",
+  "carrier": {"carrier": "...", "number_type": "..."},
+  "country": {"name": "...", "iso2": "...", "flag": "..."}
+}
+```
+
+**Notes:**
+- `"unknown"` means the number exists but status can't be determined (likely landline/VoIP)
+- Token expires after 60 minutes
+- Same number within ~1 hour reuses cached result
 
 ## Workflows
 
