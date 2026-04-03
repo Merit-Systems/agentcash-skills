@@ -60,7 +60,7 @@ All endpoints are prefixed with `https://stablestudio.dev/api/generate/`. Edit e
 
 ## Image Generation
 
-**Recommended: nano-banana-pro** (best quality/cost balance)
+**Default: nano-banana-pro.** This is the best image model by far — highest quality, supports up to 4K, and the cost is reasonable. Always use nano-banana-pro unless the user specifically requests a different model or has a strong reason to use something else (e.g., budget constraints, needing ultra-wide aspect ratios from grok).
 
 ```mcp
 agentcash.fetch(
