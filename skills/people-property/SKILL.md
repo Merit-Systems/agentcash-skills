@@ -45,20 +45,22 @@ Search for a person by name and location:
 
 ```bash
 npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{
-  "firstName": "John",
-  "lastName": "Smith",
+  "first_name": "John",
+  "last_name": "Smith",
   "city": "Seattle",
-  "state": "WA"
+  "state_code": "WA"
 }'
 ```
 
+IMPORTANT: The state parameter is named `state_code`, NOT `state`. Use two-letter state abbreviations (e.g., 'CA', 'NY', 'TX').
+
 **Parameters:**
-- `firstName` - First name (required)
-- `lastName` - Last name (required)
+- `first_name` - First name (required)
+- `last_name` - Last name (required)
 - `city` - City name
-- `state` - State abbreviation (US)
+- `state_code` - Two-letter state abbreviation (US)
 - `zip` - ZIP code
-- `address` - Street address
+- `street` - Street address
 
 **Returns:**
 - Full name and age range
@@ -72,11 +74,11 @@ Include more details for better matches:
 
 ```bash
 npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{
-  "firstName": "John",
-  "lastName": "Smith",
-  "address": "123 Main St",
+  "first_name": "John",
+  "last_name": "Smith",
+  "street": "123 Main St",
   "city": "Seattle",
-  "state": "WA",
+  "state_code": "WA",
   "zip": "98101"
 }'
 ```
@@ -87,16 +89,18 @@ Search for property information:
 
 ```bash
 npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/property-search -m POST -b '{
-  "address": "123 Main Street",
+  "street": "123 Main Street",
   "city": "Seattle",
-  "state": "WA"
+  "state_code": "WA"
 }'
 ```
 
+IMPORTANT: The state parameter is named `state_code`, NOT `state`. Use two-letter state abbreviations (e.g., 'CA', 'NY', 'TX').
+
 **Parameters:**
-- `address` - Street address (required)
+- `street` - Street address (required)
 - `city` - City name
-- `state` - State abbreviation
+- `state_code` - Two-letter state abbreviation
 - `zip` - ZIP code
 
 **Returns:**
@@ -133,7 +137,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/property-sear
 - [ ] Verify results match expected person
 
 ```bash
-npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{"firstName": "Jane", "lastName": "Doe", "city": "Portland", "state": "OR"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{"first_name": "Jane", "last_name": "Doe", "city": "Portland", "state_code": "OR"}'
 ```
 
 ### Property Research
@@ -143,7 +147,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search
 - [ ] Review owner and property details
 
 ```bash
-npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/property-search -m POST -b '{"address": "456 Oak Avenue", "city": "Austin", "state": "TX"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/property-search -m POST -b '{"street": "456 Oak Avenue", "city": "Austin", "state_code": "TX"}'
 ```
 
 ### Reconnect with Someone
@@ -153,7 +157,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/property-sear
 - [ ] Review results for correct match
 
 ```bash
-npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{"firstName": "Michael", "lastName": "Johnson", "state": "CA"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search -m POST -b '{"first_name": "Michael", "last_name": "Johnson", "state_code": "CA"}'
 ```
 
 ## Cost Considerations

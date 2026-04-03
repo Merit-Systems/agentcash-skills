@@ -5,8 +5,8 @@ description: |
 
   USE FOR:
   - Sending emails (one-off or from custom addresses)
-  - Buying a forwarding inbox (username@x402email.com)
-  - Purchasing custom email subdomains (you@yourname.x402email.com)
+  - Buying a forwarding inbox (username@stableemail.dev)
+  - Purchasing custom email subdomains (you@yourname.stableemail.dev)
   - Reading and managing inbox messages programmatically
   - Setting up catch-all forwarding for subdomains
   - Managing authorized signers for shared subdomains
@@ -71,7 +71,7 @@ Free endpoints use SIWX wallet authentication (handled automatically by `npx age
 
 ## Send an Email
 
-Send from the shared `relay@x402email.com` address:
+Send from the shared `relay@stableemail.dev` address:
 
 ```bash
 npx agentcash@latest fetch https://stableemail.dev/api/send -m POST -b '{
@@ -105,7 +105,7 @@ For calendar invites, use `contentType: "text/calendar; method=REQUEST"`.
 
 ## Forwarding Inbox
 
-Buy `username@x402email.com` for $1/month. Emails are forwarded to your real address and/or retained for programmatic access.
+Buy `username@stableemail.dev` for $1/month. Emails are forwarded to your real address and/or retained for programmatic access.
 
 ### Buy an Inbox
 
@@ -172,7 +172,7 @@ Returns full message with from, to, subject, date, text, html, and attachments.
 
 ## Custom Subdomains
 
-Buy `yourname.x402email.com` for $5 one-time. Send from any address on your subdomain for $0.005/email.
+Buy `yourname.stableemail.dev` for $5 one-time. Send from any address on your subdomain for $0.005/email.
 
 ### Buy a Subdomain
 
@@ -186,7 +186,7 @@ Rules: 3-30 chars, lowercase alphanumeric + hyphens. DNS verification takes ~5 m
 
 ```bash
 npx agentcash@latest fetch https://stableemail.dev/api/subdomain/send -m POST -b '{
-  "from": "support@yourname.x402email.com",
+  "from": "support@yourname.stableemail.dev",
   "to": ["customer@example.com"],
   "subject": "Your order confirmation",
   "html": "<p>Thank you for your order!</p>"

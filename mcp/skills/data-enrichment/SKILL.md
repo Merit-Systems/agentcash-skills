@@ -7,9 +7,8 @@ description: |
   - Enriching person profiles by email, LinkedIn URL, or name
   - Enriching companies by domain
   - Finding contact details (email, phone) with confidence scores
-  - Scraping full LinkedIn profiles (experience, education, skills)
+  - Resolving person identity and enriching consumer profiles (Minerva)
   - Searching for people or companies by criteria
-  - Bulk enrichment operations (up to 10 at a time)
   - Verifying email deliverability before outreach
   - Enriching influencer/creator profiles across social platforms
 
@@ -49,13 +48,13 @@ IMPORTANT: Use exact endpoint paths from the Quick Reference table below. All pa
 | Enrich company | `https://stableenrich.dev/api/apollo/org-enrich` | $0.0495 | Domain -> company data |
 | Search people | `https://stableenrich.dev/api/apollo/people-search` | $0.02 | Find people by criteria |
 | Search companies | `https://stableenrich.dev/api/apollo/org-search` | $0.02 | Find companies by criteria |
-| LinkedIn scrape | `https://stableenrich.dev/api/clado/linkedin-scrape` | $0.04 | Full LinkedIn profile |
 | Contact recovery | `https://stableenrich.dev/api/clado/contacts-enrich` | $0.20 | Find missing email/phone |
 | Verify email | `https://stableenrich.dev/api/hunter/email-verifier` | $0.03 | Check deliverability |
 | Influencer by email | `https://stableenrich.dev/api/influencer/enrich-by-email` | $0.40 | Email -> social profiles |
 | Influencer by social | `https://stableenrich.dev/api/influencer/enrich-by-social` | $0.40 | Handle -> creator data |
-| Bulk people | `https://stableenrich.dev/api/apollo/people-enrich/bulk` | $0.495 | Up to 10 people at once |
-| Bulk companies | `https://stableenrich.dev/api/apollo/org-enrich/bulk` | $0.495 | Up to 10 companies at once |
+| Minerva resolve | `https://stableenrich.dev/api/minerva/resolve` | $0.02 | Person -> Minerva PID + LinkedIn |
+| Minerva enrich | `https://stableenrich.dev/api/minerva/enrich` | $0.05 | Consumer demographics + contact |
+| Minerva email check | `https://stableenrich.dev/api/minerva/validate-emails` | $0.01 | Check emails in Minerva DB |
 
 ## Workflows
 
@@ -158,13 +157,13 @@ agentcash.fetch(
 )
 ```
 
-## LinkedIn Scraping (Clado)
+## Contact Recovery (Clado)
 
-Get full LinkedIn profile data:
+Enrich contact info from LinkedIn URL, email, or phone. Provide exactly one of `linkedin_url`, `email`, or `phone`:
 
 ```mcp
 agentcash.fetch(
-  url="https://stableenrich.dev/api/clado/linkedin-scrape",
+  url="https://stableenrich.dev/api/clado/contacts-enrich",
   method="POST",
   body={
     "linkedin_url": "https://linkedin.com/in/johndoe"
@@ -172,57 +171,80 @@ agentcash.fetch(
 )
 ```
 
-**Returns**: Experience history, education, skills, certifications, recommendations, connection count.
-
-## Contact Recovery (Clado)
-
-Find missing email or phone:
-
-```mcp
-agentcash.fetch(
-  url="https://stableenrich.dev/api/clado/contacts-enrich",
-  method="POST",
-  body={
-    "linkedin_url": "https://linkedin.com/in/johndoe",
-    "email": "john@example.com"
-  }
-)
-```
-
 **Returns**: Validated email addresses and phone numbers with confidence scores.
 
-## Bulk Operations
+**Note:** For LinkedIn profile data (experience, education, skills), use Minerva `/api/minerva/enrich` instead of Clado.
 
-Process up to 10 records in one request:
+## Minerva Identity Resolution
+
+Resolve a person to a unique Minerva PID and LinkedIn URL:
 
 ```mcp
 agentcash.fetch(
-  url="https://stableenrich.dev/api/apollo/people-enrich/bulk",
+  url="https://stableenrich.dev/api/minerva/resolve",
   method="POST",
   body={
-    "people": [
-      { "email": "person1@company.com" },
-      { "email": "person2@company.com" },
-      { "linkedin_url": "https://linkedin.com/in/person3" }
+    "records": [
+      {
+        "record_id": "user_001",
+        "first_name": "John",
+        "last_name": "Smith",
+        "emails": ["john@company.com"]
+      }
     ]
   }
 )
 ```
 
-For companies:
+**Parameters:**
+- `records` array with: `record_id`, `first_name`, `last_name`, `emails`, `phones`, `linkedin_url`
+- Supports fuzzy match (name + contact) and reverse lookup (email/phone only, no name needed)
+- Use `match_condition_fields: ["linkedin_url"]` to only return matches with LinkedIn
+
+## Minerva Enrichment
+
+Enrich with demographics, work history, education, contact info, addresses, financial signals:
+
+Three lookup modes: by Minerva PID (fastest), by LinkedIn URL, or by name/email/phone.
 
 ```mcp
 agentcash.fetch(
-  url="https://stableenrich.dev/api/apollo/org-enrich/bulk",
+  url="https://stableenrich.dev/api/minerva/enrich",
   method="POST",
   body={
-    "organizations": [
-      { "domain": "company1.com" },
-      { "domain": "company2.com" }
-    ]
+    "records": [
+      {
+        "record_id": "user_001",
+        "first_name": "John",
+        "last_name": "Smith",
+        "emails": ["john@company.com"]
+      }
+    ],
+    "return_fields": ["full_name", "personal_emails", "phones", "work_experience"]
   }
 )
 ```
+
+**Parameters:**
+- `records` array with: `record_id` + one of `minerva_pid`, `linkedin_url`, or name/email/phone
+- `return_fields` array to limit response (e.g., `["full_name", "personal_emails", "phones", "work_experience"]`)
+- `match_condition_fields` to filter matches (e.g., `["email", "phone"]`)
+
+## Minerva Email Validation
+
+Check if emails exist in the Minerva database:
+
+```mcp
+agentcash.fetch(
+  url="https://stableenrich.dev/api/minerva/validate-emails",
+  method="POST",
+  body={
+    "records": ["john@company.com", "jane@example.com"]
+  }
+)
+```
+
+**Returns**: Validation status and last-seen timestamps. Use before resolve/enrich to pre-screen lists.
 
 ## Cost Optimization
 
@@ -243,13 +265,6 @@ Common fields to exclude:
 - `phone_numbers` - If you only need email
 - `social_profiles` - If you don't need social links
 
-### Bulk vs Individual
-
-- **Individual**: $0.0495 per record
-- **Bulk (10)**: $0.495 total = $0.0495 per record
-
-Bulk is the same price per record but faster for multiple items.
-
 ### Search Before Enrich
 
 Use search endpoints ($0.02) to find the right records before enriching ($0.0495):
@@ -267,9 +282,6 @@ When enriching multiple independent records, make calls in parallel:
 agentcash.fetch(url=".../people-enrich", body={"email": "a@co.com"})
 agentcash.fetch(url=".../people-enrich", body={"email": "b@co.com"})
 ```
-
-Or use bulk endpoints for the best efficiency.
-
 
 ## Email Verification (Hunter)
 
@@ -347,15 +359,16 @@ agentcash.fetch(
 
 **Returns**: Full profile with engagement metrics, contact info (email, phone), audience demographics, brand affinity, cross-platform links.
 
-### When to Use Influencer vs Apollo/Clado
+### When to Use Which Provider
 
-- **Apollo/Clado** — best for professional/B2B profiles (job titles, company, employment history)
-- **Influencer** — best for social media creators (followers, engagement, audience data, content categories)
+- **Apollo/Clado** — B2B professional data (job titles, company, employment history)
+- **Minerva** — Consumer profiles (demographics, income/wealth estimates, address history, life events, personal contact info)
+- **Influencer** — Social media creators (followers, engagement, audience data)
 
 ## Handling missing data
 
 If any query fails to return the data you are looking for, revisit the list of available APIs.
 
-Oftentimes, if Apollo is missing data, Clado will have it, and vice versa. For social media creators, try the influencer endpoints. For email deliverability, use Hunter.
+Oftentimes, if Apollo is missing data, Clado or Minerva will have it, and vice versa. For consumer profiles (demographics, addresses, financial signals), try Minerva. For social media creators, try the influencer endpoints. For email deliverability, use Hunter.
 
 If those still fail, use built-in WebSearch and WebFetch tools to find additional information like a company domain name or LinkedIn URL, and then use that data to make more targeted queries.

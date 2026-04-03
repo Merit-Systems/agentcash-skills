@@ -10,6 +10,7 @@ description: |
   - Scraping sites that block standard fetchers
   - Getting direct answers to factual questions
   - Research requiring multiple sources
+  - Crawling multiple pages from a website
 
   TRIGGERS:
   - "research", "investigate", "deep dive", "find sources"
@@ -17,6 +18,7 @@ description: |
   - "scrape", "extract content from", "get the text from"
   - "blocked site", "can't access", "paywall"
   - "what is", "explain", "answer this"
+  - "crawl", "crawl site", "scrape entire site"
 
   Use `npx agentcash@latest fetch` for stableenrich.dev endpoints. Prefer Exa for semantic/neural search, Firecrawl for direct scraping.
 metadata:
@@ -41,6 +43,8 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Direct answers | `https://stableenrich.dev/api/exa/answer` | $0.01 | Factual Q&A |
 | Scrape page | `https://stableenrich.dev/api/firecrawl/scrape` | $0.0126 | Single page to markdown |
 | Web search | `https://stableenrich.dev/api/firecrawl/search` | $0.0252 | Search with scraping |
+| Crawl website | `https://stableenrich.dev/api/cloudflare/crawl` | $0.10 | Multi-page site crawl |
+| Poll crawl | `GET https://stableenrich.dev/api/cloudflare/jobs?token=...` | Free | Poll crawl results |
 
 ## When to Use What
 
@@ -53,6 +57,7 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Scrape blocked/JS-heavy site | Firecrawl scrape |
 | Search + scrape results | Firecrawl search |
 | Quick fact lookup | Exa answer |
+| Crawl entire site/section | Cloudflare crawl |
 
 See [rules/when-to-use.md](rules/when-to-use.md) for detailed guidance.
 
@@ -75,6 +80,8 @@ npx agentcash@latest fetch https://stableenrich.dev/api/exa/search -m POST -b '{
 - `includeDomains` - Only search these domains
 - `excludeDomains` - Skip these domains
 - `startPublishedDate` / `endPublishedDate` - Date range filter
+- `category` - Filter by content type: "company", "research paper", "news", "pdf", "github", "tweet", "personal site", "linkedin profile", "financial report"
+- Tip: Use `category: "linkedin profile"` for people/profile discovery
 
 **Returns**: List of URLs with titles, snippets, and relevance scores.
 
@@ -164,6 +171,41 @@ npx agentcash@latest fetch https://stableenrich.dev/api/firecrawl/search -m POST
 - `scrapeOptions` - Options passed to scraper
 
 Returns search results with full scraped content for each.
+
+## Cloudflare Website Crawl
+
+Crawl multiple pages from a website with browser rendering. Async two-step pattern.
+
+**Step 1: Start the crawl (paid, $0.10)**
+
+```bash
+npx agentcash@latest fetch https://stableenrich.dev/api/cloudflare/crawl -m POST -b '{
+  "url": "https://example.com",
+  "limit": 10,
+  "depth": 1,
+  "formats": ["markdown"]
+}'
+```
+
+Returns 202 with `{"token": "jwt..."}`.
+
+**Step 2: Poll for results (SIWX, free)**
+
+```bash
+npx agentcash@latest fetch "https://stableenrich.dev/api/cloudflare/jobs?token=JWT_TOKEN"
+```
+
+Poll every 3-5 seconds until complete.
+
+**Parameters:**
+- `url` (required) — starting URL
+- `limit` (default 10, max 25) — max pages
+- `depth` (default 1, max 3) — max link depth
+- `formats` — `["markdown", "html", "json"]`
+- `render` (default false) — execute JavaScript
+- `options.includePatterns` / `excludePatterns` — URL wildcards
+
+Good for: crawling docs sites, scraping multiple pages, building sitemaps.
 
 ## Workflows
 
