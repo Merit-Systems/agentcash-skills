@@ -6,14 +6,14 @@ description: |
 
   FEATURED SERVICES:
   - stableenrich.dev — people/company search, Minerva identity resolution, Google Maps, Exa web search, Firecrawl web scraping, Cloudflare site crawling, GTM & sales prospecting (name → contact info)
-  - stablesocial.dev — social media data (TikTok, Instagram, Facebook, Reddit)
-  - stablestudio.dev — AI image & video generation
-  - stableupload.dev — file hosting, sharing & static site hosting
+  - stablesocial.dev — social media data (TikTok, Insta, FB, Reddit)
+  - stablestudio.dev — AI image & video gen
+  - stableupload.dev — file + site hosting and sharing
   - stableemail.dev — send emails, inboxes, custom subdomains
   - stablephone.dev — AI phone calls, iMessage/FaceTime lookup
-  - stablejobs.dev — job search
   - stabletravel.dev — travel search
-  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", "find an API", "what paid API", "search for a service", agentcash, x402, solana
+  - stablebrowser.dev — browser use
+  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", "find an API", "what paid API", agentcash, x402, mpp, base, solana, tempo
 homepage: https://agentcash.dev
 metadata:
   version: 2.2
