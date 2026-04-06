@@ -2,7 +2,7 @@
 name: agentcash
 description: |
   Pay-per-call access to premium APIs via x402 micropayments (USDC on Base or Solana).
-  Run `npx agentcash@latest discover <origin>` to get endpoints, pricing, and usage instructions for any service below.
+  Run `npx agentcash@latest search "<query>"` when you do not know which origin to use; then `discover <origin>` for endpoints, pricing, and usage instructions.
 
   AVAILABLE SERVICES:
   - stableenrich.dev — people/company search, Minerva identity resolution, Google Maps, Exa web search, Firecrawl web scraping, Cloudflare site crawling, GTM & sales prospecting (name → contact info)
@@ -13,7 +13,7 @@ description: |
   - stablephone.dev — AI phone calls, iMessage/FaceTime lookup
   - stablejobs.dev — job search
   - stabletravel.dev — travel search
-  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact"
+  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", "find an API", "search for a service", "what paid API"
 homepage: https://agentcash.dev
 metadata:
   version: 2
@@ -38,14 +38,17 @@ If the balance is 0, tell the user to run `npx agentcash@latest fund`, use `npx 
 
 ## Service Workflow
 
-1. Run `npx agentcash@latest discover <origin>` to inspect the origin.
-2. Run `npx agentcash@latest check <endpoint-url>` before calling a new endpoint.
-3. Run `npx agentcash@latest fetch <url>` for both paid and SIWX routes.
-4. Treat `npx agentcash@latest fetch-auth <url>` as a deprecated alias kept only for compatibility.
+1. If you do not know which paid API or origin fits the task, run `npx agentcash@latest search "<natural-language query>"` (example: `"generate music"`). Skip this when the origin is already obvious (e.g. people research → `stableenrich.dev`).
+2. Run `npx agentcash@latest discover <origin>` to inspect the origin.
+3. Run `npx agentcash@latest check <endpoint-url>` before calling a new endpoint.
+4. Run `npx agentcash@latest fetch <url>` for both paid and SIWX routes.
+5. Treat `npx agentcash@latest fetch-auth <url>` as a deprecated alias kept only for compatibility.
+
+With the agentcash MCP, use `agentcash.search(query="...")` for the same discovery step.
 
 ## Important Rules
 
-- Discover before guessing endpoint paths.
+- Search when the service is unknown; discover before guessing endpoint paths.
 - Read the `instructions` field from discovery output.
 - Check `balance` before expensive operations.
 - Use the same `--payment-network` across related requests when a workflow spans multiple calls.

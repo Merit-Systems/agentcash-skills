@@ -2,7 +2,7 @@
 name: agentcash
 description: |
   Pay-per-call access to premium APIs via x402/MPP micropayments (USDC on Base, Solana, or Tempo).
-  Run `npx agentcash@latest discover <origin>` to get endpoints, pricing, and usage instructions for any payment-protected service.
+  Run `npx agentcash@latest search "<query>"` to find paid APIs by natural language when you do not know which origin to use; then `discover <origin>` for endpoints, pricing, and usage instructions.
 
   FEATURED SERVICES:
   - stableenrich.dev — people/company search, Minerva identity resolution, Google Maps, Exa web search, Firecrawl web scraping, Cloudflare site crawling, GTM & sales prospecting (name → contact info)
@@ -13,7 +13,7 @@ description: |
   - stablephone.dev — AI phone calls, iMessage/FaceTime lookup
   - stablejobs.dev — job search
   - stabletravel.dev — travel search
-  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", agentcash, x402, solana
+  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", "find an API", "what paid API", "search for a service", agentcash, x402, solana
 homepage: https://agentcash.dev
 metadata:
   version: 2.1
@@ -38,7 +38,21 @@ If the balance is 0, tell the user to run `npx agentcash@latest fund`, use `npx 
 
 ## Using Services
 
-### 1. Discover endpoints on a service
+### 1. Search for a service (when the origin is unknown)
+
+```bash
+npx agentcash@latest search "<natural-language query>"
+```
+
+Example: `npx agentcash@latest search "send physical mail"` or `npx agentcash@latest search "generate music"`
+
+Use **search** when you need a paid API but do not know which origin or endpoint fits the task. It returns matching origins with endpoints and pricing so you can pick one, then run **discover** on that origin.
+
+**Skip search** when the task already maps to a known origin (for example people or company research → `stableenrich.dev`, image generation → `stablestudio.dev`). In those cases go straight to **discover**.
+
+Default output is JSON (use `--format pretty` in a terminal for human-readable output).
+
+### 2. Discover endpoints on a service
 
 ```bash
 npx agentcash@latest discover <origin>
@@ -48,7 +62,7 @@ Example: `npx agentcash@latest discover https://stableenrich.dev`
 
 Read the output carefully. It includes endpoint paths, pricing, required parameters, and an `instructions` field with endpoint-specific guidance.
 
-### 2. Check a specific endpoint before calling it
+### 3. Check a specific endpoint before calling it
 
 ```bash
 npx agentcash@latest check <endpoint-url>
@@ -56,7 +70,7 @@ npx agentcash@latest check <endpoint-url>
 
 Returns the request and response schema plus pricing guidance. Use this before `fetch` to avoid 400 errors from wrong field names.
 
-### 3. Make the request
+### 4. Make the request
 
 ```bash
 # POST
@@ -68,7 +82,7 @@ npx agentcash@latest fetch '<url>?param=value'
 
 `fetch` handles both paid routes and SIWX routes. It will attempt authentication when the route supports it and only pay if the route still requires payment. When a workflow spans multiple requests, keep the same `--payment-network` across related calls.
 
-### 4. `fetch-auth` is a legacy alias
+### 5. `fetch-auth` is a legacy alias
 
 ```bash
 npx agentcash@latest fetch-auth <url>
@@ -100,6 +114,7 @@ Run `npx agentcash@latest discover <origin>` on any origin to see its full endpo
 
 ## Important Rules
 
+- **Search when you are unsure which service to use; discover when you know the origin.** Use `search` to explore the marketplace; use `discover` to list routes for a specific origin.
 - **Always discover before guessing.** Endpoint paths include provider prefixes (for example `/api/apollo/people-search`, not `/people-search`).
 - **Read the instructions field.** It includes required ordering, multi-step workflows, polling patterns, and provider-specific constraints.
 - **Payments settle on success only.** Failed requests (non-2xx) do not cost anything.

@@ -3,7 +3,7 @@ name: agentcash
 description: |
   Pay-per-call access to premium APIs via x402/MPP micropayments (USDC on Base, Solana, or Tempo).
 
-  Run `agentcash.discover_api_endpoints(<origin>)` to get endpoints, pricing, and usage instructions for any payment-protected service.
+  Run `agentcash.search(query="...")` to find paid APIs by natural language when you do not know which origin to use; then `agentcash.discover_api_endpoints(url=...)` for endpoints, pricing, and usage instructions.
 
   FEATURED SERVICES:
   - stableenrich.dev — people/company search, LinkedIn scraping, Google Maps, Exa web search, Firecrawl web scraping, GTM & sales prospecting (name → contact info)
@@ -15,7 +15,7 @@ description: |
   - stablejobs.dev — job search
   - stabletravel.dev — travel search
   - stablebrowser.dev — browser use
-  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", agentcash, x402, solana
+  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", "find an API", "what paid API", "search for a service", agentcash, x402, solana
 homepage: https://agentcash.dev
 metadata:
   version: 2.1
@@ -51,7 +51,17 @@ One-time use per code. Credits added instantly. Run `agentcash.get_balance()` af
 
 ## Calling Paid APIs
 
-### 1. Discover endpoints
+### 1. Search for a service (when the origin is unknown)
+
+```mcp
+agentcash.search(query="send physical mail")
+```
+
+Use **search** when you need a paid API but do not know which origin or endpoint fits the task. It returns matching origins with endpoints and pricing (the top match often includes schema so you can call **fetch** next).
+
+**Skip search** when the task already maps to a known origin (for example people or company research → StableEnrich, image generation → StableStudio). In those cases go straight to **discover_api_endpoints**.
+
+### 2. Discover endpoints
 
 ```mcp
 agentcash.discover_api_endpoints(url="https://stableenrich.dev")
@@ -59,7 +69,7 @@ agentcash.discover_api_endpoints(url="https://stableenrich.dev")
 
 Returns all endpoints, pricing, and usage instructions. **Read the `instructions` field** — it has critical endpoint-specific guidance.
 
-### 2. Check schema (optional)
+### 3. Check schema (optional)
 
 ```mcp
 agentcash.check_endpoint_schema(url="https://stableenrich.dev/api/apollo/people-search")
@@ -67,7 +77,7 @@ agentcash.check_endpoint_schema(url="https://stableenrich.dev/api/apollo/people-
 
 Returns full request/response JSON schemas and pricing for a specific endpoint.
 
-### 3. Make a paid request
+### 4. Make a paid request
 
 ```mcp
 agentcash.fetch(
@@ -103,6 +113,7 @@ Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its 
 | Check balance | `agentcash.get_balance` |
 | Get deposit links and wallet addresses | `agentcash.list_accounts` |
 | Redeem code | `agentcash.redeem_invite(code="...")` |
+| Find APIs by natural language | `agentcash.search(query="...")` |
 | Discover endpoints | `agentcash.discover_api_endpoints(url="...")` |
 | Check pricing/schema | `agentcash.check_endpoint_schema(url="...")` |
 | Paid POST request | `agentcash.fetch(url="...", method="POST", body={...})` |
@@ -111,7 +122,8 @@ Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its 
 
 ## Tips
 
-- Always discover first — the `instructions` field has critical endpoint-specific patterns and required parameters.
+- Use **search** when you are unsure which service to use; use **discover_api_endpoints** when you already know the origin URL.
+- Always discover before calling arbitrary paths — the `instructions` field has critical endpoint-specific patterns and required parameters.
 - Payments settle only on success (2xx) — failed requests cost nothing.
 - Use `check_endpoint_schema` when unsure about request/response format.
 - Independent `agentcash.fetch` calls can run in parallel for better throughput.
