@@ -1,21 +1,20 @@
 ---
 name: agentcash
 description: |
-  Pay-per-call access to premium APIs via x402/MPP micropayments (USDC on Base, Solana, or Tempo).
+  Pay-per-call x402/MPP APIs (USDC on Base, Solana, Tempo). No API keys—wallet pays per request.
+  Search → discover → fetch (CLI: `npx agentcash@latest …`; MCP: `agentcash.search` / `discover_api_endpoints` / `fetch`).
 
-  Run `agentcash.search(query="...")` to find paid APIs by natural language when you do not know which origin to use; then `agentcash.discover_api_endpoints(url=...)` for endpoints, pricing, and usage instructions.
-
-  FEATURED SERVICES:
-  - stableenrich.dev — people/company search, LinkedIn scraping, Google Maps, Exa web search, Firecrawl web scraping, GTM & sales prospecting (name → contact info)
-  - stablesocial.dev — social media data (Instagram, TikTok, YouTube, Facebook, Reddit)
-  - stablestudio.dev — AI image & video generation
-  - stableupload.dev — file hosting & sharing
-  - stableemail.dev — send emails
-  - stablephone.dev — AI phone calls
-  - stablejobs.dev — job search
-  - stabletravel.dev — travel search
-  - stablebrowser.dev — browser use
-  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", "find an API", "what paid API", "search for a service", agentcash, x402, solana
+  SERVICES:
+  - stableenrich — people/company search, web search, scraping, Google Maps, LinkedIn, email verify, news/shopping
+  - stablesocial — social media data (TikTok, Instagram, Facebook, Reddit, LinkedIn)
+  - stablestudio — AI image & video generation
+  - stableupload — file hosting, sharing, static sites
+  - stableemail — send emails, inboxes, custom subdomains
+  - stablephone — AI phone calls, phone numbers, iMessage lookup
+  - stablejobs — job search
+  - stabletravel — travel search
+  - stablebrowser — browser automation
+  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, agentcash
 homepage: https://agentcash.dev
 metadata:
   version: 2.2

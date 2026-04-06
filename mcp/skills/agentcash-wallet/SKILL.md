@@ -1,26 +1,23 @@
 ---
 name: agentcash-wallet
 description: |
-  Manage your agentcash wallet and call any x402-protected API with automatic payment. No API keys, no subscriptions — just a funded wallet (USDC on Base or Solana).
+  Pay-per-call x402/MPP APIs (USDC on Base, Solana, Tempo). No API keys—wallet pays per request.
+  Search → discover → fetch (CLI: `npx agentcash@latest …`; MCP: `agentcash.search` / `discover_api_endpoints` / `fetch`).
 
-  USE FOR:
-  - Checking wallet balance before API calls
-  - Redeeming invite codes for free credits
-  - Getting deposit address for USDC
-  - Searching for paid APIs by natural language when you do not know which origin to use (agentcash.search)
-  - Discovering endpoints and pricing on any x402-protected origin
-  - Making paid API requests via agentcash.fetch
-  - Troubleshooting payment failures
-
-  TRIGGERS:
-  - "balance", "wallet", "funds", "credits", "x402"
-  - "redeem", "invite code", "promo code"
-  - "deposit", "add funds", "top up", "paid", "premium"
-  - "discover", "endpoints", "what APIs", "pricing"
-  - "find an API", "search for a service", "what paid API", "browse APIs"
-  - "insufficient balance", "payment failed"
+  SERVICES:
+  - stableenrich — people/company search, web search, scraping, Google Maps, LinkedIn, email verify, news/shopping
+  - stablesocial — social media data (TikTok, Instagram, Facebook, Reddit, LinkedIn)
+  - stablestudio — AI image & video generation
+  - stableupload — file hosting, sharing, static sites
+  - stableemail — send emails, inboxes, custom subdomains
+  - stablephone — AI phone calls, phone numbers, iMessage lookup
+  - stablejobs — job search
+  - stabletravel — travel search
+  - stablebrowser — browser automation
+  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, agentcash
+homepage: https://agentcash.dev
 metadata:
-  version: 2.1
+  version: 2.2
 ---
 
 # AgentCash Wallet & Paid APIs

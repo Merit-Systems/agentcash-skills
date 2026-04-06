@@ -1,19 +1,20 @@
 ---
 name: agentcash
 description: |
-  Pay-per-call access to premium APIs via x402/MPP micropayments (USDC on Base, Solana, or Tempo).
-  Run `npx agentcash@latest search "<query>"` to find paid APIs by natural language when you do not know which origin to use; then `discover <origin>` for endpoints, pricing, and usage instructions.
+  Pay-per-call x402/MPP APIs (USDC on Base, Solana, Tempo). No API keys—wallet pays per request.
+  Search → discover → fetch (CLI: `npx agentcash@latest …`; MCP: `agentcash.search` / `discover_api_endpoints` / `fetch`).
 
-  FEATURED SERVICES:
-  - stableenrich.dev — people/company search, Minerva identity resolution, Google Maps, Exa web search, Firecrawl web scraping, Cloudflare site crawling, GTM & sales prospecting (name → contact info)
-  - stablesocial.dev — social media data (TikTok, Insta, FB, Reddit)
-  - stablestudio.dev — AI image & video gen
-  - stableupload.dev — file + site hosting and sharing
-  - stableemail.dev — send emails, inboxes, custom subdomains
-  - stablephone.dev — AI phone calls, iMessage/FaceTime lookup
-  - stabletravel.dev — travel search
-  - stablebrowser.dev — browser use
-  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", "find an API", "what paid API", agentcash, x402, mpp, base, solana, tempo
+  SERVICES:
+  - stableenrich — people/company search, web search, scraping, Google Maps, LinkedIn, email verify, news/shopping
+  - stablesocial — social media data (TikTok, Instagram, Facebook, Reddit, LinkedIn)
+  - stablestudio — AI image & video generation
+  - stableupload — file hosting, sharing, static sites
+  - stableemail — send emails, inboxes, custom subdomains
+  - stablephone — AI phone calls, phone numbers, iMessage lookup
+  - stablejobs — job search
+  - stabletravel — travel search
+  - stablebrowser — browser automation
+  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, agentcash
 homepage: https://agentcash.dev
 metadata:
   version: 2.2

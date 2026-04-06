@@ -35,7 +35,7 @@ npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 
 | Skill | Use For | Endpoints |
 |-------|---------|-----------|
-| [agentcash-wallet](skills/agentcash-wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
+| [agentcash](skills/agentcash/) | Wallet, search, discover, and paid calls to any x402 API | x402 / MPP |
 | [upload-and-share](skills/upload-and-share/) | Upload files & get public URLs | StableUpload |
 | [media-generation](skills/media-generation/) | AI image & video generation | StableStudio |
 | [social-scraping](skills/social-scraping/) | Scrape profiles, posts, followers across 6 platforms | StableSocial |
