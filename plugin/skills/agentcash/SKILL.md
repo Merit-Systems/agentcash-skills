@@ -2,19 +2,11 @@
 name: agentcash
 description: |
   Pay-per-call x402/MPP APIs (USDC on Base, Solana, Tempo). No API keys—wallet pays per request.
-  Search → discover → fetch (CLI: `npx agentcash@latest …`; MCP: `agentcash.search` / `discover_api_endpoints` / `fetch`).
+  If the task matches a SERVICES origin below, SKIP search and go straight to discover → fetch.
+  Only search when NO listed origin fits.
 
-  SERVICES:
-  - stableenrich — people/company search, web search, scraping, Google Maps, LinkedIn, email verify, news/shopping
-  - stablesocial — social media data (TikTok, Instagram, Facebook, Reddit, LinkedIn)
-  - stablestudio — AI image & video generation
-  - stableupload — file hosting, sharing, static sites
-  - stableemail — send emails, inboxes, custom subdomains
-  - stablephone — AI phone calls, phone numbers, iMessage lookup
-  - stablejobs — job search
-  - stabletravel — travel search
-  - stablebrowser — browser automation
-  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, agentcash
+  SERVICES: stableenrich (people/company, web search, scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, Facebook, Reddit, LinkedIn), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation).
+  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, mpp, agentcash
 homepage: https://agentcash.dev
 metadata:
   version: 2.2
@@ -50,15 +42,25 @@ One-time use per code. Credits added instantly. Run `agentcash.get_balance()` af
 
 ## Calling Paid APIs
 
-### 1. Search for a service (when the origin is unknown)
+### 1. Pick an origin — or search
+
+**Check the Available Services table below first.** If any origin clearly covers the task, skip search entirely and jump to step 2 (discover). Examples:
+
+| Task | Origin (skip search) |
+|------|---------------------|
+| Look up a person or company | `stableenrich.dev` |
+| Generate an image or video | `stablestudio.dev` |
+| Get Instagram/TikTok data | `stablesocial.dev` |
+| Send an email | `stableemail.dev` |
+| Upload a file | `stableupload.dev` |
+
+**Only use search when none of the listed origins fit:**
 
 ```mcp
 agentcash.search(query="send physical mail")
 ```
 
-Use **search** when you need a paid API but do not know which origin or endpoint fits the task. It returns matching origins with endpoints and pricing (the top match often includes schema so you can call **fetch** next).
-
-**Skip search** when the task already maps to a known origin (for example people or company research → StableEnrich, image generation → StableStudio). In those cases go straight to **discover_api_endpoints**.
+Returns matching origins with endpoints and pricing (the top match often includes schema so you can call **fetch** immediately).
 
 ### 2. Discover endpoints
 
@@ -121,7 +123,7 @@ Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its 
 
 ## Tips
 
-- Use **search** when you are unsure which service to use; use **discover_api_endpoints** when you already know the origin URL.
+- **Skip search when a listed origin fits the task.** Go straight to `discover_api_endpoints`. Only use `search` when no origin in the Available Services table matches.
 - Always discover before calling arbitrary paths — the `instructions` field has critical endpoint-specific patterns and required parameters.
 - Payments settle only on success (2xx) — failed requests cost nothing.
 - Use `check_endpoint_schema` when unsure about request/response format.

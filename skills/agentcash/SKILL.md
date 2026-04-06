@@ -2,19 +2,11 @@
 name: agentcash
 description: |
   Pay-per-call x402/MPP APIs (USDC on Base, Solana, Tempo). No API keys—wallet pays per request.
-  Search → discover → fetch (CLI: `npx agentcash@latest …`; MCP: `agentcash.search` / `discover_api_endpoints` / `fetch`).
+  If the task matches a SERVICES origin below, SKIP search and go straight to discover → fetch.
+  Only search when NO listed origin fits.
 
-  SERVICES:
-  - stableenrich — people/company search, web search, scraping, Google Maps, LinkedIn, email verify, news/shopping
-  - stablesocial — social media data (TikTok, Instagram, Facebook, Reddit, LinkedIn)
-  - stablestudio — AI image & video generation
-  - stableupload — file hosting, sharing, static sites
-  - stableemail — send emails, inboxes, custom subdomains
-  - stablephone — AI phone calls, phone numbers, iMessage lookup
-  - stablejobs — job search
-  - stabletravel — travel search
-  - stablebrowser — browser automation
-  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, agentcash
+  SERVICES: stableenrich (people/company, web search, scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, Facebook, Reddit, LinkedIn), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation).
+  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, mpp, agentcash
 homepage: https://agentcash.dev
 metadata:
   version: 2.2
@@ -39,7 +31,19 @@ If the balance is 0, tell the user to run `npx agentcash@latest fund`, use `npx 
 
 ## Using Services
 
-### 1. Search for a service (when the origin is unknown)
+### 1. Pick an origin — or search
+
+**Check the Available Services table below first.** If any origin clearly covers the task, skip search entirely and jump to step 2 (discover). Examples:
+
+| Task | Origin (skip search) |
+|------|---------------------|
+| Look up a person or company | `stableenrich.dev` |
+| Generate an image or video | `stablestudio.dev` |
+| Get Instagram/TikTok data | `stablesocial.dev` |
+| Send an email | `stableemail.dev` |
+| Upload a file | `stableupload.dev` |
+
+**Only use search when none of the listed origins fit:**
 
 ```bash
 npx agentcash@latest search "<natural-language query>"
@@ -47,11 +51,7 @@ npx agentcash@latest search "<natural-language query>"
 
 Example: `npx agentcash@latest search "send physical mail"` or `npx agentcash@latest search "generate music"`
 
-Use **search** when you need a paid API but do not know which origin or endpoint fits the task. It returns matching origins with endpoints and pricing so you can pick one, then run **discover** on that origin.
-
-**Skip search** when the task already maps to a known origin (for example people or company research → `stableenrich.dev`, image generation → `stablestudio.dev`). In those cases go straight to **discover**.
-
-Default output is JSON (use `--format pretty` in a terminal for human-readable output).
+Returns matching origins with endpoints and pricing. Default output is JSON (`--format pretty` for human-readable).
 
 ### 2. Discover endpoints on a service
 
@@ -115,7 +115,7 @@ Run `npx agentcash@latest discover <origin>` on any origin to see its full endpo
 
 ## Important Rules
 
-- **Search when you are unsure which service to use; discover when you know the origin.** Use `search` to explore the marketplace; use `discover` to list routes for a specific origin.
+- **Skip search when a listed origin fits the task.** Go straight to `discover`. Only use `search` when no origin in the Available Services table matches.
 - **Always discover before guessing.** Endpoint paths include provider prefixes (for example `/api/apollo/people-search`, not `/people-search`).
 - **Read the instructions field.** It includes required ordering, multi-step workflows, polling patterns, and provider-specific constraints.
 - **Payments settle on success only.** Failed requests (non-2xx) do not cost anything.
