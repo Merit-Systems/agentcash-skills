@@ -16,7 +16,7 @@ description: |
   TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", "find an API", "search for a service", "what paid API"
 homepage: https://agentcash.dev
 metadata:
-  version: 2
+  version: 2.1
 ---
 
 # AgentCash — Wallet and Paid API Access

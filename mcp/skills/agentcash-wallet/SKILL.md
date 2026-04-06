@@ -20,7 +20,7 @@ description: |
   - "find an API", "search for a service", "what paid API", "browse APIs"
   - "insufficient balance", "payment failed"
 metadata:
-  version: 2
+  version: 2.1
 ---
 
 # AgentCash Wallet & Paid APIs

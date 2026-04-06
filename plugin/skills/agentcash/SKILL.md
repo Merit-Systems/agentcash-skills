@@ -18,7 +18,7 @@ description: |
   TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", "find an API", "what paid API", "search for a service", agentcash, x402, solana
 homepage: https://agentcash.dev
 metadata:
-  version: 2.1
+  version: 2.2
 ---
 
 # AgentCash — Paid API Access
