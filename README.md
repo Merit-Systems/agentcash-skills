@@ -35,7 +35,7 @@ npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 
 | Skill | Use For | Endpoints |
 |-------|---------|-----------|
-| [agentcash-wallet](skills/agentcash-wallet/) | Balance, deposits, invite codes, discovering & calling any x402 API | x402 wallet |
+| [agentcash](skills/agentcash/) | Wallet, search, discover, and paid calls to any x402 API | x402 / MPP |
 | [upload-and-share](skills/upload-and-share/) | Upload files & get public URLs | StableUpload |
 | [media-generation](skills/media-generation/) | AI image & video generation | StableStudio |
 | [social-scraping](skills/social-scraping/) | Scrape profiles, posts, followers across 6 platforms | StableSocial |
@@ -59,17 +59,22 @@ These skills are also available in MCP mode (the [mcp](mcp/skills/) directory). 
 npx agentcash@latest balance
 ```
 
-2. **Discover available endpoints:**
+2. **Search for a service** (when you don't know which origin to use):
+```bash
+npx agentcash@latest search "send physical mail"
+```
+
+3. **Discover available endpoints** (when you know the origin):
 ```bash
 npx agentcash@latest discover https://stableenrich.dev
 ```
 
-3. **Check endpoint pricing before calling:**
+4. **Check endpoint pricing before calling:**
 ```bash
 npx agentcash@latest check https://stableenrich.dev/api/apollo/people-enrich
 ```
 
-4. **Make API calls:**
+5. **Make API calls:**
 ```bash
 npx agentcash@latest fetch https://stableenrich.dev/api/apollo/people-enrich -m POST -b '{"email": "user@company.com"}'
 ```
@@ -83,17 +88,22 @@ agentcash.get_balance()
 
 If you need deposit links or per-network wallet addresses, call `agentcash.list_accounts()` separately.
 
-2. **Discover available endpoints:**
+2. **Search for a service** (when you don't know which origin to use):
+```mcp
+agentcash.search(query="send physical mail")
+```
+
+3. **Discover available endpoints** (when you know the origin):
 ```mcp
 agentcash.discover_api_endpoints(url="https://stableenrich.dev")
 ```
 
-3. **Check endpoint pricing before calling:**
+4. **Check endpoint pricing before calling:**
 ```mcp
 agentcash.check_endpoint_schema(url="https://stableenrich.dev/api/apollo/people-enrich")
 ```
 
-4. **Make API calls:**
+5. **Make API calls:**
 ```mcp
 agentcash.fetch(
   url="https://stableenrich.dev/api/apollo/people-enrich",
@@ -112,8 +122,9 @@ agentcash.fetch(
 | `/api/people-enrich` | `https://stableenrich.dev/api/apollo/people-enrich` |
 
 If you don't know the exact endpoint path:
-1. **Use discover** to list all available endpoints
-2. **Consult the skill documentation** (SKILL.md files have correct paths)
+1. **Use search** to find the right service by describing what you need
+2. **Use discover** to list all available endpoints on a known origin
+3. **Consult the skill documentation** (SKILL.md files have correct paths)
 
 Guessing endpoints will result in `405 Method Not Allowed` errors and wasted API calls.
 

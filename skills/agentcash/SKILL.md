@@ -1,22 +1,15 @@
 ---
 name: agentcash
 description: |
-  Pay-per-call access to premium APIs via x402/MPP micropayments (USDC on Base, Solana, or Tempo).
-  Run `npx agentcash@latest discover <origin>` to get endpoints, pricing, and usage instructions for any payment-protected service.
+  Pay-per-call x402/MPP APIs (USDC on Base, Solana, Tempo). No API keys—wallet pays per request.
+  If the task matches a SERVICES origin below, SKIP search and go straight to discover → fetch.
+  Only search when NO listed origin fits.
 
-  FEATURED SERVICES:
-  - stableenrich.dev — people/company search, Minerva identity resolution, Google Maps, Exa web search, Firecrawl web scraping, Cloudflare site crawling, GTM & sales prospecting (name → contact info)
-  - stablesocial.dev — social media data (TikTok, Instagram, Facebook, Reddit)
-  - stablestudio.dev — AI image & video generation
-  - stableupload.dev — file hosting, sharing & static site hosting
-  - stableemail.dev — send emails, inboxes, custom subdomains
-  - stablephone.dev — AI phone calls, iMessage/FaceTime lookup
-  - stablejobs.dev — job search
-  - stabletravel.dev — travel search
-  TRIGGERS: research, enrich, scrape, generate image, generate video, social data, send email, travel, look up, prospect, "find info about", "who is", "find contact", agentcash, x402, solana
+  SERVICES: stableenrich (people/company, web search, scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, Facebook, Reddit, LinkedIn), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation).
+  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, mpp, agentcash
 homepage: https://agentcash.dev
 metadata:
-  version: 2.1
+  version: 2.2
 ---
 
 # AgentCash — Paid API Access
@@ -38,7 +31,29 @@ If the balance is 0, tell the user to run `npx agentcash@latest fund`, use `npx 
 
 ## Using Services
 
-### 1. Discover endpoints on a service
+### 1. Pick an origin — or search
+
+**Check the Available Services table below first.** If any origin clearly covers the task, skip search entirely and jump to step 2 (discover). Examples:
+
+| Task | Origin (skip search) |
+|------|---------------------|
+| Look up a person or company | `stableenrich.dev` |
+| Generate an image or video | `stablestudio.dev` |
+| Get Instagram/TikTok data | `stablesocial.dev` |
+| Send an email | `stableemail.dev` |
+| Upload a file | `stableupload.dev` |
+
+**Only use search when none of the listed origins fit:**
+
+```bash
+npx agentcash@latest search "<natural-language query>"
+```
+
+Example: `npx agentcash@latest search "send physical mail"` or `npx agentcash@latest search "generate music"`
+
+Returns matching origins with endpoints and pricing. Default output is JSON (`--format pretty` for human-readable).
+
+### 2. Discover endpoints on a service
 
 ```bash
 npx agentcash@latest discover <origin>
@@ -48,7 +63,7 @@ Example: `npx agentcash@latest discover https://stableenrich.dev`
 
 Read the output carefully. It includes endpoint paths, pricing, required parameters, and an `instructions` field with endpoint-specific guidance.
 
-### 2. Check a specific endpoint before calling it
+### 3. Check a specific endpoint before calling it
 
 ```bash
 npx agentcash@latest check <endpoint-url>
@@ -56,7 +71,7 @@ npx agentcash@latest check <endpoint-url>
 
 Returns the request and response schema plus pricing guidance. Use this before `fetch` to avoid 400 errors from wrong field names.
 
-### 3. Make the request
+### 4. Make the request
 
 ```bash
 # POST
@@ -68,7 +83,7 @@ npx agentcash@latest fetch '<url>?param=value'
 
 `fetch` handles both paid routes and SIWX routes. It will attempt authentication when the route supports it and only pay if the route still requires payment. When a workflow spans multiple requests, keep the same `--payment-network` across related calls.
 
-### 4. `fetch-auth` is a legacy alias
+### 5. `fetch-auth` is a legacy alias
 
 ```bash
 npx agentcash@latest fetch-auth <url>
@@ -100,6 +115,7 @@ Run `npx agentcash@latest discover <origin>` on any origin to see its full endpo
 
 ## Important Rules
 
+- **Skip search when a listed origin fits the task.** Go straight to `discover`. Only use `search` when no origin in the Available Services table matches.
 - **Always discover before guessing.** Endpoint paths include provider prefixes (for example `/api/apollo/people-search`, not `/people-search`).
 - **Read the instructions field.** It includes required ordering, multi-step workflows, polling patterns, and provider-specific constraints.
 - **Payments settle on success only.** Failed requests (non-2xx) do not cost anything.
