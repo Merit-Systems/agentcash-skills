@@ -5,8 +5,8 @@ description: |
   If the task matches a SERVICES origin below, SKIP search and go straight to discover → fetch.
   Only search when NO listed origin fits.
 
-  SERVICES: stableenrich (people/company, web search, scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, Facebook, Reddit, LinkedIn), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation).
-  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, mpp, agentcash
+  SERVICES: stableenrich (people/company, web search, scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, Facebook, Reddit, LinkedIn), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation), keeperhub (web3 workflows: DeFi yield/risk reads, on-chain checks, tipping).
+  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, mpp, agentcash, web3, defi, on-chain
 homepage: https://agentcash.dev
 metadata:
   version: 2.2
@@ -108,6 +108,7 @@ Any endpoint that is payment-protected can be accessed with AgentCash. If `npx a
 | `stablephone.dev` | AI phone calls ($0.54), phone numbers ($20), top-ups ($15), iMessage/FaceTime lookup ($0.05) |
 | `stablejobs.dev` | Job search via Coresignal |
 | `stabletravel.dev` | Travel search |
+| `app.keeperhub.com` | Web3 workflow automation: DeFi yield/risk reads (Aave/Compound), on-chain health checks, tipping primitives, and write-type workflows that return unsigned calldata for the caller to sign |
 
 There are many more services available beyond the ones listed here.
 
