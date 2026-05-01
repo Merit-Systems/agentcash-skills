@@ -5,8 +5,8 @@ description: |
   If the task matches a SERVICES origin below, SKIP search and go straight to discover → fetch.
   Only search when NO listed origin fits.
 
-  SERVICES: stableenrich (people/company, web search, scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, Facebook, Reddit, LinkedIn), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation).
-  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, mpp, agentcash
+  SERVICES: stableenrich (people/company, web search, scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, Facebook, Reddit, LinkedIn), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation), keeperhub (web3 workflows: DeFi yield/risk reads, on-chain checks, tipping).
+  TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, mpp, agentcash, web3, defi, on-chain
 homepage: https://agentcash.dev
 metadata:
   version: 2.2
@@ -104,6 +104,7 @@ Payment is automatic: sends request, gets 402 challenge, signs USDC payment, ret
 | `https://stablejobs.dev` | StableJobs | Job search via Coresignal |
 | `https://stabletravel.dev` | StableTravel | Travel search via Amadeus |
 | `https://stablebrowser.dev` | StableBrowser | Browser Use |
+| `https://app.keeperhub.com` | KeeperHub | Web3 workflow automation: DeFi yield/risk reads (Aave/Compound), on-chain health checks, tipping primitives, and write-type workflows that return unsigned calldata for the caller to sign |
 
 Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its full endpoint catalog.
 
