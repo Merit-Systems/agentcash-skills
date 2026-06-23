@@ -43,6 +43,7 @@ npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 | [phone-calls](skills/phone-calls/) | AI phone calls, buy phone numbers | StablePhone |
 | [data-enrichment](skills/data-enrichment/) | Person, company, & influencer profiles; email verification | Apollo, Clado, Hunter, Influencer |
 | [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
+| [attested-company-research](skills/attested-company-research/) | Ed25519-attested company & crypto research; compliance screen | LION (lionx402.com) |
 | [local-search](skills/local-search/) | Places & business info | Google Maps |
 | [social-intelligence](skills/social-intelligence/) | Reddit search | Reddit |
 | [news-shopping](skills/news-shopping/) | News & product search | Serper |
