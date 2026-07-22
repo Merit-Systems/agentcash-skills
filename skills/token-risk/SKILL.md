@@ -18,7 +18,7 @@ flagged regardless of issuer. Score 0-100, higher = structurally safer.
 ## Finding this service via AgentCash
 Use discover_api_endpoints with the full origin — search() may not
 match domains exactly:
-  npx agentcash dhttps://token-risk.com
+  npx agentcash discover https://token-risk.com
 Do not rely on the bare name "token-risk": other services expose
 similarly named routes. The origin is the identity.
 
@@ -36,7 +36,7 @@ Address check ($0.01):
 - verdict + score come from deterministic checks only; LLM findings in
   `findings[]` are advisory and can never upgrade a verdict
 - `context.knownAsset: true` marks widely-held assets whose structural
-  powers are held by a known issuer (e.g. USDC) — structure is rerted
+  powers are held by a known issuer (e.g. USDC) — structure is reported
   regardless
 - Free real sample reports before paying: GET https://token-risk.com/samples/index.json
 
