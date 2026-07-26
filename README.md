@@ -47,6 +47,7 @@ npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 | [social-intelligence](skills/social-intelligence/) | Reddit search | Reddit |
 | [news-shopping](skills/news-shopping/) | News & product search | Serper |
 | [people-property](skills/people-property/) | People & property lookup | Whitepages |
+| [base-gas](skills/base-gas/) | Live & historical Base gas, cross-chain comparison, cheapest-hour scheduling | base-gas-x402 |
 
 These skills are also available in MCP mode (the [mcp](mcp/skills/) directory). Both directories contain the same skills — each skill has a `SKILL.md` and a `rules/` directory. Choose the mode that matches your environment.
 
