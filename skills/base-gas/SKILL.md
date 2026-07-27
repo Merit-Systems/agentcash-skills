@@ -39,7 +39,7 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 |------|----------|-------|---------|
 | Current gas | `GET /gas` | $0.005 | Base fee, low/med/high priority tiers, cost estimate |
 | Compare chains | `GET /gas/compare` | $0.01 | Base, OP, Arbitrum, Ethereum ranked cheapest first |
-| Historical trend | `GET /gas/history` | $0.01 | Time series, min/max/avg/median, cheap-or-expensive verdict |
+| Historical trend | `GET /gas/history` | $0.012 | Time series, min/max/avg/median, cheap-or-expensive verdict |
 | Cheapest hours | `GET /gas/cheapest-window` | $0.02 | Hourly averages ranked, cheapest hour, savings percent |
 | Data coverage | `GET /health` | **free** | How much history has been collected so far |
 
@@ -94,9 +94,11 @@ npx agentcash@latest fetch "https://base-gas-x402-production.up.railway.app/gas/
 **Parameters:**
 - `hours` (optional) - Lookback window, 1 to 168. Defaults to 24.
 
-**Returns:** `samples` time series, `summary` (min, max, avg, median), `currentGasPrice`, and `verdict`.
+**Returns:** `samples` time series, `summary` (min, max, avg, median), `currentGasPrice`, `verdict`, `verdictNote`, and `spreadPercent`.
 
-The `verdict` field is the useful part: it reports whether the current price is `cheap`, `normal`, or `expensive` relative to the requested window. A raw RPC call cannot answer that, because it has no history to compare against.
+The `verdict` field is the useful part: `cheap`, `normal`, or `expensive` relative to the requested window, or `flat` when the window's spread is under 1%. A raw RPC call cannot answer this, because it has no history to compare against.
+
+`flat` is common on Base and is a real answer: gas is not moving, so there is nothing to wait for. Quote `verdictNote` rather than reinterpreting it.
 
 ## Cheapest Hours
 
@@ -107,9 +109,9 @@ npx agentcash@latest fetch "https://base-gas-x402-production.up.railway.app/gas/
 **Parameters:**
 - `hours` (optional) - Lookback window used to compute hourly averages, 1 to 168. Defaults to 168 (7 days).
 
-**Returns:** `hourlyAverages` bucketed by hour of day in UTC and ranked cheapest first, plus `cheapestHourUtc`, `priciestHourUtc`, and `savingsPercent`.
+**Returns:** `hasDailyCycle`, a plain-language `recommendation`, `savingsPercent`, and `hourlyAverages` bucketed by hour of day in UTC and ranked cheapest first, plus `cheapestHourUtc` and `priciestHourUtc`.
 
-Use this to schedule batch transactions, time a mint, or move recurring agent jobs into the cheap window.
+Check `hasDailyCycle` before using the ranking. When it is `false` the hours do not meaningfully differ and timing saves nothing; report `recommendation` instead of naming a cheapest hour.
 
 ## Check Coverage First (free)
 
@@ -128,8 +130,9 @@ If `hoursCovered` is smaller than the window you need, the answer will be thin. 
 ### Decide whether to transact now
 
 - [ ] Check the trend and verdict: `GET /gas/history?hours=24`
-- [ ] If `verdict` is `cheap`, proceed
-- [ ] If `expensive`, check when it gets cheaper: `GET /gas/cheapest-window`
+- [ ] If `verdict` is `flat`, proceed and tell the user there is nothing to wait for
+- [ ] If `cheap`, proceed
+- [ ] If `expensive`, check whether waiting actually helps: `GET /gas/cheapest-window`
 
 ```bash
 npx agentcash@latest fetch "https://base-gas-x402-production.up.railway.app/gas/history?hours=24"
@@ -159,7 +162,8 @@ npx agentcash@latest fetch "https://base-gas-x402-production.up.railway.app/gas/
 
 - [ ] Check history coverage: `GET /health` (free)
 - [ ] If coverage is at least 24 hours, call `/gas/cheapest-window`
-- [ ] Schedule the job for `cheapestHourUtc`
+- [ ] If `hasDailyCycle` is `false`, report `recommendation` and run the job whenever
+- [ ] If `true`, schedule the job for `cheapestHourUtc` (convert from UTC)
 
 ```bash
 curl -s https://base-gas-x402-production.up.railway.app/health

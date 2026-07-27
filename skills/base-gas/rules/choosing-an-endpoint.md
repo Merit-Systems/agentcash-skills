@@ -21,7 +21,7 @@ Four paid routes answer four different questions. Picking the wrong one either o
 
 ## Do not loop `/gas` to build history
 
-Calling `/gas` repeatedly to assemble a time series costs $0.005 per sample and produces worse data than `/gas/history`, which is backed by continuous sampling that already happened. One `/gas/history` call at $0.01 replaces an unbounded number of `/gas` calls.
+Calling `/gas` repeatedly to assemble a time series costs $0.005 per sample and produces worse data than `/gas/history`, which is backed by continuous sampling that already happened. One `/gas/history` call at $0.012 replaces an unbounded number of `/gas` calls.
 
 ## Do not loop `/gas` across chains
 
@@ -46,12 +46,21 @@ Every paid history response also embeds a `coverage` object, so the depth of the
 | `cheap` | Current price is in the bottom third of the window's range |
 | `normal` | Middle third |
 | `expensive` | Top third |
-| `flat` | The window showed no meaningful variation |
+| `flat` | The window's spread is under 1%, so the range carries no signal |
 
 The verdict is relative to the `hours` window requested. A price can be `cheap` against 24 hours and `expensive` against 7 days, so state the window when reporting it to the user.
 
+**`flat` is the common case on Base and it is a real answer, not a missing one.** Base sits on its fee floor for hours at a time. When the verdict is `flat`, do not tell the user gas is cheap and they should act now; tell them gas is not moving and there is nothing to wait for. The `verdictNote` field says this in plain language and `spreadPercent` gives the measured width of the window, so quote those rather than inventing an interpretation.
+
 ## Interpreting `cheapestHourUtc`
 
-Hours are bucketed in **UTC**, not local time. Convert before telling the user when to transact, and say which timezone you converted to.
+**Read `hasDailyCycle` first.** When it is `false`, the chain has no usable daily gas cycle in that window and `hourlyAverages` is not actionable, even though it is still returned. Report the `recommendation` field instead of naming a "cheapest hour", because the ranking in that case is ordering noise.
 
-`savingsPercent` compares the cheapest hour against the priciest hour in the window. It is the upper bound on savings from perfect timing, not a guarantee.
+When `hasDailyCycle` is `true`:
+
+- Hours are bucketed in **UTC**, not local time. Convert before telling the user when to transact, and say which timezone you converted to.
+- `savingsPercent` compares the cheapest hour against the priciest hour in the window. It is the upper bound on savings from perfect timing, not a guarantee.
+
+## Do not oversell a flat chain
+
+If the user is asking whether to wait for cheaper gas on Base, the honest answer is usually no. Say so. Recommending that someone delay a transaction to save a fraction of a percent of a fee that is already a rounding error wastes their time and costs them the call.
