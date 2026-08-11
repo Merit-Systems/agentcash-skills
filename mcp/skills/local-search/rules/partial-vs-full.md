@@ -1,6 +1,6 @@
 # Partial vs Full Tier Selection
 
-Google Maps endpoints offer two pricing tiers. Choose based on what data you need.
+Google Maps Places endpoints (text search, nearby search, place details) offer two pricing tiers. Choose based on what data you need. Aerial view and solar endpoints are flat-priced and have no tiers.
 
 ## Quick Decision
 
@@ -51,9 +51,9 @@ Google Maps endpoints offer two pricing tiers. Choose based on what data you nee
 
 | Scenario | Partial Cost | Full Cost |
 |----------|--------------|-----------|
-| Search 20 places | $0.40 | $1.60 |
+| Search 20 places (4 pages of 5) | $0.08 | $0.32 |
 | Get 5 place details | $0.10 | $0.25 |
-| Typical workflow | $0.50 | $1.85 |
+| Typical workflow | $0.18 | $0.57 |
 
 ## Recommended Pattern
 
@@ -63,13 +63,13 @@ Google Maps endpoints offer two pricing tiers. Choose based on what data you nee
 Example:
 ```
 # Step 1: Partial search ($0.02)
-text-search/partial -> 20 results
+text-search/partial -> 5 results (paginate with pageToken for more)
 
 # Step 2: Full details on top 3 ($0.15)
 place-details/full -> reviews, atmosphere
 ```
 
-Total: $0.17 instead of $1.60 for all full searches.
+Total: $0.17 instead of paying $0.08 per full-tier search page.
 
 ## When to Use Full for Search
 

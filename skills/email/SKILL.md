@@ -59,6 +59,7 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Update subdomain | `POST https://stableemail.dev/api/subdomain/update` |
 | Manage signers | `POST https://stableemail.dev/api/subdomain/signers` |
 | Inbox status | `GET https://stableemail.dev/api/inbox/status?username=name` |
+| List your inboxes | `POST https://stableemail.dev/api/inbox/list` |
 | Update inbox | `POST https://stableemail.dev/api/inbox/update` |
 | Cancel inbox | `POST https://stableemail.dev/api/inbox/cancel` |
 | Delete message | `POST https://stableemail.dev/api/inbox/messages/delete` |
@@ -168,7 +169,7 @@ npx agentcash@latest fetch https://stableemail.dev/api/inbox/messages -m POST -b
 npx agentcash@latest fetch https://stableemail.dev/api/inbox/messages/read -m POST -b '{"messageId": "msg_abc123"}'
 ```
 
-Returns full message with from, to, subject, date, text, html, and attachments.
+Returns full message with from, to, subject, date, text, html, and attachment download URLs (URLs expire after 1 hour). Message content and attachments are retained for 90 days.
 
 ## Custom Subdomains
 
@@ -195,7 +196,7 @@ npx agentcash@latest fetch https://stableemail.dev/api/subdomain/send -m POST -b
 
 ### Create Subdomain Inboxes
 
-Create per-address inboxes on your subdomain ($0.25 each, max 100):
+Create per-address inboxes on your subdomain ($0.25 each, max 100 inboxes, 500 messages each):
 
 ```bash
 npx agentcash@latest fetch https://stableemail.dev/api/subdomain/inbox/create -m POST -b '{
@@ -250,7 +251,7 @@ Most email clients strip data URIs — always use hosted URLs.
 ### Programmatic Mailbox
 
 - [ ] Buy inbox with no forwardTo ($1)
-- [ ] Messages are retained automatically
+- [ ] Messages are retained automatically (90 days)
 - [ ] List and read messages via API ($0.001 each)
 - [ ] Delete messages when processed (free)
 

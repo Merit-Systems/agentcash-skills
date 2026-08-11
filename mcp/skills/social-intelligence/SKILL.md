@@ -56,10 +56,11 @@ agentcash.fetch(
 ```
 
 **Parameters:**
-- `query` - Search terms (required)
-- `subreddit` - Limit to specific subreddit
-- `sort` - relevance, hot, new, top
-- `time` - hour, day, week, month, year, all
+- `query` - Search terms (required). Scope to a subreddit with Reddit's `subreddit:` operator inside the query (there is no separate subreddit field)
+- `sort` - relevance, new, top, comment_count (default: relevance)
+- `timeframe` - all, day, week, month, year (default: all)
+- `maxResults` - Maximum results, 1-25 (default: 10)
+- `after` - Pagination cursor from a previous response
 
 **Returns:**
 - Post title and content
@@ -74,10 +75,9 @@ agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/search",
   method="POST",
   body={
-    "query": "typescript vs javascript",
-    "subreddit": "programming",
+    "query": "typescript vs javascript subreddit:programming",
     "sort": "top",
-    "time": "year"
+    "timeframe": "year"
   }
 )
 ```
@@ -91,16 +91,21 @@ agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/post-comments",
   method="POST",
   body={
-    "postUrl": "https://reddit.com/r/programming/comments/abc123/..."
+    "url": "https://reddit.com/r/programming/comments/abc123/..."
   }
 )
 ```
 
+**Parameters:**
+- `url` - Full Reddit post URL (required)
+- `cursor` - Pagination cursor for more comments
+
 **Returns:**
+- Post details
 - Comment text and author
-- Upvotes/downvotes
-- Reply threads
+- Comment scores
 - Comment timestamps
+- `hasMore` / `cursor` for pagination
 
 ## Workflows
 
@@ -135,7 +140,7 @@ agentcash.fetch(
 agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/search",
   method="POST",
-  body={"query": "competitor name review", "sort": "top", "time": "year"}
+  body={"query": "competitor name review", "sort": "top", "timeframe": "year"}
 )
 ```
 
@@ -150,7 +155,7 @@ agentcash.fetch(
 agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/search",
   method="POST",
-  body={"query": "new feature name", "subreddit": "relevant_community", "sort": "hot"}
+  body={"query": "new feature name subreddit:relevant_community", "sort": "top"}
 )
 ```
 
@@ -158,7 +163,7 @@ agentcash.fetch(
 agentcash.fetch(
   url="https://stableenrich.dev/api/reddit/post-comments",
   method="POST",
-  body={"postUrl": "https://reddit.com/..."}
+  body={"url": "https://reddit.com/..."}
 )
 ```
 
@@ -166,20 +171,23 @@ agentcash.fetch(
 
 ### Reddit Post Fields
 - `title` - Post title
-- `selftext` - Post body (for text posts)
+- `selftext` - Post body (for text posts; `selftextTruncated` flags truncation)
 - `author` - Username
 - `subreddit` - Subreddit name
 - `score` - Upvotes minus downvotes
 - `numComments` - Comment count
-- `url` - Link to post
-- `createdUtc` - Timestamp
+- `permalink` - Link to post
+- `createdAt` - Timestamp
+
+Search responses also include `after` (pagination cursor) and `searchContext` (query + result count).
 
 ### Reddit Comment Fields
-- `body` - Comment text
+- `body` - Comment text (`bodyTruncated` flags truncation)
 - `author` - Username
 - `score` - Net upvotes
-- `replies` - Nested replies
-- `createdUtc` - Timestamp
+- `createdAt` - Timestamp
+
+Comments are returned as a flat list; use `hasMore` and `cursor` to page through more.
 
 ## Cost Estimation
 

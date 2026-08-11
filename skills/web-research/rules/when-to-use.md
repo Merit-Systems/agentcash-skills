@@ -20,6 +20,8 @@ Need web info?
 +-- Already have URLs, need text? --> Use Exa contents ($0.002)
 |
 +-- Quick factual answer? --> Use Exa answer ($0.01)
+|
++-- Crawl many pages from one site? --> Use Cloudflare crawl ($0.10)
 ```
 
 ## Exa vs WebSearch
@@ -71,12 +73,12 @@ Need web info?
 | Aspect | Exa Search | Firecrawl Search |
 |--------|------------|------------------|
 | Price | $0.01 | $0.0252 |
-| Output | URLs + snippets | URLs + full content |
-| Best for | Finding sources | Search + immediate read |
+| Output | URLs + snippets | URLs + content snippets (~500 chars) |
+| Best for | Finding sources | Search + quick content preview |
 
 **Use Exa search** to find relevant URLs, then selectively extract content.
 
-**Use Firecrawl search** when you want search results AND their full content in one call.
+**Use Firecrawl search** when you want search results AND a content snippet for each in one call.
 
 ## Cost Comparison
 

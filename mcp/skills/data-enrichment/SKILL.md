@@ -24,7 +24,7 @@ description: |
 mcp:
   - agentcash
 metadata:
-  version: 3.1
+  version: 3.2
 ---
 
 # Data Enrichment with x402 APIs
@@ -49,8 +49,8 @@ Before any stableenrich.dev call:
 
 | Task                 | Endpoint                                                   | Price              | Best For                          |
 | -------------------- | ---------------------------------------------------------- | ------------------ | --------------------------------- |
-| Search people        | `https://stableenrich.dev/api/fullenrich/people-search`    | $0.14 if results   | Find people by domain/seniority   |
-| Search companies     | `https://stableenrich.dev/api/fullenrich/company-search`   | $0.14 if results   | Find companies by criteria        |
+| Search people        | `https://stableenrich.dev/api/fullenrich/people-search`    | $0.15 if results   | Find people by domain/seniority   |
+| Search companies     | `https://stableenrich.dev/api/fullenrich/company-search`   | $0.15 if results   | Find companies by criteria        |
 | Enrich person        | `https://stableenrich.dev/api/pdl/people-enrich`         | $0.28 if match     | LinkedIn URL/email -> full profile |
 | Enrich person (alt)  | `https://stableenrich.dev/api/minerva/enrich`              | $0.05              | Demographics, work history        |
 | Minerva resolve      | `https://stableenrich.dev/api/minerva/resolve`             | $0.02              | Person -> Minerva PID + LinkedIn  |
@@ -191,6 +191,8 @@ agentcash.fetch(
 )
 ```
 
+Requires at least one email or phone per record — it cannot match on name alone.
+
 ## Minerva Enrichment
 
 Enrich with demographics, work history, education, contact info, addresses, financial signals:
@@ -247,7 +249,7 @@ agentcash.fetch(url="https://stableenrich.dev/api/pdl/people-enrich", body={"ema
 
 ### Search Before Enrich
 
-1. Search: `fullenrich/people-search` ($0.14 if results) — find candidates
+1. Search: `fullenrich/people-search` ($0.15 if results) — find candidates
 2. Enrich: `pdl/people-enrich` ($0.28 if match) — get email and career history
 3. Verify: `hunter/email-verifier` ($0.03) — confirm deliverability
 
@@ -265,12 +267,16 @@ agentcash.fetch(
 )
 ```
 
-| Status          | Meaning                              | Action            |
-| --------------- | ------------------------------------ | ----------------- |
-| `deliverable`   | Email exists and accepts mail        | Safe to send      |
-| `undeliverable` | Email doesn't exist or rejects mail  | Do not send       |
-| `risky`         | Catch-all domain or temporary issues | Send with caution |
-| `unknown`       | Could not determine status           | Try again later   |
+| Status       | Meaning                             | Action            |
+| ------------ | ----------------------------------- | ----------------- |
+| `valid`      | Email exists and accepts mail       | Safe to send      |
+| `invalid`    | Email doesn't exist or rejects mail | Do not send       |
+| `accept_all` | Catch-all domain                    | Send with caution |
+| `webmail`    | Personal webmail provider           | Usually fine      |
+| `disposable` | Temporary/throwaway address         | Do not send       |
+| `unknown`    | Could not determine status          | Try again later   |
+
+Fast/cached checks return the final result immediately; if Hunter is still processing, the response includes a `jobId` — poll `GET /api/hunter/email-verifier/jobs/{jobId}` (free, SIWX, same wallet that paid).
 
 ## Handling missing data
 

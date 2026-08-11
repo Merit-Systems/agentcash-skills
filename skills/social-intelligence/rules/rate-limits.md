@@ -12,18 +12,18 @@ x402 endpoints don't have strict rate limits per se, but:
 ## Reddit Considerations
 
 ### Search Tips
-- Subreddit filtering makes searches much more relevant
-- Use sort="top" and time="year" for quality content
-- "hot" gives current discussions
+- Scoping with Reddit's `subreddit:` operator in the query makes searches much more relevant
+- Use sort="top" and timeframe="year" for quality content
+- sort="new" gives current discussions
 
 ### Comments
-- Large threads may have truncated comments
-- Focus on top-level comments for sentiment
-- Deeply nested replies may not all be returned
+- Large threads may have truncated comments (`bodyTruncated`)
+- Comments come back as a flat list — no nested reply trees
+- Page with `cursor` when `hasMore` is true
 
 ### What Works Well
-- Subreddit-specific searches
-- Top/hot post discovery
+- Subreddit-scoped searches
+- Top/new post discovery
 - Getting comment threads
 
 ### What May Not Work
@@ -36,7 +36,7 @@ x402 endpoints don't have strict rate limits per se, but:
 ### Do This
 ```bash
 # One targeted search (Reddit)
-npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "specific topic", "subreddit": "relevant", "sort": "top"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "specific topic subreddit:relevant", "sort": "top"}'
 ```
 
 ### Avoid This

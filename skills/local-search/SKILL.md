@@ -9,12 +9,15 @@ description: |
   - Getting detailed place information (address, hours, reviews)
   - Finding restaurants, stores, services in an area
   - Getting business ratings and reviews
+  - Getting aerial flyover videos of an address
+  - Getting solar/rooftop insights and imagery for a building
 
   TRIGGERS:
   - "find", "search for", "locate", "nearby"
   - "restaurants near", "hotels in", "stores around"
   - "business details", "opening hours", "reviews for"
   - "places in", "what's near", "directions to"
+  - "aerial view", "flyover video", "solar potential", "rooftop"
 
   Use `npx agentcash@latest fetch` for Google Maps endpoints. Choose partial ($0.02) vs full ($0.05-0.08) based on data needs.
 metadata:
@@ -39,6 +42,11 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Nearby search (full) | `https://stableenrich.dev/api/google-maps/nearby-search/full` | $0.08 | + reviews, atmosphere |
 | Place details (basic) | `https://stableenrich.dev/api/google-maps/place-details/partial` | $0.02 | Core info |
 | Place details (full) | `https://stableenrich.dev/api/google-maps/place-details/full` | $0.05 | All fields |
+| Aerial view lookup (GET) | `https://stableenrich.dev/api/google-maps/aerial-view/lookup-video` | $0.01 | Flyover video URIs + metadata |
+| Aerial view render (POST) | `https://stableenrich.dev/api/google-maps/aerial-view/render-video` | $0.01 | Render new flyover video |
+| Solar building insights (GET) | `https://stableenrich.dev/api/google-maps/solar/building-insights` | $0.02 | Roof/solar potential, imageryDate |
+| Solar data layers (GET) | `https://stableenrich.dev/api/google-maps/solar/data-layers` | $0.08 | GeoTIFF URLs (rgb, dsm, flux) |
+| Solar RGB image (GET) | `https://stableenrich.dev/api/google-maps/solar/rgb-image` | $0.05 | GeoTIFF layer rendered as PNG/JPEG |
 
 See [rules/partial-vs-full.md](rules/partial-vs-full.md) for tier selection guidance.
 
@@ -52,10 +60,15 @@ npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/text-search/
 
 **Parameters:**
 - `textQuery` - Search query (required)
-- `locationBias` - Prefer results near a location
-- `minRating` - Minimum rating filter (1-5)
+- `locationBias` - Prefer results near a location (`circle` with `center` lat/lng and `radius` in meters, max 50000)
+- `includedType` - Single Google Places type to filter by
+- `minRating` - Minimum rating filter (0-5)
 - `openNow` - Only open places
-- `maxResultCount` - Limit results (default: 20)
+- `maxResultCount` - Results per page, 1-5 (default: 5)
+- `priceLevels` - Filter by price level (e.g. `PRICE_LEVEL_INEXPENSIVE`)
+- `pageToken` - Pagination cursor from a previous response
+
+**Pagination:** Responses include `nextPageToken` when more results exist. To fetch the next page, repeat the full original body (including `textQuery`) and add `pageToken` copied verbatim. A `pageToken` is only valid for the search that produced it.
 
 **Full tier** adds: reviews, atmosphere data, photos, price level.
 
@@ -76,11 +89,11 @@ npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/nearby-searc
 ```
 
 **Parameters:**
-- `locationRestriction` - Circle with center (lat/lng) and radius in meters
-- `includedTypes` - Place types to include
+- `locationRestriction` - Circle with center (lat/lng) and radius in meters, max 50000 (required)
+- `includedTypes` - Place types to include (official Google Places types only, e.g. `restaurant`; use text search for natural-language categories)
 - `excludedTypes` - Place types to exclude
-- `minRating` - Minimum rating
-- `openNow` - Only open places
+- `maxResultCount` - Results per page, 1-5 (default: 5)
+- `rankPreference` - `POPULARITY` (default) or `DISTANCE`
 
 ## Place Details
 
@@ -96,6 +109,42 @@ npx agentcash@latest fetch "https://stableenrich.dev/api/google-maps/place-detai
 **Partial returns:** Name, address, phone, website, hours, rating, types.
 
 **Full returns:** + reviews, atmosphere (wheelchair access, pets allowed), photos, price level.
+
+## Aerial View
+
+Get a cinematic flyover video for an address. Look up an existing video first ($0.01); request a render if none exists ($0.01).
+
+```bash
+npx agentcash@latest fetch "https://stableenrich.dev/api/google-maps/aerial-view/lookup-video?address=500%20W%202nd%20St%2C%20Austin%2C%20TX"
+```
+
+```bash
+npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/aerial-view/render-video -m POST -b '{"address": "500 W 2nd St, Austin, TX"}'
+```
+
+**Lookup input:** `address` or `videoId` (one required).
+
+**Render input:** `address` (required).
+
+**Returns:** `state`, `videoId`, video `uris` (landscape/portrait/thumbnail), capture metadata. Rendering is async — poll lookup-video until `state` is active.
+
+## Solar
+
+Get rooftop solar insights and imagery for a location:
+
+```bash
+npx agentcash@latest fetch "https://stableenrich.dev/api/google-maps/solar/building-insights?latitude=37.4450&longitude=-122.1390"
+```
+
+**Building insights ($0.02):** `latitude`, `longitude` (required), `requiredQuality` (LOW/MEDIUM/HIGH, default HIGH). Returns closest building's roof/solar potential and `imageryDate`.
+
+**Data layers ($0.08):** `latitude`, `longitude` (required), `radiusMeters` (default 50, max 175), `view`, `requiredQuality`, `pixelSizeMeters`. Returns GeoTIFF URLs (`rgbUrl`, `dsmUrl`, flux/shade/mask URLs) with `imageryDate`.
+
+**RGB image ($0.05):** Renders a Solar GeoTIFF layer as PNG/JPEG. Pass either a GeoTIFF `id` or `latitude`/`longitude`, plus `layer` (rgb, dsm, annualFlux, monthlyFlux, hourlyShade, mask), `radiusMeters` (default 30, max 100), `month`/`hour` for flux/shade bands, `format`, `scale`, `crop`, `quality`. Returns JSON with a public image URL. monthlyFlux: one month or 4x3 grid; hourlyShade: one hour or 6x4 grid.
+
+```bash
+npx agentcash@latest fetch "https://stableenrich.dev/api/google-maps/solar/rgb-image?latitude=37.4450&longitude=-122.1390&layer=annualFlux"
+```
 
 ## Common Place Types
 
@@ -145,8 +194,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/google-maps/nearby-searc
     }
   },
   "includedTypes": ["restaurant"],
-  "minRating": 4.0,
-  "openNow": true
+  "rankPreference": "DISTANCE"
 }'
 ```
 

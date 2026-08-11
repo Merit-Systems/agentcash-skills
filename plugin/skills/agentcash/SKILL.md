@@ -5,11 +5,11 @@ description: |
   If the task matches a SERVICES origin below, SKIP search and go straight to discover → fetch.
   Only search when NO listed origin fits.
 
-  SERVICES: stableenrich (people/company, web search, scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, Facebook, Reddit), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation).
+  SERVICES: stableenrich (people/company, web search, scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, YouTube, Facebook, Reddit, LinkedIn, GitHub), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation).
   TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, mpp, agentcash
 homepage: https://agentcash.dev
 metadata:
-  version: 3.0
+  version: 3.1
 ---
 
 # AgentCash — Paid API Access
@@ -98,15 +98,15 @@ Payment is automatic: sends request, gets 402 challenge, signs USDC payment, ret
 
 | Origin | Service | What it does |
 |---|---|---|
-| `https://stableenrich.dev` | StableEnrich | FullEnrich / CompanyEnrich / PDL people & company search, Minerva, Exa (web search), Firecrawl (scraping), Google Maps, Clado (contacts), Serper (news/shopping), WhitePages, Reddit, Hunter (email verification) |
-| `https://stableupload.dev` | StableUpload | Pay-per-upload file hosting. 10MB/$0.02, 100MB/$0.20, 1GB/$2.00. 6-month TTL |
-| `https://stablestudio.dev` | StableStudio | AI image/video generation: GPT Image, Flux, Nano Banana, Sora, Veo, Seedance, Wan |
-| `https://stablesocial.dev` | StableSocial | Social media data: TikTok, Instagram, Facebook, Reddit. $0.06/call, async two-step |
+| `https://stableenrich.dev` | StableEnrich | FullEnrich (people/company search), PDL & Minerva (person enrichment), CompanyEnrich (company profiles), Clado (contacts), Exa (web search), Firecrawl (scraping), Cloudflare (site crawling), Google Maps + Solar + Aerial View, Serper (news/shopping/images/lens), Whitepages, Reddit, Hunter (email verification) |
+| `https://stableupload.dev` | StableUpload | File hosting ($0.005-$2.00 by size, tier-based retention) + static site hosting with custom domains |
+| `https://stablestudio.dev` | StableStudio | AI image/video generation: GPT Image, Flux, Grok, Nano Banana, Sora, Veo, Seedance, Wan, image-to-SVG |
+| `https://stablesocial.dev` | StableSocial | Social media data: TikTok, Instagram, YouTube, Facebook, LinkedIn, Reddit, Rumble, GitHub, ad libraries (Scrape Creators), plus Lightreel UGC research agent. $0.06/call, async jobs |
 | `https://stableemail.dev` | StableEmail | Send emails ($0.02), forwarding inboxes ($1/mo), custom subdomains ($5) |
 | `https://stablephone.dev` | StablePhone | AI phone calls ($0.54), phone numbers ($20), top-ups ($15) |
-| `https://stablejobs.dev` | StableJobs | Job search via Coresignal |
-| `https://stabletravel.dev` | StableTravel | Travel search via Amadeus |
-| `https://stablebrowser.dev` | StableBrowser | Browser Use |
+| `https://stablejobs.dev` | StableJobs | Job search via Coresignal (preview $0.10/page, collect $0.20/job) |
+| `https://stabletravel.dev` | StableTravel | Flight prices and booking (Google Flights), award availability (Seats.aero), live flight tracking and airport data (FlightAware) |
+| `https://stablebrowser.dev` | StableBrowser | Cloud browser automation: create a session ($0.10), then AI-powered navigate/act/extract/observe/screenshot (free SIWX) |
 
 Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its full endpoint catalog.
 

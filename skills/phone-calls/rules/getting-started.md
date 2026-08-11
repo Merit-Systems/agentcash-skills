@@ -25,6 +25,7 @@
 | "Payment failed" | Check balance, retry (transient errors) |
 | Call not completing | Poll `npx agentcash@latest fetch https://stablephone.dev/api/call/{call_id}` every 5-10s until `completed: true` |
 | "405 Method Not Allowed" | Verify endpoint path matches exactly from Quick Reference table in SKILL.md |
+| "403 Forbidden" on /api/call | Number is on the Do-Not-Call (DNC) list — do not retry DNC numbers |
 | Invalid phone number | Use E.164 format: +1XXXXXXXXXX for US numbers |
 
 ## Pricing Reference
@@ -34,4 +35,5 @@
 | Make a call | $0.54 |
 | Buy phone number | $20.00 |
 | Top up number (30 days) | $15.00 |
-| Check status / list numbers | Free |
+| iMessage/FaceTime lookup | $0.05 |
+| Check status / list numbers / lookup status | Free |

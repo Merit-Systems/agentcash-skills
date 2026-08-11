@@ -31,13 +31,14 @@
 
 | Endpoint | Price |
 |----------|-------|
-| fullenrich/people-search | $0.14 (if results) |
-| fullenrich/company-search | $0.14 (if results) |
+| fullenrich/people-search | $0.15 (if results) |
+| fullenrich/company-search | $0.15 (if results) |
 | pdl/people-enrich | $0.28 (if match) |
 | companyenrich/org-enrich | $0.06 |
 | companyenrich/properties-enrich | $0.06 |
 | clado/contacts-enrich | $0.20 |
 | hunter/email-verifier | $0.03 |
+| hunter/email-verifier/jobs/{jobId} | Free (SIWX) |
 | minerva/resolve | $0.02 |
 | minerva/enrich | $0.05 |
 | minerva/validate-emails | $0.01 |

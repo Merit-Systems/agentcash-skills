@@ -48,10 +48,11 @@ npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b
 ```
 
 **Parameters:**
-- `query` - Search terms (required)
-- `subreddit` - Limit to specific subreddit
-- `sort` - relevance, hot, new, top
-- `time` - hour, day, week, month, year, all
+- `query` - Search terms (required). Scope to a subreddit with Reddit's `subreddit:` operator inside the query (there is no separate subreddit field)
+- `sort` - relevance, new, top, comment_count (default: relevance)
+- `timeframe` - all, day, week, month, year (default: all)
+- `maxResults` - Maximum results, 1-25 (default: 10)
+- `after` - Pagination cursor from a previous response
 
 **Returns:**
 - Post title and content
@@ -63,10 +64,9 @@ npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b
 
 ```bash
 npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b '{
-  "query": "typescript vs javascript",
-  "subreddit": "programming",
+  "query": "typescript vs javascript subreddit:programming",
   "sort": "top",
-  "time": "year"
+  "timeframe": "year"
 }'
 ```
 
@@ -75,14 +75,19 @@ npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b
 Get comments from a Reddit post:
 
 ```bash
-npx agentcash@latest fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b '{"postUrl": "https://reddit.com/r/programming/comments/abc123/..."}'
+npx agentcash@latest fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b '{"url": "https://reddit.com/r/programming/comments/abc123/..."}'
 ```
 
+**Parameters:**
+- `url` - Full Reddit post URL (required)
+- `cursor` - Pagination cursor for more comments
+
 **Returns:**
+- Post details
 - Comment text and author
-- Upvotes/downvotes
-- Reply threads
+- Comment scores
 - Comment timestamps
+- `hasMore` / `cursor` for pagination
 
 ## Workflows
 
@@ -110,7 +115,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b
 - [ ] Analyze common complaints and praise
 
 ```bash
-npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "competitor name review", "sort": "top", "time": "year"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "competitor name review", "sort": "top", "timeframe": "year"}'
 ```
 
 ### Community Sentiment
@@ -121,31 +126,34 @@ npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b
 - [ ] Synthesize overall sentiment
 
 ```bash
-npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "new feature name", "subreddit": "relevant_community", "sort": "hot"}'
+npx agentcash@latest fetch https://stableenrich.dev/api/reddit/search -m POST -b '{"query": "new feature name subreddit:relevant_community", "sort": "top"}'
 ```
 
 ```bash
-npx agentcash@latest fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b '{"postUrl": "https://reddit.com/..."}'
+npx agentcash@latest fetch https://stableenrich.dev/api/reddit/post-comments -m POST -b '{"url": "https://reddit.com/..."}'
 ```
 
 ## Response Data
 
 ### Reddit Post Fields
 - `title` - Post title
-- `selftext` - Post body (for text posts)
+- `selftext` - Post body (for text posts; `selftextTruncated` flags truncation)
 - `author` - Username
 - `subreddit` - Subreddit name
 - `score` - Upvotes minus downvotes
 - `numComments` - Comment count
-- `url` - Link to post
-- `createdUtc` - Timestamp
+- `permalink` - Link to post
+- `createdAt` - Timestamp
+
+Search responses also include `after` (pagination cursor) and `searchContext` (query + result count).
 
 ### Reddit Comment Fields
-- `body` - Comment text
+- `body` - Comment text (`bodyTruncated` flags truncation)
 - `author` - Username
 - `score` - Net upvotes
-- `replies` - Nested replies
-- `createdUtc` - Timestamp
+- `createdAt` - Timestamp
+
+Comments are returned as a flat list; use `hasMore` and `cursor` to page through more.
 
 ## Cost Estimation
 

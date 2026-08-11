@@ -56,7 +56,7 @@ This is sensitive personal information. Handle appropriately:
 |------|-------------------|
 | Professional contact | LinkedIn, company website |
 | Business info | CompanyEnrich org-enrich |
-| Email verification | Clado contacts-enrich |
+| Email verification | Hunter email-verifier |
 | General background | Public social profiles |
 
 Use Whitepages when other sources don't have the information and you have a legitimate need.

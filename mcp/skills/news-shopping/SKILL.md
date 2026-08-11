@@ -1,7 +1,7 @@
 ---
 name: news-shopping
 description: |
-  Search Google News and Google Shopping using Serper APIs via x402.
+  Search Google News, Google Shopping, Google Images, and Google Lens using Serper APIs via x402.
 
   USE FOR:
   - Finding recent news articles on a topic
@@ -9,14 +9,17 @@ description: |
   - Product searches and price comparisons
   - Shopping research and product discovery
   - Industry news monitoring
+  - Image search and finding photos/headshots of people
+  - Reverse image search (Google Lens)
 
   TRIGGERS:
   - "news about", "latest news", "recent articles"
   - "current events", "breaking", "headlines"
   - "shopping", "buy", "price", "product search"
   - "compare prices", "where to buy", "deals on"
+  - "image of", "photo of", "headshot", "reverse image search"
 
-  Use agentcash.fetch for Serper endpoints. Both endpoints are $0.04 per call.
+  Use agentcash.fetch for Serper endpoints. Most endpoints are $0.04 per call; Lens is $0.20.
 mcp:
   - agentcash
 metadata:
@@ -25,7 +28,7 @@ metadata:
 
 # News & Shopping Search with Serper
 
-Access Google News and Google Shopping through x402-protected endpoints.
+Access Google News, Google Shopping, Google Images, and Google Lens through x402-protected endpoints.
 
 ## Setup
 
@@ -37,6 +40,9 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 |------|----------|-------|-------------|
 | News search | `https://stableenrich.dev/api/serper/news` | $0.04 | Google News search |
 | Shopping search | `https://stableenrich.dev/api/serper/shopping` | $0.04 | Google Shopping search |
+| Image search | `https://stableenrich.dev/api/serper/images` | $0.04 | Google Images search |
+| People image search | `https://stableenrich.dev/api/serper/people-image-search` | $0.04 | Google Images tuned for people/headshots |
+| Reverse image search | `https://stableenrich.dev/api/serper/lens` | $0.20 | Google Lens reverse image search |
 
 ## News Search
 
@@ -54,9 +60,10 @@ agentcash.fetch(
 
 **Parameters:**
 - `q` - Search query (required)
-- `num` - Number of results (default: 10)
+- `num` - Number of results (1-100, default: 10)
 - `gl` - Country code (e.g., "us", "uk", "de")
 - `hl` - Language (e.g., "en", "es", "fr")
+- `location` - Location (e.g., "New York, NY")
 - `tbs` - Time filter (qdr:h, qdr:d, qdr:w, qdr:m, qdr:y)
 
 ### Time Filters
@@ -117,9 +124,10 @@ agentcash.fetch(
 
 **Parameters:**
 - `q` - Search query (required)
-- `num` - Number of results (default: 10)
+- `num` - Number of results (1-100, default: 10)
 - `gl` - Country code for pricing/availability
 - `hl` - Language
+- `location` - Location (e.g., "New York, NY")
 
 **Returns:**
 - Product title
@@ -142,6 +150,74 @@ agentcash.fetch(
   }
 )
 ```
+
+## Image Search
+
+Search Google Images:
+
+```mcp
+agentcash.fetch(
+  url="https://stableenrich.dev/api/serper/images",
+  method="POST",
+  body={
+    "q": "aurora borealis over mountains"
+  }
+)
+```
+
+**Parameters:**
+- `q` - Search query (required)
+- `num` - Number of results (1-100, default: 10)
+- `gl` - Country code
+- `hl` - Language
+- `location` - Location (e.g., "New York, NY")
+
+**Returns:**
+- Image title
+- Full image URL with width/height
+- Thumbnail URL with width/height
+- Source page name, domain, and link
+
+## People Image Search
+
+Google Images tuned for finding people/headshots:
+
+```mcp
+agentcash.fetch(
+  url="https://stableenrich.dev/api/serper/people-image-search",
+  method="POST",
+  body={
+    "q": "\"Jane Doe\" \"Acme\" LinkedIn headshot"
+  }
+)
+```
+
+**Parameters:** Same as Image Search. Use an exact-name + company/context query.
+
+Tips:
+- For ambiguous people, resolve the profile slug/company/title first
+- LinkedIn photos may be non-public; if the first search fails, retry with public non-LinkedIn source terms
+
+## Reverse Image Search (Lens)
+
+Reverse-search a public image URL with Google Lens ($0.20 per call):
+
+```mcp
+agentcash.fetch(
+  url="https://stableenrich.dev/api/serper/lens",
+  method="POST",
+  body={
+    "url": "https://example.com/photo.jpg"
+  }
+)
+```
+
+**Parameters:**
+- `url` - Public URL of the image to reverse-search (required)
+- `gl` - Country code
+- `hl` - Language
+
+**Returns:** `organic` matches with title, link, source, image/thumbnail URLs, price/priceRange (if available), and snippet.
 
 ## Workflows
 
@@ -238,7 +314,7 @@ agentcash.fetch(
 
 ## Cost Estimation
 
-Both endpoints are $0.04 per call.
+News, shopping, images, and people-image-search are $0.04 per call; Lens is $0.20.
 
 | Task | Calls | Cost |
 |------|-------|------|
@@ -246,3 +322,5 @@ Both endpoints are $0.04 per call.
 | Daily news summary | 2-3 | $0.08-0.12 |
 | Product research | 1-2 | $0.04-0.08 |
 | Full market research | 3-5 | $0.12-0.20 |
+| Image or headshot search | 1 | $0.04 |
+| Reverse image lookup (Lens) | 1 | $0.20 |

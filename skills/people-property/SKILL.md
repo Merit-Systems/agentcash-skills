@@ -19,7 +19,7 @@ description: |
 
   Use `npx agentcash@latest fetch` for Whitepages endpoints. Both endpoints are $0.22 per call.
 metadata:
-  version: 2.1
+  version: 2.2
 ---
 
 # People & Property Search with Whitepages
@@ -55,18 +55,22 @@ npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search
 IMPORTANT: The state parameter is named `state_code`, NOT `state`. Use two-letter state abbreviations (e.g., 'CA', 'NY', 'TX').
 
 **Parameters:**
-- `first_name` - First name (required)
-- `last_name` - Last name (required)
+- `first_name` - First name
+- `last_name` - Last name
+- `name` - Full name (alternative to first/last)
+- `phone` - Phone number
 - `city` - City name
 - `state_code` - Two-letter state abbreviation (US)
-- `zip` - ZIP code
+- `zipcode` - ZIP code (NOT `zip`)
 - `street` - Street address
+- `min_age` / `max_age` - Age filters
+- `radius` - Radius in miles from address (max 100)
 
 **Returns:**
-- Full name and age range
-- Current and previous addresses
-- Phone numbers
-- Associated people (relatives, associates)
+- Full name, aliases, and date of birth
+- Current and historic addresses
+- Phone numbers and emails
+- Relatives, owned properties, job title/company
 
 ### More Specific Search
 
@@ -79,7 +83,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search
   "street": "123 Main St",
   "city": "Seattle",
   "state_code": "WA",
-  "zip": "98101"
+  "zipcode": "98101"
 }'
 ```
 
@@ -98,34 +102,42 @@ npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/property-sear
 IMPORTANT: The state parameter is named `state_code`, NOT `state`. Use two-letter state abbreviations (e.g., 'CA', 'NY', 'TX').
 
 **Parameters:**
-- `street` - Street address (required)
+- `street` - Street address (required; aliases: `address`, `street_line`, `street_address`)
 - `city` - City name
-- `state_code` - Two-letter state abbreviation
-- `zip` - ZIP code
+- `state_code` - Two-letter state abbreviation (NOT `state`)
+- `zipcode` - ZIP code (NOT `zip` or `postal_code`)
 
 **Returns:**
 - Property address (standardized)
-- Owner name
-- Property type (single family, condo, etc.)
-- Property details
+- Owners and residents (with phones/emails)
+- Property details, market value, sale history, tax info
+
+Note: If no record is indexed for the address, the endpoint returns 200 with `{ "result": null }`, not a 404.
 
 ## Response Data
 
 ### Person Search Fields
-- `name` - Full legal name
-- `ageRange` - Estimated age range
-- `currentAddress` - Current residence
-- `historicalAddresses` - Previous addresses
-- `phoneNumbers` - Associated phone numbers
-- `associatedPeople` - Relatives and associates
+
+Response is `{ "persons": [...] }`. Each person includes:
+- `name` / `aliases` - Full name and known aliases
+- `date_of_birth` - Date of birth (if available)
+- `current_addresses` / `historic_addresses` - Current and previous addresses
+- `phones` - Phone numbers with type and score
+- `emails` - Associated email addresses
+- `relatives` - Related people
+- `owned_properties` - Properties owned
+- `linkedin_url` / `company_name` / `job_title` - Professional info (if available)
 
 ### Property Search Fields
-- `address` - Standardized address
-- `owner` - Property owner name
-- `propertyType` - Type of property
-- `yearBuilt` - Construction year (if available)
-- `bedrooms` / `bathrooms` - Property details
-- `squareFootage` - Size (if available)
+
+Response is `{ "result": {...} }` (or `{ "result": null }` when no record):
+- `property_address` / `mailing_address` - Standardized addresses
+- `ownership_info` - `owner_type`, `person_owners`, `business_owners`
+- `residents` - Current residents with phones/emails
+- `property_details` - `year_built`, `bedrooms`, `bathrooms`, `building_area`, `lot_size`, `property_use`, etc.
+- `market_value` - Estimated value and range
+- `sale_history` - Past sales with dates, prices, buyer/seller
+- `tax_info` - Assessed value and tax amounts
 
 ## Workflows
 
@@ -162,7 +174,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/whitepages/person-search
 
 ## Cost Considerations
 
-At $0.22 per call, Whitepages is the most expensive endpoint in the x402 suite.
+At $0.22 per call, Whitepages is among the more expensive endpoints in the x402 suite.
 
 | Scenario | Cost |
 |----------|------|
@@ -173,7 +185,7 @@ At $0.22 per call, Whitepages is the most expensive endpoint in the x402 suite.
 **Tips to reduce costs:**
 - Provide as much info as possible for accurate first-try results
 - Use free sources first (LinkedIn, company websites)
-- Use FullEnrich, PDL, Clado, firecrawl, WebSearch, WebFetch to get data that will make the queries more accurate
+- Use clado, minerva, firecrawl, WebSearch, WebFetch, to get data that will make the queries more accurate
 - Only use for essential lookups
 
 ## Limitations

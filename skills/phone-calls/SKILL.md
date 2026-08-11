@@ -56,11 +56,11 @@ npx agentcash@latest fetch https://stablephone.dev/api/call -m POST -b '{
 ```
 
 **Required:**
-- `phone_number` — E.164 format (e.g. `+14155551234`)
-- `task` — instructions for the AI agent (what to say, how to behave)
+- `phone_number` — E.164 format, US/CA `+1` numbers only (e.g. `+14155551234`)
+- `task` — instructions for the AI agent (what to say, how to behave; max 4000 chars)
 
 **Optional:**
-- `from` — outbound caller ID (must be an active StablePhone number)
+- `from` — outbound caller ID (must be an active StablePhone number, `+1` format)
 - `first_sentence` — specific opening line
 - `voice` — voice preset (see Voice Options below)
 - `max_duration` — max call length in minutes (1-30, default 5)
@@ -71,6 +71,8 @@ npx agentcash@latest fetch https://stablephone.dev/api/call -m POST -b '{
 - `voicemail_action` — `"hangup"` (default), `"leave_message"`, or `"ignore"`
 - `voicemail_message` — message to leave (required when action is `"leave_message"`)
 - `metadata` — custom key-value data to attach
+
+**Do-Not-Call (DNC):** Returns 403 if the number is on the Do-Not-Call list — do not retry DNC numbers.
 
 ## Check Call Status
 

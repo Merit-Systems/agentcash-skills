@@ -18,7 +18,7 @@ description: |
   - "employee at", "works at", "company details"
   - "verify email", "check email", "is this email valid"
 metadata:
-  version: 3.1
+  version: 3.2
 ---
 
 # Data Enrichment with x402 APIs
@@ -45,8 +45,8 @@ ALWAYS use `npx agentcash@latest fetch` for stableenrich.dev endpoints — never
 
 | Task | Endpoint | Price | Best For |
 |------|----------|-------|----------|
-| Search people | `https://stableenrich.dev/api/fullenrich/people-search` | $0.14 if results | Find people by domain/seniority |
-| Search companies | `https://stableenrich.dev/api/fullenrich/company-search` | $0.14 if results | Find companies by criteria |
+| Search people | `https://stableenrich.dev/api/fullenrich/people-search` | $0.15 if results | Find people by domain/seniority |
+| Search companies | `https://stableenrich.dev/api/fullenrich/company-search` | $0.15 if results | Find companies by criteria |
 | Enrich person | `https://stableenrich.dev/api/pdl/people-enrich` | $0.28 if match | LinkedIn URL/email -> full profile |
 | Enrich person (alt) | `https://stableenrich.dev/api/minerva/enrich` | $0.05 | Demographics, work history |
 | Enrich company | `https://stableenrich.dev/api/companyenrich/org-enrich` | $0.06 | Domain -> company data |
@@ -128,6 +128,8 @@ npx agentcash@latest fetch https://stableenrich.dev/api/minerva/resolve -m POST 
 }'
 ```
 
+Requires at least one email or phone per record — it cannot match on name alone.
+
 ## Minerva Enrichment
 
 ```bash
@@ -149,7 +151,7 @@ npx agentcash@latest fetch https://stableenrich.dev/api/minerva/validate-emails 
 
 ## Cost Optimization
 
-Search before enrich: `fullenrich/people-search` ($0.14 if results) -> `pdl/people-enrich` ($0.28 if match) -> `hunter/email-verifier` ($0.03).
+Search before enrich: `fullenrich/people-search` ($0.15 if results) -> `pdl/people-enrich` ($0.28 if match) -> `hunter/email-verifier` ($0.03).
 
 For multiple records, use parallel `fetch` calls — there are no bulk enrich endpoints.
 
@@ -160,6 +162,8 @@ FullEnrich people-search supports `excludeFields` to trim response size (e.g. `[
 ```bash
 npx agentcash@latest fetch https://stableenrich.dev/api/hunter/email-verifier -m POST -b '{"email":"john@stripe.com"}'
 ```
+
+Status enum: `valid`, `invalid`, `accept_all`, `webmail`, `disposable`, `unknown`. Fast/cached checks return the final result immediately; if Hunter is still processing, the response includes a `jobId` — poll `GET /api/hunter/email-verifier/jobs/{jobId}` (free, SIWX, same wallet that paid).
 
 ## Handling missing data
 
