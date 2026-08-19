@@ -1,10 +1,16 @@
 {
   "name": "agentcash",
-  "version": "0.1.2",
-  "description": "Pay-per-call access to premium APIs via x402/MPP micropayments.",
+  "displayName": "AgentCash",
+  "version": "0.1.3",
+  "description": "Use AgentCash to access a directory of thousands of premium and free APIs.",
   "author": {
-    "name": "Merit Systems",
-    "url": "https://github.com/Merit-Systems"
+    "name": "AgentCash",
+    "url": "https://app.agentcash.dev"
   },
-  "license": "Apache-2.0"
+  "homepage": "https://app.agentcash.dev",
+  "repository": "https://github.com/Merit-Systems/agentcash-skills",
+  "license": "Apache-2.0",
+  "keywords": ["agentcash", "gateway", "payments", "tools"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
 }

@@ -1,22 +1,10 @@
 # AgentCash Plugin
 
-Claude Code plugin that bundles the AgentCash MCP server and core wallet skill for pay-per-call access to premium APIs via x402/MPP micropayments.
-
-## Installation
-
-```bash
-claude plugin add /path/to/plugin
-```
-
-Or for local testing:
-
-```bash
-claude --plugin-dir /path/to/plugin
-```
+Plugin that bundles the AgentCash skill with the hosted AgentCash MCP server.
 
 ## What's Included
 
-- **AgentCash MCP server** — automatically connected via `.mcp.json`
+- **AgentCash MCP server** — connects to `https://app.agentcash.dev/mcp` via `.mcp.json`
 - **agentcash skill** — pay-per-call access to premium APIs via x402/MPP micropayments
 
 ## Quick Start
@@ -27,5 +15,4 @@ claude --plugin-dir /path/to/plugin
 
 ## Funding
 
-- Redeem an invite code: `agentcash.redeem_invite(code="YOUR_CODE")`
-- Get deposit links: `agentcash.list_accounts()`
+Fund your AgentCash account at [app.agentcash.dev](https://app.agentcash.dev), then call `agentcash.get_balance()` to confirm the balance before paid requests.

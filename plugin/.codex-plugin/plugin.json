@@ -1,0 +1,41 @@
+{
+  "name": "agentcash",
+  "version": "0.1.3",
+  "description": "Use AgentCash to access a directory of thousands of premium and free APIs.",
+  "author": {
+    "name": "AgentCash",
+    "url": "https://app.agentcash.dev"
+  },
+  "homepage": "https://app.agentcash.dev",
+  "repository": "https://github.com/Merit-Systems/agentcash-skills",
+  "license": "Apache-2.0",
+  "keywords": ["agentcash", "gateway", "payments", "tools"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "AgentCash",
+    "shortDescription": "Discover and call APIs",
+    "longDescription": "Discover free and premium APIs, inspect their request and response schemas, check your AgentCash balance, and call supported endpoints.",
+    "developerName": "AgentCash",
+    "category": "Productivity",
+    "capabilities": [
+      "Discover APIs",
+      "Inspect API schemas",
+      "Call APIs",
+      "Check wallet balance"
+    ],
+    "websiteURL": "https://app.agentcash.dev",
+    "supportURL": "https://github.com/Merit-Systems/agentcash-skills",
+    "privacyPolicyURL": "https://merit.systems/privacy",
+    "termsOfServiceURL": "https://merit.systems/terms",
+    "defaultPrompt": [
+      "Which APIs would be most useful to me?",
+      "Show me my AgentCash balance.",
+      "What enrichment APIs are available?"
+    ],
+    "brandColor": "#16A34A",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/logo.svg",
+    "logoDark": "./assets/logo-dark.svg"
+  }
+}

@@ -1,13 +1,25 @@
 {
-  "name": "agentcash-skills",
+  "name": "agentcash",
   "owner": {
     "name": "Merit Systems"
+  },
+  "metadata": {
+    "description": "AgentCash skills and plugins for agent runtimes."
   },
   "plugins": [
     {
       "name": "agentcash",
       "source": "./plugin",
-      "description": "Pay-per-call access to premium APIs via x402/MPP micropayments."
+      "description": "Use AgentCash to access a directory of thousands of premium and free APIs.",
+      "author": {
+        "name": "AgentCash"
+      },
+      "homepage": "https://app.agentcash.dev",
+      "repository": "https://github.com/Merit-Systems/agentcash-skills",
+      "license": "Apache-2.0",
+      "category": "productivity",
+      "tags": ["agentcash", "gateway", "payments", "tools"],
+      "keywords": ["agentcash", "gateway", "payments", "tools"]
     }
   ]
 }
