@@ -1,0 +1,20 @@
+{
+  "name": "agentcash-skills",
+  "interface": {
+    "displayName": "AgentCash"
+  },
+  "plugins": [
+    {
+      "name": "agentcash",
+      "source": {
+        "source": "local",
+        "path": "./plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

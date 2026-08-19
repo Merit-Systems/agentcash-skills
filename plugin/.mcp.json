@@ -1,9 +1,8 @@
 {
   "mcpServers": {
     "agentcash": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["agentcash@latest", "server"]
+      "type": "http",
+      "url": "https://app.agentcash.dev/mcp"
     }
   }
 }
