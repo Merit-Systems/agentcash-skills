@@ -1,30 +1,6 @@
 # AgentCash Plugin
 
-Plugin for Codex and Claude Code that bundles the AgentCash skill with the hosted AgentCash MCP server.
-
-## Installation
-
-### Codex
-
-From the repository root:
-
-```bash
-codex plugin marketplace add .
-codex plugin add agentcash@agentcash-skills
-```
-
-### Claude Code
-
-```bash
-claude plugin marketplace add .
-claude plugin install agentcash@agentcash-skills
-```
-
-Or for local testing:
-
-```bash
-claude --plugin-dir /path/to/plugin
-```
+Plugin that bundles the AgentCash skill with the hosted AgentCash MCP server.
 
 ## What's Included
 
