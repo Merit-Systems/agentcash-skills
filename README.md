@@ -43,6 +43,7 @@ npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 | [phone-calls](skills/phone-calls/) | AI phone calls, buy phone numbers | StablePhone |
 | [data-enrichment](skills/data-enrichment/) | Person, company profiles; email verification | FullEnrich, PDL, CompanyEnrich, Clado, Hunter, Minerva |
 | [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
+| [web-verification](skills/web-verification/) | Verify a held web value against its live source page; signed offline-verifiable verdicts | ScrapeCheck |
 | [local-search](skills/local-search/) | Places & business info | Google Maps |
 | [social-intelligence](skills/social-intelligence/) | Reddit search | Reddit |
 | [news-shopping](skills/news-shopping/) | News & product search | Serper |
