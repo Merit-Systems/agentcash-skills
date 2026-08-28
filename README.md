@@ -47,6 +47,8 @@ npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 | [social-intelligence](skills/social-intelligence/) | Reddit search | Reddit |
 | [news-shopping](skills/news-shopping/) | News & product search | Serper |
 | [people-property](skills/people-property/) | People & property lookup | Whitepages |
+| [brazil-kyb](skills/brazil-kyb/) | Brazilian company (CNPJ) verification: registry, partners, sanctions, BCB licence, contracts | Brazilayer |
+| [x402-trust-check](skills/x402-trust-check/) | Trust rating of any x402 service or agent skill before paying or installing (free) | Agent Economy Report |
 
 These skills are also available in MCP mode (the [mcp](mcp/skills/) directory). Both directories contain the same skills — each skill has a `SKILL.md` and a `rules/` directory. Choose the mode that matches your environment.
 
