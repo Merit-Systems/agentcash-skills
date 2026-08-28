@@ -42,6 +42,7 @@ npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 | [email](skills/email/) | Send emails, forwarding inboxes, custom subdomains | StableEmail |
 | [phone-calls](skills/phone-calls/) | AI phone calls, buy phone numbers | StablePhone |
 | [data-enrichment](skills/data-enrichment/) | Person, company profiles; email verification | FullEnrich, PDL, CompanyEnrich, Clado, Hunter, Minerva |
+| [technographics](skills/technographics/) | DNS-proven vendor stack from a domain | Hosaka |
 | [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
 | [local-search](skills/local-search/) | Places & business info | Google Maps |
 | [social-intelligence](skills/social-intelligence/) | Reddit search | Reddit |
