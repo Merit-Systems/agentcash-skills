@@ -58,6 +58,8 @@ ALWAYS use `npx agentcash@latest fetch` for stableenrich.dev endpoints — never
 
 For social media creators, use **stablesocial.dev** — influencer endpoints are not on stableenrich.dev.
 
+For the third-party tools a company runs, proven from its own DNS, use the `technographics` skill. CompanyEnrich returns industry, size and funding; it does not return the software a company uses.
+
 ## Person Enrichment (PDL)
 
 Prefer `profile` (LinkedIn URL) or `email`:
