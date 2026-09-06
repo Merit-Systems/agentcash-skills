@@ -129,8 +129,7 @@ Get clean, structured text from URLs:
 npx agentcash@latest fetch https://stableenrich.dev/api/exa/contents -m POST -b '{
   "urls": [
     "https://example.com/article1",
-    "https://example.com/article2",
-    "https://example.com/article3"
+    "https://example.com/article2"
   ]
 }'
 ```
