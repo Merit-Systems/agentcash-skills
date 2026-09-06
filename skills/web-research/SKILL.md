@@ -38,6 +38,7 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Task | Endpoint | Price | Best For |
 |------|----------|-------|----------|
 | Neural search | `https://stableenrich.dev/api/exa/search` | $0.01 | Semantic web search |
+| Resilient search | `https://seller.agratys.website/machine-services/search-router` | $0.01 | Multi-engine failover search |
 | Find similar | `https://stableenrich.dev/api/exa/find-similar` | $0.01 | Pages similar to a URL |
 | Extract text | `https://stableenrich.dev/api/exa/contents` | $0.002 | Clean text from URLs |
 | Direct answers | `https://stableenrich.dev/api/exa/answer` | $0.01 | Factual Q&A |
@@ -51,6 +52,7 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 | Scenario | Tool |
 |----------|------|
 | General web search | WebSearch (free) or Exa ($0.01) |
+| Multi-engine resilient search | RONIN Search Router ($0.01) |
 | Semantic/conceptual search | Exa search |
 | Find pages like X | Exa find-similar |
 | Get clean text from URL | Exa contents |
@@ -84,6 +86,25 @@ npx agentcash@latest fetch https://stableenrich.dev/api/exa/search -m POST -b '{
 
 **Returns**: List of URLs with titles, snippets, and relevance scores.
 
+## RONIN Multi-Engine Search Router
+
+Multi-engine web search orchestration with deterministic upstream failover and normalized results:
+
+```bash
+npx agentcash@latest fetch https://seller.agratys.website/machine-services/search-router -m POST -b '{
+  "client_request_id": "agent-research-01",
+  "query": "autonomous AI agents machine commerce"
+}'
+```
+
+**Options:**
+- `client_request_id` - Unique tracking ID for the query (required)
+- `query` - Search query string (required)
+- `max_results` - Number of results to return (default: 5, max: 50)
+- `max_budget_usd` - Downstream budget ceiling (default: "0.015000")
+
+**Returns**: Normalized JSON results with title, URL, snippet, provider used, and machine receipt.
+
 ## Find Similar Pages
 
 Find pages semantically similar to a reference URL:
@@ -108,7 +129,8 @@ Get clean, structured text from URLs:
 npx agentcash@latest fetch https://stableenrich.dev/api/exa/contents -m POST -b '{
   "urls": [
     "https://example.com/article1",
-    "https://example.com/article2"
+    "https://example.com/article2",
+    "https://example.com/article3"
   ]
 }'
 ```
