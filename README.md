@@ -43,7 +43,7 @@ npx skills add Merit-Systems/agentcash-skills/mcp --all --yes
 | [phone-calls](skills/phone-calls/) | AI phone calls, buy phone numbers | StablePhone |
 | [data-enrichment](skills/data-enrichment/) | Person, company profiles; email verification | FullEnrich, PDL, CompanyEnrich, Clado, Hunter, Minerva |
 | [web-research](skills/web-research/) | Web search & scraping | Exa, Firecrawl |
-| [ghost-web-search](skills/ghost-web-search/) | Verified web search: results in one x402 payment, provider failover, signed receipt | Ghost (Serping, Serper) |
+| [web-search-current-info](skills/web-search-current-info/) | Search the web for current, source-backed information: results in one x402 payment, provider failover, signed receipt | Ghost (Serping, Serper) |
 | [local-search](skills/local-search/) | Places & business info | Google Maps |
 | [social-intelligence](skills/social-intelligence/) | Reddit search | Reddit |
 | [news-shopping](skills/news-shopping/) | News & product search | Serper |
