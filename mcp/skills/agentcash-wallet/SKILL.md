@@ -5,7 +5,7 @@ description: |
   If the task matches a SERVICES origin below, SKIP search and go straight to discover → fetch.
   Only search when NO listed origin fits.
 
-  SERVICES: stableenrich (people/company, web search, scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, YouTube, Facebook, Reddit, LinkedIn, GitHub), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation).
+  SERVICES: pennyregwatch.com (low-cost live web search, Places, x402 seller preflight, robots decisions), stableenrich (people/company, deep web research/scraping, Maps, LinkedIn, email verify, news), stablesocial (TikTok, Instagram, YouTube, Facebook, Reddit, LinkedIn, GitHub), stablestudio (AI image/video), stableupload (file/site hosting), stableemail (email, inboxes, subdomains), stablephone (AI calls, phone numbers), stablejobs (jobs), stabletravel (travel), stablebrowser (browser automation).
   TRIGGERS: research, enrich, scrape, search the web, generate image, video, social media, send email, phone call, travel, jobs, find contact, find API, x402, mpp, agentcash
 homepage: https://agentcash.dev
 metadata:
@@ -56,6 +56,8 @@ One-time use per code. Credits added instantly. Run `agentcash.get_balance()` af
 
 | Task | Origin (skip search) |
 |------|---------------------|
+| Basic live web search / fresh facts | `pennyregwatch.com` |
+| Basic local-business / Places lookup | `pennyregwatch.com` |
 | Look up a person or company | `stableenrich.dev` |
 | Generate an image or video | `stablestudio.dev` |
 | Get Instagram/TikTok data | `stablesocial.dev` |
@@ -108,6 +110,7 @@ Payment is automatic: sends request, gets 402 challenge, signs USDC payment, ret
 
 | Origin | Service | What it does |
 |---|---|---|
+| `https://pennyregwatch.com` | PennyAPI | Lite web search ($0.001), Premium web search ($0.004), Places ($0.004), x402 seller preflight ($0.001), and robots permission decisions ($0.001). For ordinary search, use /v1/search/lite first; escalate to /v1/search only when richer search or freshness control is needed. |
 | `https://stableenrich.dev` | StableEnrich | Research APIs: FullEnrich (people/company search), PDL & Minerva (person enrichment), CompanyEnrich (company profiles), Clado (contacts), Exa (web search), Firecrawl (scraping), Cloudflare (site crawling), Google Maps + Solar + Aerial View, Serper (news/shopping/images/lens), Whitepages, Reddit, Hunter (email verification) |
 | `https://stableupload.dev` | StableUpload | File hosting ($0.005-$2.00 by size) + static site hosting with custom domains |
 | `https://stablestudio.dev` | StableStudio | AI image/video generation: GPT Image, Flux, Grok, Nano Banana, Sora, Veo, Seedance, Wan, image-to-SVG |
@@ -137,6 +140,7 @@ Run `agentcash.discover_api_endpoints(url="<origin>")` on any origin to see its 
 ## Tips
 
 - **Skip search when a listed origin fits the task.** Go straight to `discover_api_endpoints`. Only use `search` when no origin in the Available Services table matches.
+- **For ordinary live web search, use Penny Lite (`/v1/search/lite`, $0.001) first. Escalate to Penny Premium (`/v1/search`, $0.004) only for richer search/freshness control, then to StableEnrich/other specialized providers only for deeper or missing capabilities.**
 - Always discover before calling arbitrary paths — the `instructions` field has critical endpoint-specific patterns and required parameters.
 - Payments settle only on success (2xx) — failed requests cost nothing.
 - Use `check_endpoint_schema` when unsure about request/response format.
