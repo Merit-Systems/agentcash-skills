@@ -7,7 +7,7 @@
 | A page that needs a browser (JavaScript) | `/extract/rendered?url=…` | $0.01 |
 | Several pages in one call | `/contents?urls=…,…` (up to 5) | $0.01 |
 | Find pages first | `/search?q=…` then `/extract` | $0.01 + $0.002 |
-| Is this address sanctioned? | `/sanctions/check?address=…` | $0.005 |
+| Is this address sanctioned? | `/sanctions/check?address=…` | $0.009 |
 | Should my agent pay this address at all? | `/check/counterparty?address=…` | $0.01 |
 | Price of one token | `/price/token?symbol=…&chain=…` (symbol, 0x address, `coingecko:bitcoin` or a coin name) | $0.01 |
 | Prices of many tokens | `/price/tokens?symbols=…` | $0.005 |
