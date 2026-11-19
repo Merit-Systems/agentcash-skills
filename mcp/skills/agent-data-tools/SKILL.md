@@ -1,7 +1,7 @@
 ---
 name: agent-data-tools
 description: |
-  590 small pay-per-call data tools behind one x402/MPP origin: read PDFs and web pages as text, screen crypto wallets against OFAC, token prices from Uniswap v3, chain reads on 18 EVM networks, news headlines, image description, cheap LLM calls, weather, company, email and domain checks, utilities. Every call is a GET with query parameters, most at $0.01, utilities from $0.002.
+  590 small pay-per-call data tools behind one x402/MPP origin: read PDFs and web pages as text, screen crypto wallets against OFAC, token prices from Uniswap v3, chain reads on 18 EVM networks, news headlines, image description, cheap LLM calls, weather, company, email and domain checks, utilities. Every call is a GET with query parameters, most at $0.01; /weather, /weather/forecast and /wikipedia stay at $0.002.
 
   USE FOR:
   - Reading a PDF or a web page as clean text or Markdown
@@ -42,22 +42,22 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Returns |
 |------|----------|-------|---------|
-| PDF to text | `https://agent-data-tools.revmesh2074.workers.dev/pdf/text?url=…` | $0.005 | Text page by page, title, author, page count |
+| PDF to text | `https://agent-data-tools.revmesh2074.workers.dev/pdf/text?url=…` | $0.01 | Text page by page, title, author, page count |
 | Page to Markdown | `https://agent-data-tools.revmesh2074.workers.dev/extract?url=…` | $0.002 | Clean Markdown or text, links, tables, code blocks |
 | Rendered page | `https://agent-data-tools.revmesh2074.workers.dev/extract/rendered?url=…` | $0.01 | JavaScript-rendered page as text or Markdown |
-| OFAC screening | `https://agent-data-tools.revmesh2074.workers.dev/sanctions/check?address=…` (or `name=`) | $0.009 | block / review / pass with SDN matches |
+| OFAC screening | `https://agent-data-tools.revmesh2074.workers.dev/sanctions/check?address=…` (or `name=`) | $0.01 | block / review / pass with SDN matches |
 | Counterparty check | `https://agent-data-tools.revmesh2074.workers.dev/check/counterparty?address=…` | $0.01 | Sanctions plus account type, activity and holdings in one verdict |
 | Token price | `https://agent-data-tools.revmesh2074.workers.dev/price/token?symbol=WETH&chain=base` | $0.01 | USD price from Uniswap v3 pools |
-| Several prices | `https://agent-data-tools.revmesh2074.workers.dev/price/tokens?symbols=WETH,USDC` | $0.005 | Up to 20 tokens in one call |
-| Wallet portfolio | `https://agent-data-tools.revmesh2074.workers.dev/wallet/portfolio?address=0x…` | $0.005 | Holdings valued in USD |
+| Several prices | `https://agent-data-tools.revmesh2074.workers.dev/price/tokens?symbols=WETH,USDC` | $0.01 | Up to 20 tokens in one call |
+| Wallet portfolio | `https://agent-data-tools.revmesh2074.workers.dev/wallet/portfolio?address=0x…` | $0.01 | Holdings valued in USD |
 | Chain reads | `https://agent-data-tools.revmesh2074.workers.dev/<chain>/balance`, `/tx`, `/receipt`, `/token-balance`, `/logs`, `/gas` | $0.01 | 18 EVM chains: base, eth, arb, op, polygon, avax, gnosis, linea, zksync, scroll, mantle, celo, sonic, unichain, hyperevm, bera, ink, sei |
-| Base gas | `https://agent-data-tools.revmesh2074.workers.dev/base-gas` | $0.002 | Gas price and EIP-1559 fee estimate |
+| Base gas | `https://agent-data-tools.revmesh2074.workers.dev/base-gas` | $0.01 | Gas price and EIP-1559 fee estimate |
 | News headlines | `https://agent-data-tools.revmesh2074.workers.dev/news?q=…` | $0.01 | Title, URL, snippet, publisher, age (Brave news index) |
 | Web search | `https://agent-data-tools.revmesh2074.workers.dev/search?q=…` | $0.01 | Top pages with title, URL and snippet |
 | Describe image | `https://agent-data-tools.revmesh2074.workers.dev/describe?url=…` (`question=` optional) | $0.01 | Description or an answer about the image |
 | LLM chat | `https://agent-data-tools.revmesh2074.workers.dev/ai/chat?prompt=…` | $0.002 | Llama 4 Scout answer; OpenAI-compatible at `/v1/chat/completions` |
 | Embeddings | `https://agent-data-tools.revmesh2074.workers.dev/ai/embed?text=…` | $0.01 | 1,024-dimension BGE-M3 vector |
-| Weather | `https://agent-data-tools.revmesh2074.workers.dev/weather?city=London` | $0.01 | Current weather and 48-hour forecast |
+| Weather | `https://agent-data-tools.revmesh2074.workers.dev/weather?city=London` | $0.002 | Current weather and 48-hour forecast |
 | Email check | `https://agent-data-tools.revmesh2074.workers.dev/email?address=…` | $0.01 | Syntax, MX and disposable-domain checks |
 | Domain | `https://agent-data-tools.revmesh2074.workers.dev/domain?name=example.com` | $0.01 | DNS, RDAP registration age, email authentication |
 | Company | `https://agent-data-tools.revmesh2074.workers.dev/company?name=…` | $0.01 | Profile, identifiers and website from Wikidata |
